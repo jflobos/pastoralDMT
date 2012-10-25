@@ -1,0 +1,1338 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="ISO-8859-1" />
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+        <title>
+        </title>
+        <link rel="stylesheet" href="jquery.mobile-1.1.0.min.css" />
+        <style>
+            /* App custom styles */
+        </style>
+        
+        <script type="text/javascript" charset="utf-8" src="cordova-1.6.0.js"></script>
+        <script type="text/javascript" charset="utf-8" src="markerclusterer_compiled.js"></script>
+        <script src="jquery.min.js">
+        </script>
+        
+        <script src="jquery.mobile-1.1.0.min.js">
+        </script>
+        
+        <script type="text/javascript" 
+           src="http://maps.google.com/maps/api/js?sensor=true"></script>
+        <script type="text/javascript" src="label.js"></script>
+        <script type="text/javascript">
+        var localID = 0;
+        var mapCount = 0;
+        
+        function SaveCommentLocal()
+        {
+        	navigator.geolocation.getCurrentPosition(AddCommentLocal);
+        }
+        
+        function GPSSuccess(position)
+        {
+    		var marker, i;
+        	var markers = [];
+        	var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+        	var myOptions = {
+          		center: new google.maps.LatLng(lat, long),
+          		zoom: 16,
+          		mapTypeId: google.maps.MapTypeId.ROADMAP
+        	};
+        	var map = new google.maps.Map(document.getElementById("map_canvas"),
+            	myOptions);
+            google.maps.event.addListener(map, 'click', function() {
+				google.maps.event.trigger(map, 'resize');
+				//map.setCenter(new google.maps.LatLng(lat, long));
+			});
+            google.maps.event.addListener(map, 'mousedown', function() {
+				google.maps.event.trigger(map, 'resize');
+			});
+            var json = localStorage.getItem('DB');
+            if(json != null)
+            {
+	            var data = JSON.parse(json);
+	            if(data.comentarios != null)
+	            {
+		        	for (i = 0; i <= data.comentarios.length - 1; i++)
+					{
+						if(data.comentarios[i].PastoralTipoNecesidad.color == null)
+						{
+							var desc = data.comentarios[i].descripcion;
+							var id = data.comentarios[i].id;
+							marker = new google.maps.Marker({
+			      				map:map,
+			      				draggable:true,
+			      				animation: google.maps.Animation.DROP,
+			      				position: new google.maps.LatLng(data.comentarios[i].latitud, data.comentarios[i].longitud),
+			      				title: data.comentarios[i].descripcion
+			    			});
+						}
+						else
+						{
+							var markerColor = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + data.comentarios[i].PastoralTipoNecesidad.color;
+							var desc = data.comentarios[i].descripcion;
+							var id = data.comentarios[i].id;
+							marker = new google.maps.Marker({
+			      				map:map,
+			      				draggable:true,
+			      				animation: google.maps.Animation.DROP,
+			      				position: new google.maps.LatLng(data.comentarios[i].latitud, data.comentarios[i].longitud),
+			      				title: data.comentarios[i].descripcion,
+			      				icon: markerColor
+			    			});
+						}
+						var label = new Label({
+					    	map: map
+					    });
+					   	label.bindTo('position', marker, 'position');
+					    label.bindTo('text', marker, 'title');
+		  				google.maps.event.addListener(marker, 'click', (function(marker, i) {
+		        			return function() {
+		        			loadPageDialog(data.comentarios[i].id);
+		    				}
+		  				})(marker, i));
+		    			markers.push(marker);
+					}
+            	}
+            }
+            AddNewPages();
+            	
+            //LOCAL
+            
+            var db = localStorage.getItem('COMMENTS');
+            if(db != null)
+            {
+	            var data = JSON.parse(db);
+	            if(data.comentarios != null)
+	            {
+		        	for (i = 0; i <= data.comentarios.length - 1; i++)
+					{
+						var types = JSON.parse(localStorage.getItem('COMMENTTYPES'));
+						//alert(types.tipos_comentarios.length);
+						var chosenColor;
+						for(var j = 0; j < types.tipos_comentarios.length; j++)
+						{
+							if(types.tipos_comentarios[j].id == data.comentarios[i].tipo_necesidad_id)
+							{
+								chosenColor = types.tipos_comentarios[j].color;
+							} 
+						}
+						var markerColor = 'http://chart.apis.google.com/chart?chst=d_map_pin_letter&chld=%E2%80%A2|' + chosenColor;
+						//alert(chosenColor);
+						if(chosenColor == null)
+						{
+							var desc = data.comentarios[i].descripcion;
+							var id = data.comentarios[i].id;
+							marker = new google.maps.Marker({
+			      				map:map,
+			      				draggable:true,
+			      				animation: google.maps.Animation.DROP,
+			      				position: new google.maps.LatLng(data.comentarios[i].coordenada_x, data.comentarios[i].coordenada_y),
+			      				title: data.comentarios[i].descripcion
+			    			});
+						}
+						else
+						{
+							var desc = data.comentarios[i].descripcion;
+							var id = data.comentarios[i].id;
+							marker = new google.maps.Marker({
+			      				map:map,
+			      				draggable:true,
+			      				animation: google.maps.Animation.DROP,
+			      				position: new google.maps.LatLng(data.comentarios[i].coordenada_x, data.comentarios[i].coordenada_y),
+			      				title: data.comentarios[i].descripcion,
+			      				icon: markerColor
+			    			});
+						}
+		    			var label = new Label({
+					    	map: map
+					    });
+					   	label.bindTo('position', marker, 'position');
+					    label.bindTo('text', marker, 'title');
+		  				google.maps.event.addListener(marker, 'click', (function(marker, i) {
+		        			return function() {
+		        			loadLocalPageDialog(data.comentarios[i].id);
+		  					}
+		  				})(marker, i));
+		  				markers.push(marker);
+					}
+					
+	            }
+	            AddNewLocalPages();
+            }
+            markerClusterer = new MarkerClusterer(map, markers, {
+			          maxZoom: 20
+			        });
+        }
+        function loadPageDialog(data) {
+        	var text = '#EditComment' + data;
+        	//alert(text);
+        	$.mobile.changePage(text, { transition: "pop", role: "dialog", reverse: true } );
+		}
+        function loadLocalPageDialog(data) {
+        	var text = '#EditLocalComment' + data;
+        	//alert(text);
+        	$.mobile.changePage(text, { transition: "pop", role: "dialog", reverse: true } );
+		}
+        
+        
+        function initializeMap()
+        {
+        	mapCount = 1;
+			var gps = navigator.geolocation;
+			if (gps)
+			{
+				gps.getCurrentPosition(GPSSuccess, 
+					function(error){
+						//alert("Got an error, code: " + error.code + " message: " + error.message);
+             		});
+        	}
+        	else
+        	{
+            	GPSSuccess();
+        	}
+        }
+        
+        function SyncMisioneros(data)
+        {
+        	localStorage.setItem('Equipo', JSON.stringify(data));
+        }
+        
+        function AddMisionerosToList()
+        {
+			var json = localStorage.getItem('Equipo');
+			if(json != null)
+			{
+				var data = JSON.parse(json);
+				document.getElementById("MisList").innerHTML = "";
+	        	if(data.misioneros != null)
+	        	{
+		        	for (i = 0; i <= data.misioneros.length - 1; i++)
+					{
+						$('#MisList').append('<li data-role="fieldcontain"><fieldset data-role="controlgroup" class="ui-grid-a"><div class="ui-block-a" style="width:65%"><h3>' + data.misioneros[i].nombre + '</h3><br /><p>Celular: ' + data.misioneros[i].celular + '</p><p>e-mail: ' + data.misioneros[i].email + '</p></div><div class="ui-block-b" style="width:35%"><a id="' + data.misioneros[i].celular.replace(" ","") + '" data-role="button" href="tel:' + data.misioneros[i].celular.replace(" ","") + '">Llamar</a><a id="' + data.misioneros[i].celular.replace(" ","") + '" data-role="button" href="sms:' + data.misioneros[i].celular.replace(" ","") + '">Mensaje</a><a id="' + data.misioneros[i].email + '" data-role="button" href="mailto:' + data.misioneros[i].email + '">e-mail</a></div></fieldset></li>');
+					}
+					$("#MisList").trigger( "create" );
+					$('#MisList').listview('refresh');
+				}
+				else
+	        	{
+	        		document.getElementById("MisList").innerHTML = "";
+	        		$('#MisList').append('<li data-theme="d"><center>No hay misioneros</center></li>');
+					$('#MisList').listview('refresh');
+	        	}
+			}
+        	else
+        	{
+        		document.getElementById("MisList").innerHTML = "";
+        		$('#MisList').append('<li data-theme="d"><center>No hay misioneros</center></li>');
+				$('#MisList').listview('refresh');
+        	}
+        }
+        
+		function AddCommentsToList()
+        {
+			var json = localStorage.getItem('DB');
+        	if(json != null)
+        	{
+	        	var data = JSON.parse(json);
+	        	document.getElementById("NecList").innerHTML = "";
+	        	$('#NecList').append('<li data-role="list-divider">Comentarios</li>');
+	        	AddNewPages();
+	        	if(data.comentarios != null)
+	        	{
+		        	for (i = 0; i <= data.comentarios.length - 1; i++)
+					{
+						$('#NecList').append('<li data-theme="c"><a href="#EditComment' + data.comentarios[i].id + '" data-rel="dialog" data-transition="none">' + data.comentarios[i].descripcion + '</a></li>');
+						$('#NecList').listview('refresh');
+					}
+				}
+				else
+		        {
+		        	document.getElementById("NecList").innerHTML = "";
+		        	$('#NecList').append('<li data-role="list-divider">Comentarios</li>');
+		        	$('#NecList').append('<li><center>No hay comentarios</center></li>');
+		        	$('#NecList').listview('refresh');
+		        }
+	        	AddLocalCommentsToList();
+	        }
+	        else
+	        {
+	        	document.getElementById("NecList").innerHTML = "";
+	        	$('#NecList').append('<li data-role="list-divider">Comentarios</li>');
+	        	$('#NecList').append('<li><center>No hay comentarios</center></li>');
+	        	$('#NecList').listview('refresh');
+	        	AddLocalCommentsToList();
+	        }
+        }
+        
+        function AddLocalCommentsToList()
+        {
+        	var json = localStorage.getItem('COMMENTS');
+        	if(json != null)
+        	{
+        		$('#NecList').append('<li data-role="list-divider">Borradores</li>');
+        		var data = JSON.parse(json);
+        		//document.getElementById("NecList").innerHTML = "";
+        		AddNewLocalPages();
+        		for (i = 0; i <= data.comentarios.length - 1; i++)
+				{
+					$('#NecList').append('<li data-theme="c"><a href="#EditLocalComment' + data.comentarios[i].id + '" data-rel="dialog" data-transition="none">' + data.comentarios[i].descripcion + '</a></li>');
+					$('#NecList').listview('refresh');
+				}
+        	}
+			else
+	        {
+	        	$('#NecList').append('<li data-role="list-divider">Borradores</li>');
+	        	$('#NecList').append('<li><center>No hay comentarios</center></li>');
+	        	$('#NecList').listview('refresh');
+	        }
+        }
+        
+        function GoToMap()
+        {
+        	$.mobile.changePage("#MapaPage");
+        }
+        
+        function LoadMapImg(lat,long,comment)
+        {
+        	//alert("loading map");
+        	var link = "<img onclick='GoToMap()' src='http://maps.google.com/maps/api/staticmap?center="+lat+","+long+"&zoom=18&size=290x320&markers="+lat+","+long+"&maptype=roadmap&sensor=true'> </img>"
+		    document.getElementById(comment).innerHTML = link;
+        }
+        function AddNewPages()
+        {
+        	var json = localStorage.getItem('DB');
+        	//alert(json);
+        	if(json != null)
+        	{
+	        	var data = JSON.parse(json);
+	        	if(data.comentarios != null)
+	        	{
+		        	for (i = 0; i <= data.comentarios.length - 1; i++)
+					{
+						$('#EditComment' + data.comentarios[i].id + '').remove();
+						var newPage = $('<div data-dom-cache="true" data-role="page" id="EditComment' + data.comentarios[i].id + '"><div data-role="fieldcontain"><label for="select-comment-type' + data.comentarios[i].id + '" class="select" style="color:#ffffff">Tipo:</label><select id="CommentTypeSelect' + data.comentarios[i].id + '" name="select-comment-type' + data.comentarios[i].id + '"></select><br /><label for="descripcion' + data.comentarios[i].id + '" style="color:#ffffff">Descripción:</label><input type="text" name="name" id="descripcion' + data.comentarios[i].id + '" value="' + data.comentarios[i].descripcion + '" placeholder="Nombre - Dirección - Etc." /></div><div data-role="controlgroup" data-type="horizontal"><a data-role="button" data-rel="back" data-theme="b" onclick="SendCommentForm(' + data.comentarios[i].id + ')">Guardar</a><a data-role="button" data-rel="back" data-theme="b" onclick="DeleteCommentForm(' + data.comentarios[i].id + ')">Eliminar</a><a data-role="button" data-rel="back" data-theme="b">Volver</a></div><br /><div id="mapa' + data.comentarios[i].id + '"></div></div>');
+						
+						var selectID = 'descripcion' + data.comentarios[i].id;
+						newPage.appendTo($.mobile.pageContainer);
+						$('#EditComment' + data.comentarios[i].id + '').trigger( "create" );
+						AddCommentTypesToList('CommentTypeSelect' + data.comentarios[i].id);
+						document.getElementById(selectID).value = data.comentarios[i].descripcion;
+						document.getElementById('CommentTypeSelect' + data.comentarios[i].id).value = data.comentarios[i].tipo_necesidad_id;
+						
+						$('#CommentTypeSelect' + data.comentarios[i].id + '').selectmenu('refresh');
+					
+						var lat = data.comentarios[i].latitud;
+		            	var long = data.comentarios[i].longitud;
+		            	var id = 'mapa' + data.comentarios[i].id;
+		            	if(lat != null && long != null)
+            			{
+		            		LoadMapImg(lat,long,id);
+		            	}
+		            	
+					}
+				}
+			}
+        }
+        
+        function AddNewLocalPages()
+        {
+        	var json = localStorage.getItem("COMMENTS");
+        	//alert(json);
+        	if(json != null)
+        	{
+        		var data = JSON.parse(json);
+        		for (i = 0; i <= data.comentarios.length - 1; i++)
+				{
+					$('#EditLocalComment' + data.comentarios[i].id + '').remove();
+					var newPage = $('<div data-dom-cache="true" data-role="page" id="EditLocalComment' + data.comentarios[i].id + '"><div data-role="fieldcontain"><label for="select-comment-type-local' + data.comentarios[i].id + '" class="select" style="color:#ffffff">Tipo:</label><select id="CommentTypeSelectLocal' + data.comentarios[i].id + '" name="select-comment-type-local' + data.comentarios[i].id + '"></select><br /><label for="descripcionLocal' + data.comentarios[i].id + '" style="color:#ffffff">Descripción:</label><input type="text" name="name" id="descripcionLocal' + data.comentarios[i].id + '" value="' + data.comentarios[i].descripcion + '" placeholder="Nombre - Dirección - Etc." /></div><div data-role="controlgroup" data-type="horizontal"><a data-role="button" data-rel="back" data-theme="b" onclick="SendCommentFormLocal(' + data.comentarios[i].id + ')">Guardar</a><a data-role="button" data-rel="back" data-theme="b" onclick="DeleteCommentFormLocal(' + data.comentarios[i].id + ')">Eliminar</a><a data-role="button" data-rel="back" data-theme="b">Volver</a></div><br /><div id="mapaLocal' + data.comentarios[i].id + '"></div></div>');
+					
+					var selectID = 'descripcionLocal' + data.comentarios[i].id;
+					newPage.appendTo($.mobile.pageContainer);
+					$('#EditLocalComment' + data.comentarios[i].id + '').trigger( "create" );
+					AddCommentTypesToList('CommentTypeSelectLocal' + data.comentarios[i].id);
+					document.getElementById(selectID).value = data.comentarios[i].descripcion;
+					document.getElementById('CommentTypeSelectLocal' + data.comentarios[i].id).value = data.comentarios[i].tipo_necesidad_id;
+					
+					$('#CommentTypeSelectLocal' + data.comentarios[i].id + '').selectmenu('refresh');
+					
+					
+					var lat = data.comentarios[i].coordenada_x;
+            		var long = data.comentarios[i].coordenada_y;
+            		var id = 'mapaLocal' + data.comentarios[i].id;
+		            if(lat != null && long != null)
+            		{
+		            	LoadMapImg(lat,long,id);
+		            }
+		            /*
+            		if(lat != null && long != null)
+            		{
+            			
+        				var myOptions = {
+          					center: new google.maps.LatLng(lat, long),
+          					zoom: 18,
+          					mapTypeId: google.maps.MapTypeId.ROADMAP
+        				};
+        				var mapID = 'mapaLocal' + data.comentarios[i].id;
+        				var map = new google.maps.Map(document.getElementById('' + mapID),
+            				myOptions);
+		            	var marker = new google.maps.Marker({
+	        				map:map,
+		      				draggable:true,
+		      				animation: google.maps.Animation.DROP,
+		      				position: new google.maps.LatLng(lat, long)
+	    				});
+            			google.maps.event.addListener(map, 'click', function() {
+							google.maps.event.trigger(map, 'resize');
+							map.setCenter(new google.maps.LatLng(lat, long));
+						});
+            			google.maps.event.addListener(map, 'mousedown', function() {
+							google.maps.event.trigger(map, 'resize');
+						});
+						//google.maps.event.addListener(map, 'idle', function() {
+							//map.setCenter(new google.maps.LatLng(lat, long));
+						//});
+            			//google.maps.event.addDomListener(window, 'load', map.panTo(new google.maps.LatLng(lat, long)));
+        			
+        			}
+        			*/
+				}
+        	}
+        }
+        
+        function SendCommentForm(data)
+        {
+        	//lee comentarios locales
+            var comments = localStorage.getItem("COMMENTS");
+            var db = localStorage.getItem("DB");
+            //crea arreglo para guardar comentarios locales mas el nuevo
+            var array = {
+    			comentarios: []
+			};
+			var array2 = {
+    			comentarios: []
+			};
+			
+			//si no hay otros comentarios locales, no hace nada. Si hay, los carga en el arreglo
+			if(comments!=null)
+			{
+				var array = JSON.parse(comments);
+			}
+			if(db!=null)
+			{
+				var jsondb = JSON.parse(db);
+			}
+			//alert(jsondb);
+			
+			var index = 0;
+			for(var i = 0; i < jsondb.comentarios.length; i++)
+			{
+				//alert(jsondb.comentarios[i].id);
+				if(jsondb.comentarios[i].id == data)
+				{
+					index = i;
+				}
+			}
+			
+			//agrega el comentario nuevo al final del arreglo
+			var current = localStorage.getItem('LOCALID');
+        	//alert(current);
+        	if(current == null)
+        	{
+        		localStorage.setItem('LOCALID', 0);
+        		current = 0;
+        	}
+        	else
+        	{
+        		//current++;
+        		localStorage.setItem('LOCALID', current);
+			}
+			
+			array.comentarios.push({"id":current,"old_id":jsondb.comentarios[index].id,"local":0,"descripcion":document.getElementById('descripcion' + jsondb.comentarios[index].id).value,"tipo_necesidad_id":document.getElementById('CommentTypeSelect' + jsondb.comentarios[index].id).value,"coordenada_x":jsondb.comentarios[index].latitud,"coordenada_y":jsondb.comentarios[index].longitud});
+            localStorage.setItem("COMMENTS", JSON.stringify(array));
+            
+            for(var i = 0; i < jsondb.comentarios.length; i++)
+            {
+            	if(i != index)
+				{
+					array2.comentarios.push(jsondb.comentarios[i]);
+				}
+            }
+            localStorage.setItem("DB", JSON.stringify(array2));
+            
+            ReadNecesidades();
+			
+        }
+        function DeleteCommentForm(data)
+        {
+        	//var text = document.getElementById('textarea' + data).value;
+        	//lee comentarios locales
+            var db = localStorage.getItem("DB");
+            var deleted = localStorage.getItem("DELETED");
+            //crea arreglo para guardar comentarios locales mas el nuevo
+            var array = {
+    			comentarios: []
+			};
+			var array2 = {
+    			comentarios: []
+			};
+			
+			//si no hay otros comentarios locales, no hace nada. Si hay, los carga en el arreglo
+			if(deleted!=null)
+			{
+				var array = JSON.parse(deleted);
+			}
+			if(db!=null)
+			{
+				var jsondb = JSON.parse(db);
+			}
+			
+			//alert(jsondb);
+			
+			var index = 0;
+			for(var i = 0; i < jsondb.comentarios.length; i++)
+			{
+				//alert(jsondb.comentarios[i].id);
+				if(jsondb.comentarios[i].id == data)
+				{
+					index = i;
+				}
+			}
+			
+			//agrega el comentario nuevo al final del arreglo
+			
+			array.comentarios.push({"old_id":jsondb.comentarios[index].id});
+            localStorage.setItem("DELETED", JSON.stringify(array));
+            
+            for(var i = 0; i < jsondb.comentarios.length; i++)
+            {
+            	if(i != index)
+				{
+					array2.comentarios.push(jsondb.comentarios[i]);
+				}
+            }
+            localStorage.setItem("DB", JSON.stringify(array2));
+            
+            ReadNecesidades();
+        }
+        
+        function DeleteCommentFormLocal(data)
+        {
+        	var comments = localStorage.getItem("COMMENTS");
+        	var array = {
+    			comentarios: []
+			};
+        	if(comments!=null)
+			{
+				var json = JSON.parse(comments);
+			}
+        	var index = 0;
+			for(var i = 0; i < json.comentarios.length; i++)
+			{
+				if(json.comentarios[i].id == data)
+				{
+					index = i;
+				}
+			}
+        	for(var i = 0; i < json.comentarios.length; i++)
+            {
+            	if(i != index)
+				{
+					array.comentarios.push(json.comentarios[i]);
+				}
+            }
+            if(array.comentarios.length == 0)
+            {
+            	localStorage.removeItem("COMMENTS");
+            }
+            else
+            {
+            	localStorage.setItem("COMMENTS", JSON.stringify(array));
+            }
+            
+        	ReadNecesidades();
+        }
+        
+        function SendCommentFormLocal(data)
+        {
+        	//lee comentarios locales
+            var comments = localStorage.getItem("COMMENTS");
+            
+			if(comments!=null)
+			{
+				var json = JSON.parse(comments);
+				//alert("not null");
+			}
+			
+			var index = 0;
+			for(var i = 0; i < json.comentarios.length; i++)
+			{
+				//alert(json.comentarios[i].id);
+				if(json.comentarios[i].id == data)
+				{
+					index = i;
+				}
+			}
+			var selectID = 'descripcionLocal' + json.comentarios[index].id;
+			json.comentarios[index].descripcion = document.getElementById(selectID).value;
+			json.comentarios[index].tipo_necesidad_id = document.getElementById('CommentTypeSelectLocal' + json.comentarios[index].id).value;
+			
+			var current = localStorage.getItem('LOCALID');
+        	if(current == null)
+        	{
+        		localStorage.setItem('LOCALID', 0);
+        		current = 0;
+        	}
+        	else
+        	{
+        		localStorage.setItem('LOCALID', current);
+			}
+			//agrega el comentario nuevo al final del arreglo
+			
+            localStorage.setItem("COMMENTS", JSON.stringify(json));
+        }
+        
+        function GetComments(data)
+        {
+			localStorage.setItem('DB', JSON.stringify(data));
+			
+        }
+        
+        function SyncComments()
+        {
+        	var data = localStorage.getItem("COMMENTS");
+        	//alert(data);
+        	if(data != null)
+        	{
+        		KeepAlive();
+        		var comments = JSON.parse(data);
+            	//alert(comments);
+        		var sent = 0;
+        		var notSent = 0;
+				for (i = 0; i < comments.comentarios.length; i++)
+				{
+					if(comments.comentarios[i].local == 1)
+					{
+						var formData = 'descripcion=' + comments.comentarios[i].descripcion + '&tipo_necesidad_id=' + comments.comentarios[i].tipo_necesidad_id + '&latitud=' + comments.comentarios[i].coordenada_x + '&longitud=' + comments.comentarios[i].coordenada_y;
+						//alert(formData);
+						$.ajax({
+							type: "POST",
+							url: document.getElementById("serverURL").value + "/AjaxCrearComentario",
+							cache: false,
+							data: formData,
+							success: sent++,
+							error: notSent++
+						});
+					}
+					else
+					{
+			        	//alert(text);
+						var formData = 'id=' + comments.comentarios[i].old_id + '&descripcion=' + comments.comentarios[i].descripcion + '&tipo_necesidad_id=' + comments.comentarios[i].tipo_necesidad_id + '&latitud=' + comments.comentarios[i].coordenada_x + '&longitud=' + comments.comentarios[i].coordenada_y;
+						//alert(formData);
+						$.ajax({
+							type: "POST",
+							url: document.getElementById("serverURL").value + "/AjaxEditarComentario",
+							cache: false,
+							data: formData,
+							success: sent++,
+							error: notSent++
+						});
+					}
+				}
+				if(sent == 1)
+				{
+					
+					alert(sent + " comentario enviado correctamente");
+					//$.mobile.changePage("#VerNecesidadesPage");
+				}
+				else
+				{
+					//ReadNecesidades();
+					alert(sent + " comentarios enviados correctamente");
+					//$.mobile.changePage("#VerNecesidadesPage");
+				}
+            	localStorage.removeItem("COMMENTS");
+            	localStorage.removeItem("LOCALID");
+			}
+			var deletedOK = 0;
+			var commentNotDeleted = 0;
+			
+			//BORRAR COMENTARIOS
+			var deleted = localStorage.getItem("DELETED");
+		    if(deleted != null)
+		    {
+		    	var deletedComments = JSON.parse(deleted);
+				//alert(data);
+				for (i = 0; i <= deletedComments.comentarios.length - 1; i++)
+				{
+					var formData = 'id=' + deletedComments.comentarios[i].old_id;
+					//alert(formData);
+					$.ajax({
+						type: "POST",
+						url: document.getElementById("serverURL").value + "/AjaxBorrarComentario",
+						cache: false,
+						data: formData,
+						success: deletedOK++,
+						error: commentNotDeleted++
+					});
+				}
+				if(deletedOK == 1)
+				{
+					
+					alert(deletedOK + " comentario eliminado correctamente");
+				}
+				else
+				{
+					alert(deletedOK + " comentarios eliminados correctamente");
+				}
+				localStorage.removeItem("DELETED");
+			}
+			else
+			{
+				//alert("No hay comentarios que modificar");
+			}
+			setTimeout("ReadNecesidades()",2000);
+        }
+        
+        function AddCommentLocal(position)
+        {
+        	var lat = position.coords.latitude;
+            var long = position.coords.longitude;
+            
+			//lee comentarios locales
+            var comments = localStorage.getItem("COMMENTS");
+            
+            //crea arreglo para guardar comentarios locales mas el nuevo
+            var array = {
+    			comentarios: []
+			};
+			
+			//si no hay otros comentarios locales, no hace nada. Si hay, los carga en el arreglo
+			if(comments!=null)
+			{
+				var array = JSON.parse(comments);
+				//alert("not null");
+			}
+			
+			//agrega el comentario nuevo al final del arreglo
+			
+			
+			var current = localStorage.getItem('LOCALID');
+        	//alert(current);
+        	if(current == null)
+        	{
+        		localStorage.setItem('LOCALID', 0);
+        		current = 0;
+        	}
+        	else
+        	{
+        		current++;
+        		localStorage.setItem('LOCALID', current);
+			}
+			
+            array.comentarios.push({"id":current,"old_id":0,"local":1,"descripcion":document.getElementById("descripcion").value,"tipo_necesidad_id":document.getElementById("CommentTypeSelect").value,"coordenada_x":lat,"coordenada_y":long});
+            localStorage.setItem("COMMENTS", JSON.stringify(array));
+            
+            AddCommentsToList();
+        }
+        
+        function CommentAdded(data)
+        {
+            //alert("Comentario Enviado");
+            //$.mobile.changePage("#VerNecesidadesPage");
+        }
+        
+        function CommentNotAdded(data)
+        {
+            alert("Error al enviar comentarios");
+        }
+             
+        function LoginSuccessful(data)
+        {
+        	var json = JSON.parse(data);
+        	//alert(json.user);
+        	if(json.status=="success")
+        	{
+        		document.getElementById("usertext").innerHTML = "Usuario: " + json.user;
+        		GetPVZ();
+        		$.mobile.changePage("#HomePage");
+        	}
+        	if(json.status=="error")
+        	{
+        		alert("Usuario o contraseña incorrectos");
+        	}
+        }
+        
+        function onLogout(data)
+        {
+        	$.mobile.changePage("#loginPage");
+        }
+ 
+        function LoginUnsuccessful(data, status)
+        {
+            $.mobile.changePage("#loginPage");
+        }
+        
+        function GetAllFromServer()
+        {
+        	try{
+        		KeepAlive();
+				$.getJSON(document.getElementById("serverURL").value + "/AjaxGetMisioneros","", SyncMisioneros);
+				$.getJSON(document.getElementById("serverURL").value + "/AjaxObtenerLugarYContactos","", SyncData);
+				$.getJSON(document.getElementById("serverURL").value + "/AjaxObtenerComentarios","", GetComments);
+				$.getJSON(document.getElementById("serverURL").value + "/AjaxObtenerTiposComentarios","", StoreCommentTypes);
+				alert("Sincronización completa");
+			}catch(err){
+				//alert("Error al conectar con el servidor. Error: " + err);
+			}finally{
+				//alert("Sincronización completa");
+			}
+        }
+        
+        function ReadNecesidadesMap()
+        {
+        	try{
+        		KeepAlive();
+				$.getJSON(document.getElementById("serverURL").value + "/AjaxObtenerComentarios","", GetComments);
+			}catch(err){
+				//error ocurred...
+			}finally{
+				ReadCommentTypes();
+				initializeMap();
+			}
+        	
+        }
+        
+        function ReadNecesidades()
+        {
+        	try{
+        		KeepAlive();
+				$.getJSON(document.getElementById("serverURL").value + "/AjaxObtenerComentarios","", GetComments);
+			}catch(err){
+				//error ocurred...
+			}finally{
+				ReadCommentTypes();
+				AddCommentsToList();
+			}
+        	
+        }
+		function ReadMisioneros()
+        {
+        	try{
+        		KeepAlive();
+				$.getJSON(document.getElementById("serverURL").value + "/AjaxGetMisioneros","", SyncMisioneros);
+			}catch(err){
+				//alert("Error al conectar con el servidor");
+			}finally{
+				AddMisionerosToList();
+			}
+        
+        }
+        
+        function AddDataToList()
+        {
+			var json = localStorage.getItem('DATA');
+			//alert(json);
+			if(json != null)
+			{
+				var data = JSON.parse(json);
+					        	
+	        	//municipalidad
+	        	if(data.municipalidad != null)
+	        	{
+	        		document.getElementById("MunicipalidadList").innerHTML = "";
+	        		$('#MunicipalidadList').append('<br /><ul data-role="listview"><li>' + data.municipalidad.nombre + '</li><li>Dirección: ' + data.municipalidad.direccion + '</li><li>Comentario: ' + data.municipalidad.comentario + '</li><li data-role="list-divider">Contactos</li><br />');	        		
+	        		for(var i = 0; i < data.municipalidad.PastoralContacto.length; i++)
+	        		{
+	        			$('#MunicipalidadList').append('<div data-role="collapsible"><h3>' + data.municipalidad.PastoralContacto[i].nombre + '</h3><ul data-role="listview"><li>Cargo: ' + data.municipalidad.PastoralContacto[i].cargo + '</li><li>Teléfono: ' + data.municipalidad.PastoralContacto[i].telefono + ' </li></ul><br /><a id="' + data.municipalidad.PastoralContacto[i].telefono.replace(" ","") + '" data-role="button" href="tel:' + data.municipalidad.PastoralContacto[i].telefono.replace(" ","") + '">Llamar</a></div>');
+	        		}
+	        		$('#MunicipalidadList').append('</ul>');
+	        		$("#MunicipalidadList").trigger( "create" );
+	        	}
+	        	else
+	        	{
+	        		$('#MunicipalidadList').append('<center>No hay datos</center>');
+	        		$('#MunicipalidadList').collapsibleset('refresh');
+	        	}
+	        	
+	        	//alojamientos
+	        	if(data.alojamientos.length > 0)
+	        	{
+	        		document.getElementById("AlojamientosList").innerHTML = "";
+	        		for (i = 0; i < data.alojamientos.length; i++)
+					{
+						$('#AlojamientosList').append('<div data-role="collapsible-set"><h3><center>' + data.alojamientos[i].nombre + '</h3></center><ul data-role="listview"><li>Dirección: ' + data.alojamientos[i].direccion + '</li><li data-role="list-divider">Contactos</li><br />');
+						for(var j = 0; j < data.alojamientos[i].PastoralContacto.length; j++)
+		        		{
+		        			$('#AlojamientosList').append('<div data-role="collapsible"><h3>' + data.alojamientos[i].PastoralContacto[j].nombre + '</h3><ul data-role="listview"><li>Cargo: ' + data.alojamientos[i].PastoralContacto[j].cargo + '</li><li>Teléfono: ' + data.alojamientos[i].PastoralContacto[j].telefono + ' </li></ul><br /><a id="' + data.alojamientos[i].PastoralContacto[j].telefono.replace(" ","") + '" data-role="button" href="tel:' + data.alojamientos[i].PastoralContacto[j].telefono.replace(" ","") + '">Llamar</a></div>');
+		        		}
+						$('#AlojamientosList').append('</ul></div>');
+						$("#AlojamientosList").trigger( "create" );
+					}
+					$('#AlojamientosList').collapsibleset('refresh');
+	        	}
+	        	else
+	        	{
+	        		$('#AlojamientosList').append('<center>No hay datos</center>');
+	        		$('#AlojamientosList').collapsibleset('refresh');
+	        	}
+	        	
+	        	//parroquias
+	        	if(data.parroquias.length > 0)
+	        	{
+	        		document.getElementById("ParroquiasList").innerHTML = "";
+	        		for (i = 0; i < data.parroquias.length; i++)
+					{
+						$('#ParroquiasList').append('<div data-role="collapsible-set"><h3><center>' + data.parroquias[i].nombre + '</h3></center><ul data-role="listview"><li>Dirección: ' + data.parroquias[i].direccion + '</li><li data-role="list-divider">Contactos</li><br />');
+						for(var j = 0; j < data.parroquias[i].PastoralContacto.length; j++)
+		        		{
+		        			$('#ParroquiasList').append('<div data-role="collapsible"><h3>' + data.parroquias[i].PastoralContacto[j].nombre + '</h3><ul data-role="listview"><li>Cargo: ' + data.parroquias[i].PastoralContacto[j].cargo + '</li><li>Teléfono: ' + data.parroquias[i].PastoralContacto[j].telefono + ' </li></ul><br /><a id="' + data.parroquias[i].PastoralContacto[j].telefono.replace(" ","") + '" data-role="button" href="tel:' + data.parroquias[i].PastoralContacto[j].telefono.replace(" ","") + '">Llamar</a></div>');
+		        		}
+						$('#ParroquiasList').append('</ul></div>');
+						$("#ParroquiasList").trigger( "create" );
+					}
+					$('#ParroquiasList').collapsibleset('refresh');
+	        	}
+	        	else
+	        	{
+	        		$('#ParroquiasList').append('<center>No hay datos</center>');
+	        		$('#ParroquiasList').collapsibleset('refresh');
+	        	}
+	        	
+	        	//otros contactos
+	        	if(data.contactos.length > 0)
+	        	{
+	        		document.getElementById("OtrosList").innerHTML = "";
+	        		for (i = 0; i < data.contactos.length; i++)
+					{
+						$('#OtrosList').append('<div data-role="collapsible"><h3>' + data.contactos[i].nombre + '</h3><ul data-role="listview"><li>Cargo: ' + data.contactos[i].cargo + '</li><li>Teléfono: ' + data.contactos[i].telefono + ' </li></ul><br /><a id="' + data.contactos[i].telefono.replace(" ","") + '" data-role="button" href="tel:' + data.contactos[i].telefono.replace(" ","") + '">Llamar</a></div>');
+						$("#OtrosList").trigger( "create" );
+					}
+					$('#OtrosList').collapsibleset('refresh');
+	        	}
+	        	else
+	        	{
+	        		$('#OtrosList').append('<center>No hay datos</center>');
+	        		$('#OtrosList').collapsibleset('refresh');
+	        	}
+			}
+        }
+        
+        function ReadCommentTypes()
+        {
+        	try{
+        		KeepAlive();
+				$.getJSON(document.getElementById("serverURL").value + "/AjaxObtenerTiposComentarios","", StoreCommentTypes);
+			}catch(err){
+				//alert("Error al conectar con el servidor");
+				
+			}finally{
+				
+			}
+        }
+        
+        function StoreCommentTypes(data)
+        {
+        	//alert(data);
+        	localStorage.setItem('COMMENTTYPES', JSON.stringify(data));
+        }
+        
+        function ReadData()
+        {
+        	try{
+        		KeepAlive();
+        		$.getJSON(document.getElementById("serverURL").value + "/AjaxObtenerLugarYContactos","", SyncData);
+			}catch(err){
+				//alert("Error al conectar con el servidor");
+			}finally{
+				AddDataToList();
+			}
+        }
+        
+        function SyncData(data)
+        {
+        	localStorage.setItem('DATA', JSON.stringify(data));
+        }
+        
+		function Logout()
+        {
+		var formData = $("#AJAXLoginForm").serialize();
+                //alert(formData);
+                $.ajax({
+                    type: "POST",
+                    url: document.getElementById("serverURL").value + "/AjaxLogout",
+                    cache: false,
+                    data: formData,
+                    success: onLogout,
+                    error: LoginUnsuccessful
+                });
+        }
+        
+        function GetPVZ()
+        {
+        	KeepAlive();
+        	$.getJSON(document.getElementById("serverURL").value + "/AjaxGetInfoMision","", SetPVZ);
+        }
+        
+        function SetPVZ(data)
+        {
+        	localStorage.setItem('PVZ', JSON.stringify(data));
+        	var json = JSON.parse(localStorage.getItem('PVZ'));
+        	
+        	document.getElementById("PV").innerHTML = json.informacion.proyecto.nombre + " " + json.informacion.proyecto_version.version;
+        	document.getElementById("Z").innerHTML = json.informacion.grupo.nombre;
+        }
+        
+        function KeepAlive()
+        {
+        	var formData = 'user=' + document.getElementById("textinput1").value + '&pass=' + document.getElementById("textinput2").value;
+            //alert(formData);
+            $.ajax({
+				type: "POST",
+				url: document.getElementById("serverURL").value + "/AjaxLogin",
+				cache: false,
+				data: formData
+			});
+        }
+        
+        function AddCommentTypesToList(ID)
+        {
+        	
+        	var types = localStorage.getItem('COMMENTTYPES');
+        	//alert(types);
+        	if(types != null)
+        	{
+        		var data = JSON.parse(types);
+        		//alert(data);
+        		document.getElementById(ID).innerHTML = "";
+        		for(var i = 0; i < data.tipos_comentarios.length; i++)
+        		{
+        			//alert(data.tipos_comentarios[i].id);
+        			$('#' + ID).append('<option value="' + data.tipos_comentarios[i].id + '">' + data.tipos_comentarios[i].nombre + '</option>');
+        		}
+        		$('#' + ID).selectmenu('refresh');
+        	}
+        	
+        }
+        
+        
+        function SaveServerURL()
+        {
+        	localStorage.setItem('SERVER', document.getElementById("serverURL").value);
+        }
+        
+        function ResetServerURL()
+        {
+        	var url = localStorage.getItem('SERVER');
+        	if(url == null)
+        	{
+        		localStorage.setItem('SERVER', "http://especial5.ing.puc.cl/backend/apiMovil");
+        	}
+        	document.getElementById("serverURL").value = "http://especial5.ing.puc.cl/backend/apiMovil";
+        }
+        
+        $('#MapaPage').live('pageshow',function(event){
+        		if(mapCount == 0)
+        		{
+        			initializeMap();
+        		}
+			});
+		$('#AgregarNecesidadesPage').live('pageshow',function(event){
+				AddCommentTypesToList("CommentTypeSelect");
+				document.getElementById("CommentTypeSelect").value = 1;
+				document.getElementById("descripcion").value = "";
+			});
+		$('#VerNecesidadesPage').live('pageshow',function(event){
+        		AddCommentsToList();
+        		ReadCommentTypes();
+			});
+		$('#MisionerosPage').live('pageshow',function(event){
+        		AddMisionerosToList();
+			});
+		$('#DataPage').live('pageshow',function(event){
+        		AddDataToList();
+			});
+		$('#SelfPage').live('pageshow',function(event){
+        		
+			});
+        $(document).ready(function() {
+        	
+        
+        	//LOGIN
+            $("#b3").click(function(){
+                var formData = $("#AJAXLoginForm").serialize();
+                //alert(formData);
+                $.ajax({
+                    type: "POST",
+                    url: document.getElementById("serverURL").value + "/AjaxLogin",
+                    cache: false,
+                    data: formData,
+                    success: LoginSuccessful,
+                    error: LoginUnsuccessful
+                });
+ 
+                return false;
+            });
+            
+            //LOGOUT
+            $("#b4").click(function(){
+                var formData = $("#AJAXLoginForm").serialize();
+                //alert(formData);
+                $.ajax({
+                    type: "POST",
+                    url: document.getElementById("serverURL").value + "/AjaxLogout",
+                    cache: false,
+                    data: formData,
+                    success: onLogout,
+                    error: LoginUnsuccessful
+                });
+ 				GetPVZ();
+                return false;
+            });
+            
+            //VER NECESIDADES
+            $("#GetNecesidades").click(function(){
+                AddCommentsToList();
+                return false;
+            });
+            $("#ReadNecesidades").click(function(){
+                $.getJSON(document.getElementById("serverURL").value + "/AjaxObtenerComentarios","", GetComments);
+                return false;
+            });
+                 
+        });
+    	</script>
+    </head>
+    
+    <body>
+    
+    <!-- //LOGIN PAGE -->
+    
+	    <div data-role="page" id="loginPage">
+			<div data-theme="a" data-role="header" data-id="myheader" data-position="fixed">
+				<h3></h3>
+			</div>
+			<form id = "AJAXLoginForm" action="">
+				<h3>Usuario</h3>
+				<input id="textinput1" name="user" placeholder="e-mail" value="" type="email" />
+				<h3>Contraseña</h3>
+				<input id="textinput2" name="pass" placeholder="" value="" type="password" />
+				<input type = "button" id = "b3" value = "Iniciar Sesión"/>
+			</form>
+		</div>
+	
+		
+	<!-- //HOME -->
+	
+		<div data-role="page" id="HomePage">
+		
+			<div data-theme="a" data-role="header" data-id="myheader" data-position="fixed">
+				<h3 id="PV" ></h3>
+				
+			</div>
+			
+			<div data-role="content">
+				<ul data-role="listview">
+					<li><a href="#VerNecesidadesPage" data-transition="none"><h3>Comentarios</h3><p>Comentarios de tu zona</p></a></li>
+					<li><a href="#MisionerosPage" data-transition="none"><h3>Misioneros</h3><p>Información de los misioneros de tu zona</p></a></li>
+					<li><a href="#MapaPage" data-transition="none"><h3>Mapa</h3><p>Ve un mapa de tu zona con todos los comentarios</p></a></li>
+					<li><a href="#DataPage" data-transition="none"><h3>Datos</h3><p>Datos de la zona</p></a></li>
+					<!-- <li><a href="#SelfPage" data-transition="none"><h3 id="usertext"></h3><p>Ve tu información personal</p></a></li> -->
+					<li><a href="#HelpPage" data-transition="none"><h3>Ayuda</h3><p>Manual de uso</p></a></li>
+					<li><a href="#OptionsPage" data-transition="none"><h3>Opciones</h3><p>Configuración de la aplicación</p></a></li>
+				</ul>
+				
+				<br />
+				<center><h4 id="usertext"></h4></center>
+				<center><a data-theme="d" data-rel="dialog" data-transition="none" type="button" onclick="Logout()" >Logout</a></center>
+				<center><a data-theme="d" data-rel="dialog" data-transition="none" type="button" onclick="GetAllFromServer()" >Actualizar Datos</a></center>
+				<center><a data-theme="d" data-rel="dialog" data-transition="none" type="button" onclick="SyncComments()" >Enviar Borradores</a></center>
+				<br />
+					
+			</div>
+			<div data-theme="a" data-role="footer" data-id="myfooter" data-position="fixed">
+				<h3 id="Z" ></h3>
+				
+			</div>
+			
+		</div>
+	
+	<!-- //VER COMENTARIOS -->
+	
+		<div data-role="page" id="VerNecesidadesPage">
+			<div data-theme="a" data-role="header" data-id="myheader" data-position="fixed">
+				<a data-role="button" data-rel="back" data-transition="none" data-icon="arrow-l" data-iconpos="left" href="#HomePage">
+                    Atrás
+                </a>
+				<h3>Comentarios</h3>
+				<a data-theme="b" data-rel="dialog" data-transition="none" type="button" onclick="SyncComments()" >Sincronizar</a>
+				
+			</div>
+			<div data-role="content">
+				<a href="#AgregarNecesidadesPage" data-theme="c" data-rel="dialog" data-icon="plus" data-iconpos="left" data-transition="none" type="button">Agregar</a>
+			
+			<br /><br />
+				<div>
+					<ul data-role="listview" id="NecList"></ul>
+				</div>
+				
+			</div>
+			
+		</div>
+		
+	<!-- //MISIONEROS -->
+	
+		<div data-role="page" id="MisionerosPage">
+			<div data-theme="a" data-role="header" data-id="myheader" data-position="fixed">
+				<a data-role="button" data-rel="back" data-transition="none" data-icon="arrow-l" data-iconpos="left" href="#HomePage">
+                    Atrás
+                </a>
+				<h3>Misioneros</h3>
+				<a data-theme="b" data-rel="dialog" data-transition="none" type="button" onclick="ReadMisioneros()" >Actualizar</a>
+			</div>
+			<div data-role="content">
+				<ul data-role="listview" data-split-theme="d" id="MisList"></ul>
+			</div>
+			
+		</div>
+		
+	<!-- //AGREGAR COMENTARIOS -->
+	
+		<div data-role="page" id="AgregarNecesidadesPage">
+			
+			<div data-role="fieldcontain">
+				<label for="select-comment-type" class="select" style="color:#ffffff">Tipo:</label>
+				<select id="CommentTypeSelect" name="select-comment-type"></select>
+				<br />
+				<label for="descripcion" style="color:#ffffff">Descripción:</label>
+				<input type="text" name="name" id="descripcion" value="" placeholder="Nombre - Dirección - Etc." />				
+			</div>
+			<a data-role="button" data-rel="back" data-theme="b" onclick="SaveCommentLocal()">Guardar Comentario</a>
+			<a data-role="button" data-rel="back" data-theme="b">Cancelar</a>
+		</div>
+		
+	<!-- //MAPA -->
+	
+		<div data-role="page" id="MapaPage">
+			<div data-theme="a" data-role="header" data-id="myheader" data-position="fixed">
+				
+                <a data-role="button" data-rel="back" data-transition="none" data-icon="arrow-l" data-iconpos="left" href="#HomePage">
+                    Atrás
+                </a>
+                <h3>Mapa</h3>
+				<a data-theme="b" data-rel="dialog" data-transition="none" type="button" data-icon="refresh" onclick="ReadNecesidadesMap()" >Actualizar</a>
+				<!-- <a href="#AgregarNecesidadesPage" data-theme="b" data-rel="dialog" data-transition="none" type="button" data-icon="plus">Agregar</a> -->
+				
+			</div>
+			<div data-role="content" id="map_canvas" style="width:290px; height:440px"></div>
+			<div data-role="footer" data-position="fixed">
+			</div>
+		</div>
+	
+	<!-- //INFORMACION -->
+	
+		<div data-role="page" id="DataPage">
+			<div data-theme="a" data-role="header" data-id="myheader" data-position="fixed">
+				<a data-role="button" data-rel="back" data-transition="none" data-icon="arrow-l" data-iconpos="left" href="#HomePage">
+                    Atrás
+                </a>
+				<h3>Datos</h3>
+				<a data-theme="b" data-rel="dialog" data-transition="none" type="button" onclick="ReadData()" >Actualizar</a>
+			</div>
+			<div data-role="content">
+				
+					
+					<div id="DatosZonaList" data-role="collapsible-set" data-theme="c" data-content-theme="d">
+						<div data-role="collapsible" data-theme="a" data-content-theme="d"><h3>Municipalidad</h3>
+							<div id="MunicipalidadList"><center>No hay datos</center></div>
+						</div>
+						<div data-role="collapsible" data-theme="a" data-content-theme="d"><h3>Alojamientos</h3>
+							<div id="AlojamientosList" data-role="collapsible-set" data-theme="c" data-content-theme="d"><center>No hay datos</center></div>
+						</div>
+						<div data-role="collapsible" data-theme="a" data-content-theme="d"><h3>Parroquias</h3>
+							<div id="ParroquiasList" data-role="collapsible-set" data-theme="c" data-content-theme="d"><center>No hay datos</center></div>
+						</div>
+						<div data-role="collapsible" data-theme="a" data-content-theme="d"><h3>Otros Contactos</h3>
+							<div id="OtrosList" data-role="collapsible-set" data-theme="c" data-content-theme="d"><center>No hay datos</center></div>
+						</div>
+					</div>
+				
+			</div>
+			
+		</div>
+	
+	<!-- //PERSONAL -->
+	
+		<div data-role="page" id="SelfPage">
+			<div data-theme="a" data-role="header" data-id="myheader" data-position="fixed">
+				<a data-role="button" data-rel="back" data-transition="none" data-icon="arrow-l" data-iconpos="left" href="#HomePage">
+                    Atrás
+                </a>
+				<h3>Perfil</h3>
+				
+			</div>
+			<div data-role="content">
+			</div>
+		</div>
+	
+	<!-- //AYUDA -->
+	
+		<div data-role="page" id="HelpPage">
+			<div data-theme="a" data-role="header" data-id="myheader" data-position="fixed">
+				<a data-role="button" data-rel="back" data-transition="none" data-icon="arrow-l" data-iconpos="left" href="#HomePage">
+                    Atrás
+                </a>
+				<h3>Ayuda</h3>
+				
+			</div>
+			<div data-role="content">
+				<div data-role="collapsible-set" data-theme="d" data-content-theme="d">
+					<div data-role="collapsible" data-theme="d" data-content-theme="d"><h3>Página Principal</h3>
+						<div data-role="collapsible-set" data-theme="d" data-content-theme="d" align="justify"><justify>La página principal contiene cada una de las secciones de la aplicación. Además contiene tres botones al final de ésta. Uno para cerrar tu sesión, otro para bajar los datos más actualizados del servidor y el último para enviar los comentarios que creaste o editaste recientemente. Además, cada página tiene un botón arriba a la derecha que sirve para actualizar los datos de esa página en particular.</justify></div>
+					</div>
+					<div data-role="collapsible" data-theme="d" data-content-theme="d"><h3>Comentarios</h3>
+						<div data-role="collapsible-set" data-theme="d" data-content-theme="d" align="justify"><justify>Esta sección contiene una lista de todos los comentarios de tu zona, además de los comentarios que aún no envías al servidor (borradores). Puedes seleccionar uno para ver sus detalles, editarlo o borrarlo. Cada comentario muestra el tipo que es y su contenido, además de un mapa mostrando su ubicación.</justify></div>
+					</div>
+					<div data-role="collapsible" data-theme="d" data-content-theme="d"><h3>Misioneros</h3>
+						<div data-role="collapsible-set" data-theme="d" data-content-theme="d" align="justify"><justify>Esta sección contiene una lista con todos los misioneros de tu zona. Puedes llamarlos, enviarles un mensaje de texto o un e-mail.</justify></div>
+					</div>
+					<div data-role="collapsible" data-theme="d" data-content-theme="d"><h3>Mapa</h3>
+						<div data-role="collapsible-set" data-theme="d" data-content-theme="d" align="justify"><justify>Un mapa de tu zona con todos los comentarios que existen. Cada marcador tiene un título mostrando el nombre y dirección de la persona misionada. Puedes seleccionar un marcador para ver el detalle de un comentario. Si dos o más marcadores están muy juntos, se agruparán en un ícono azul con un número mostrando cuántos marcadores hay en ese lugar. Si tocas ese ícono, verás los marcadores individualmente.</justify></div>
+					</div>
+					<div data-role="collapsible" data-theme="d" data-content-theme="d"><h3>Datos</h3>
+						<div data-role="collapsible-set" data-theme="d" data-content-theme="d" align="justify"><justify>Datos útiles de tu zona. Puedes ver información sobre la municipalidad, alojamiento(s), parroquia(s) y otros contactos.</justify></div>
+					</div>
+					<!-- <div data-role="collapsible" data-theme="d" data-content-theme="d"><h3>Perfil</h3>
+						<div data-role="collapsible-set" data-theme="d" data-content-theme="d" align="justify"><justify>Ve tu información personal.</justify></div>
+					</div> -->
+				</div>
+			</div>
+		</div>
+		
+	<!-- //OPCIONES -->
+	
+		<div data-role="page" id="OptionsPage">
+			<div data-theme="a" data-role="header" data-id="myheader" data-position="fixed">
+				<a data-role="button" data-rel="back" data-transition="none" data-icon="arrow-l" data-iconpos="left" href="#HomePage">
+                    Atrás
+                </a>
+				<h3>Opciones</h3>
+				
+			</div>
+			<div data-role="content">
+				<label for="basic">Dirección del servidor:</label>
+    			<input type="text" name="name" id="serverURL" value="http://dev.pastoraluc.cl/backend.php/apiMovil"  />
+    			<br />
+    			<center>
+	    			<div data-role="controlgroup" data-type="horizontal">
+						<a data-role="button" data-theme="d" data-icon="check" onclick="SaveServerURL()">Guardar</a>
+						<a data-role="button" data-theme="d" data-icon="refresh" onclick="ResetServerURL()">Reset</a>
+					</div>
+				</center>
+			</div>
+		</div>
+    </body>
+</html>

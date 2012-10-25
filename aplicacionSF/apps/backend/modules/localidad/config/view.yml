@@ -1,0 +1,14 @@
+# You can find more information about this file on the symfony website:
+# http
+
+editSuccess:
+    javascripts:    [jquery-1.7.2.min.js, markerclusterer_packed.js, bootbox.min.js, crearLocalidad.js]
+
+newSuccess:
+    javascripts:    [jquery-1.7.2.min.js, markerclusterer_packed.js, bootbox.min.js, crearLocalidad.js]
+    
+unirAZonaSuccess:
+    javascripts:    [jquery-1.7.2.min.js, markerclusterer_packed.js, bootbox.min.js, crearLocalidad.js]
+    
+showSuccess:
+    javascripts:    [jquery-1.7.2.min.js, markerclusterer_packed.js, bootbox.min.js, localidad.js, contactosLocalidad.js]

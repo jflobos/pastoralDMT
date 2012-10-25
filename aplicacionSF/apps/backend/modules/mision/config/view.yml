@@ -1,0 +1,28 @@
+# You can find more information about this file on the symfony website:
+# http
+indexSuccess:
+    javascripts:    [AbrirCerrarInscripcionDesdeIndex.js]
+    
+
+showSuccess:
+    javascripts:    [jquery-1.7.2.min.js, bootbox.min.js, contactosLocalidad.js, ajaxAbrirCerrarInscripcionMision.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js, graphMision.js]
+    stylesheets:    [jquery.jqplot.min.css]
+
+newSuccess:
+    javascripts:    [nuevaMision.js, cambioIndexMisionNueva.js, chosen.jquery.js, bootstrap-tooltip.js, bootstrap-dropdown.js, bootstrap-popover.js]
+    stylesheets:    [chosen.css]
+    
+estadisticasGrupoSuccess:
+    javascripts:    [proyecto.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js]
+    stylesheets:    [jquery.jqplot.min.css]
+
+estadisticasMisionSuccess:
+    javascripts:    [proyecto.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js]
+    stylesheets:    [jquery.jqplot.min.css]
+
+estadisticasVersionSuccess:
+    javascripts:    [proyecto.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js]
+    stylesheets:    [jquery.jqplot.min.css]
+
+editSuccess:
+    javascripts:    [bootstrap-tooltip.js, bootstrap-popover.js, nuevaMision.js, cambioIndexMisionEdit.js]    

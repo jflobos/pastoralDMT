@@ -1,0 +1,47 @@
+# You can find more information about this file on the symfony website:
+# http
+
+busquedaSuccess:
+    javascripts:    [bootstrap-modal.js, busqueda_ajax.js, evaluacionJefe.js]
+
+editComentarioSuccess:
+    javascripts:    [bootstrap-typeahead.js]
+
+editSuccess:
+    javascripts:    [registro.js, jquery.Rut.min.js]
+
+formularioAlojamientoSuccess:
+    javascripts:    [bootstrap-modal.js, evaluacionJefe.js]
+    
+formularioCoEvaluacionSuccess:
+    javascripts:    [bootstrap-modal.js, coEvaluacion.js]
+
+formularioJefeZonaSuccess:
+    javascripts:    [bootstrap-modal.js, evaluacionJefe.js]
+
+formularioLocalidadSuccess:
+    javascripts:    [evaluacionJefe.js, contactosLocalidad.js]
+
+formularioSedeTalleresSuccess:
+    javascripts:    [bootstrap-modal.js, evaluacionJefe.js]
+
+informacionSuccess:
+    javascripts:    [bootstrap-tab.js]
+    
+informacionUsuarioSuccess:
+    javascripts:    [bootstrap-typeahead.js, bootstrap-modal.js]
+    
+inscritosSuccess:
+    javascripts:    [bootstrap-modal.js, postulantes.js, postulantes_ajax.js, usuario_detalle_modal.js]
+
+newSuccess:
+    javascripts:    [registro.js, jquery.Rut.min.js]
+   
+recuperarPasswordSuccess:
+    javascripts:    [recuperarPassword.js, jquery.Rut.min.js]
+    
+newComentarioSucces:
+    javascripts:    [bootstrap-typeahead.js]
+
+nuevoProyecto:
+    javascripts:    [bootstrap-typeahead.js]

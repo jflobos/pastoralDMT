@@ -1,0 +1,10 @@
+PastoralEstadoNecesidad:
+
+  Estado1:
+    nombre:             Pendiente 
+
+  Estado2:
+    nombre:             En proceso 
+
+  Estado3:
+    nombre:             Cubierta

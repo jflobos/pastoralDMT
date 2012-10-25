@@ -1,0 +1,107 @@
+<div class="page-header">
+ <h1>Detalle del Grupo <small>Pastoral UC</small></h1>
+</div>
+
+
+<div class="span9 span-fixed-sidebar tab-content">
+   <h1><small><?php echo 'Grupo: '.$pastoral_grupo->getNombre() ?></small></h1>
+<input type="hidden" id="misionId" value="<?php echo $pastoral_grupo->getId() ?>"/>
+<a href="<?php echo url_for('grupo/index') ?>"><button class="btn btn-info">Atras</button></a>
+&nbsp;
+<a href="<?php echo url_for('grupo/edit?id='.$pastoral_grupo->getId()) ?>"><button class="btn btn-info">Editar Grupo</button></a>
+<br/><br/>
+<table class="table table-bordered table-striped">
+  <tbody>
+    <tr>
+      <th>Nombre:</th>
+      <td><?php echo $pastoral_grupo->getNombre() ?></td>
+    </tr>
+    <tr>
+      <th>Descripcion:</th>
+      <td><?php echo $pastoral_grupo->getDescripcion() ?></td>
+    </tr>
+  </tbody>
+</table>
+
+<h1><small><?php echo 'Jefe';if(count($jefes)>1){echo 's';} ;echo ' del Grupo' ?></small></h1>
+<table class="table table-bordered table-striped">
+<thead>
+    <tr>
+      <th>Nombre</th>
+      <th>Rut</th>
+      <th>Celular</th>  
+    </tr>
+  </thead>
+  <tbody>
+  <?php foreach ($jefes as $jefe): ?>
+    <tr>
+        <td><?php echo $jefe ?></td>
+        <td><?php echo $jefe->getRut() ?></td>
+        <td><?php echo $jefe->getTelefonoCelular() ?></td>
+    </tr>
+  <?php endforeach; ?>
+  </tbody>
+</table>
+
+<h1><small><?php echo 'Zona';if(count($zonas)>1){echo 's';} ;echo ' del Grupo' ?></small></h1>
+<table class="table table-bordered table-striped">
+<thead>
+    <tr>
+		<th>Nombre</th>
+		<th>Fecha Inicio</th>
+		<th>Fecha Termino</th>
+		<th>Lugar de salida</th>
+		<th>Sector</th>
+		<th>Localidad</th>
+    </tr>
+  </thead>
+  <tbody>
+  <?php $contador = 0; ?>
+  <?php foreach ($pastoral_misions as $zona): ?>
+    <tr>
+        <td><a href="<?php echo url_for('mision/show?mision_id='.$zona->getId()) ?>"><?php echo $zona->getNombre() ?></a></td>
+        <td><?php echo $fechas_inicio[$contador] ?></td>
+        <td><?php echo $fechas_termino[$contador] ?></td>
+        <td><?php echo $salidas[$contador] ?></td>
+        <td><?php echo $sectores[$contador] ?></td>
+        <td><?php echo $localidades[$contador] ?></td>
+		<?php $contador++; ?>
+    </tr>
+  <?php endforeach; ?>
+  <tr>
+    <td COLSPAN = 6>
+      <a href="<?php echo url_for('mision/new') ?>">Crear nueva Zona</a>
+    </td>
+  </tr>
+  </tbody>
+  <input type="hidden" id="grupoId" value="<?php echo $pastoral_grupo->getId() ?>"/>
+</table>
+
+<div id="genero_acordion" class="btn_acordion">>>Estad&iacute;stica - Genero</div>
+<div id="chart1" style= " height: 250px; position: relative; " class="jqplot-target"></div>
+
+<div id="experiencia_acordion" class="btn_acordion">>>Estad&iacute;stica - Experiencia</div>
+<div id="chart4" style= " height: 250px; position: relative; " class="jqplot-target"></div>
+
+<div id="edades_acordion" class="btn_acordion">>>Estad&iacute;stica - Edades</div>
+<div id="chart5" style= " height: 250px; position: relative; " class="jqplot-target"></div>
+
+<div id="movimientos_religiosos_acordion" class="btn_acordion">>>Estad&iacute;stica - Movimientos Religiosos</div>
+<div id="chart6" style= " height: 250px; position: relative; " class="jqplot-target"></div>
+
+
+<div id="carreras_acordion" class="btn_acordion">>>Estad&iacute;stica - Carreras</div>
+<div id="chart7" style=" height: 250px; position: relative; " class="jqplot-target"></div>
+
+<div id="necesidad_acordion" class="btn_acordion">>>Estad&iacute;stica - Necesidades Abarcadas</div>
+  <div id="chart2" style= " height: 250px; position: relative; " class="jqplot-target"></div>
+
+<hr />
+
+<a href="<?php echo url_for('grupo/index') ?>"><button class="btn btn-info">Atras</button></a>
+&nbsp;
+<a href="<?php echo url_for('grupo/edit?id='.$pastoral_grupo->getId()) ?>"><button class="btn btn-info">Editar Grupo</button></a>
+
+
+<input type ='hidden' id='grupoId' value = "<?php echo $pastoral_grupo->getId()  ?>"/>
+ <br></br>

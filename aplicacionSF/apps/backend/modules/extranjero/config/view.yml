@@ -1,0 +1,2 @@
+registradoSuccess:
+    javascripts:    [ usuario_detalle_modal.js, bootstrap-dropdown.js, extranjeros_ajax.js, bootstrap-modal.js]

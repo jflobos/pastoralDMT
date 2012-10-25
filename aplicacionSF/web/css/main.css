@@ -1,0 +1,154 @@
+#content {
+    width:1024px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
+}
+
+body{
+    text-align:center;
+}
+
+.radio_list li{
+    list-style-type: none;
+    float:left;
+    margin-left:25px;
+    text-align:center;
+}
+
+.center{
+  margin:auto;
+  text-align:center;
+  float:none;
+  clear:left;
+}
+
+.center img{
+  margin:auto;
+  text-align:center;
+  float:none;
+}
+
+.clean{
+  padding:0;
+  margin:0;
+  clear:both;
+}
+
+.right{
+  float:right;
+}
+
+
+.zonas{
+  display: table-row;
+  width: 100%;
+}
+
+#pastoral_usuario_fecha_nacimiento_day{
+  width: 60px;
+  } 
+#pastoral_usuario_fecha_nacimiento_month{
+  width: 120px;
+  }
+#pastoral_usuario_fecha_nacimiento_year{
+  width: 80px;
+}
+
+.modal-body {
+    max-height:350px;
+    overflow-y: scroll;
+}
+
+.btn_acordion{
+  cursor: pointer;
+  padding: 8px 15px;
+  border: 1px solid #e5e5e5;
+  -webkit-border-radius: 4px;
+  -moz-border-radius: 4px;
+  border-radius: 4px;
+  color: #08C;
+  font-size: 15px;
+}
+.btn_acordion hover{
+  color:#005580;
+  text-decoration: underline;
+}
+
+.mensaje{
+  clear:right;
+  margin-top:10px;
+  margin-bottom:20px;
+  float:none;
+}
+
+.no-bottom{
+  margin-bottom:0px;
+}
+
+.acordion-content{
+  padding-left:30px;
+}
+
+.modal_textarea
+{
+  width:90%;
+  height:100px;
+}
+
+ul.no-mark{
+  list-style-type:none;
+  margin:0;
+  text-align:left;
+}
+
+.infowindow{
+  text-align:left;
+  width:400px;
+  height:200px;
+}
+.infowindow h3{
+  text-align:center;
+  border-bottom:solid black 1px;
+  margin-bottom:3px;
+}
+
+.infowindow textarea{
+  width:365px;
+  height:80px;
+  max-width:357px;
+  max-height:80px;
+}
+
+.simbolo_comentario{
+  cursor:pointer;
+}
+.span1-5{
+  width:120px;
+}
+
+#primerHeader{
+  background-color:#1E3D90;
+}
+.embedido{
+}
+
+#content_zonas{
+  min-height:600px;
+}
+
+#lateral_postulacion{
+}
+.cluster{
+  margin:0;
+  padding:0;
+}
+
+#centrar{
+  text-align:center;
+}
+
+.move-top{
+  position:relative;
+  bottom:8px;
+}

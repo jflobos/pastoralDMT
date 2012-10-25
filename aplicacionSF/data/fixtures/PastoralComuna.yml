@@ -1,0 +1,1731 @@
+PastoralComuna:
+
+  comuna1:
+    nombre: Cerrillos
+    region_id: 7
+    descripcion: "Descripción"
+  
+  comuna2:
+    nombre: Cerro Navia
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna3:
+    nombre: Conchalí
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna4:
+    nombre: El Bosque
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna5:
+    nombre: Estación Central
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna6:
+    nombre: Huechuraba
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna7:
+    nombre: Independencia
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna8:
+    nombre: La Cisterna
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna9:
+    nombre: La Granja
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna10:
+    nombre: La Florida
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna11:
+    nombre: La Pintana
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna12:
+    nombre: La Reina
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna13:
+    nombre: Las Condes
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna14:
+    nombre: Lo Barnechea
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna15:
+    nombre: Lo Espejo
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna16:
+    nombre: Lo Prado
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna17:
+    nombre: Macul
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna18:
+    nombre: Maipú
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna19:
+    nombre: Ñuñoa
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna20:
+    nombre: Pedro Aguirre Cerda
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna21:
+    nombre: Peñalolén
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna22:
+    nombre: Providencia
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna23:
+    nombre: Pudahuel
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna24:
+    nombre: Quilicura
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna25:
+    nombre: Quinta Normal
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna26:
+    nombre: Recoleta
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna27:
+    nombre: Renca
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna28:
+    nombre: San Miguel
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna29:
+    nombre: San Joaquín
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna30:
+    nombre: San Ramón
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna31:
+    nombre: Santiago
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna32:
+    nombre: Vitacura
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna33:
+    nombre: Curacaví
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna34:
+    nombre: María Pinto
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna35:
+    nombre: Melipilla
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna36:
+    nombre: San Pedro
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna37:
+    nombre: Alhué
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna38:
+    nombre: Isla de Maipo
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna39:
+    nombre: El Monte
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna40:
+    nombre: Padre Hurtado
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna41:
+    nombre: Peñaflor
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna42:
+    nombre: Talagante
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna43:
+    nombre: San Bernardo
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna44:
+    nombre: Buin
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna45:
+    nombre: Paine
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna46:
+    nombre: Calera de Tango
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna47:
+    nombre: Puente Alto
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna48:
+    nombre: San José de Maipo
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna49:
+    nombre: Pirque
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna50:
+    nombre: Colina
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna51:
+    nombre: Lampa
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna52:
+    nombre: Tiltil
+    region_id: 7
+    descripcion: "Descripción"
+
+  comuna53:
+    nombre: Cabo de Hornos
+    region_id: 15
+    descripcion: "Descripción"
+
+  comuna54:
+    nombre: Antártica
+    region_id: 15
+    descripcion: "Descripción"
+
+  comuna55:
+    nombre: Porvenir
+    region_id: 15
+    descripcion: "Descripción"
+
+  comuna56:
+    nombre: Primavera
+    region_id: 15
+    descripcion: "Descripción"
+
+  comuna57:
+    nombre: Timaukel
+    region_id: 15
+    descripcion: "Descripción"
+
+  comuna58:
+    nombre: Laguna Blanca
+    region_id: 15
+    descripcion: "Descripción"
+
+  comuna59:
+    nombre: Punta Arenas
+    region_id: 15
+    descripcion: "Descripción"
+
+  comuna60:
+    nombre: Río Verde
+    region_id: 15
+    descripcion: "Descripción"
+
+  comuna61:
+    nombre: San Gregorio
+    region_id: 15
+    descripcion: "Descripción"
+
+  comuna62:
+    nombre: Natales
+    region_id: 15
+    descripcion: "Descripción"
+
+  comuna63:
+    nombre: Torres del Paine
+    region_id: 15
+    descripcion: "Descripción"
+
+  comuna64:
+    nombre: Cochrane
+    region_id: 14
+    descripcion: "Descripción"
+
+  comuna65:
+    nombre: O'Higgins
+    region_id: 14
+    descripcion: "Descripción"
+
+  comuna66:
+    nombre: Tortel
+    region_id: 14
+    descripcion: "Descripción"
+
+  comuna67:
+    nombre: Chile Chico
+    region_id: 14
+    descripcion: "Descripción"
+
+  comuna68:
+    nombre: Río Ibáñez
+    region_id: 14
+    descripcion: "Descripción"
+
+  comuna69:
+    nombre: Aysén
+    region_id: 14
+    descripcion: "Descripción"
+
+  comuna70:
+    nombre: Cisnes
+    region_id: 14
+    descripcion: "Descripción"
+
+  comuna71:
+    nombre: Guaitecas
+    region_id: 14
+    descripcion: "Descripción"
+
+  comuna72:
+    nombre: Coyhaique
+    region_id: 14
+    descripcion: "Descripción"
+
+  comuna73:
+    nombre: Lago Verde
+    region_id: 14
+    descripcion: "Descripción"
+
+  comuna74:
+    nombre: Chaitén
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna75:
+    nombre: Futaleufú
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna76:
+    nombre: Hualaihué
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna77:
+    nombre: Palena
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna78:
+    nombre: Ancud
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna79:
+    nombre: Castro
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna80:
+    nombre: Chonchi
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna81:
+    nombre: Curaco de Vélez
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna82:
+    nombre: Dalcahue
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna83:
+    nombre: Puqueldón
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna84:
+    nombre: Queilén
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna85:
+    nombre: Quellón
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna86:
+    nombre: Quemchi
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna87:
+    nombre: Quinchao
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna88:
+    nombre: Calbuco
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna89:
+    nombre: Cochamó
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna90:
+    nombre: Fresia
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna91:
+    nombre: Frutillar
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna92:
+    nombre: Llanquihue
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna93:
+    nombre: Los Muermos
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna94:
+    nombre: Maullín
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna95:
+    nombre: Puerto Montt
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna96:
+    nombre: Puerto Varas
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna97:
+    nombre: Osorno
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna98:
+    nombre: Puerto Octay
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna99:
+    nombre: Purranque
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna100:
+    nombre: Puyehue
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna101:
+    nombre: Río Negro
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna102:
+    nombre: San Pablo
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna103:
+    nombre: San Juan de la Costa
+    region_id: 13
+    descripcion: "Descripción"
+
+  comuna104:
+    nombre: La Unión
+    region_id: 12
+    descripcion: "Descripción"
+
+  comuna105:
+    nombre: Futrono
+    region_id: 12
+    descripcion: "Descripción"
+
+  comuna106:
+    nombre: Lago Ranco
+    region_id: 12
+    descripcion: "Descripción"
+
+  comuna107:
+    nombre: Río Bueno
+    region_id: 12
+    descripcion: "Descripción"
+
+  comuna108:
+    nombre: Valdivia
+    region_id: 12
+    descripcion: "Descripción"
+
+  comuna109:
+    nombre: Corral
+    region_id: 12
+    descripcion: "Descripción"
+
+  comuna110:
+    nombre: Lanco
+    region_id: 12
+    descripcion: "Descripción"
+
+  comuna111:
+    nombre: Los Lagos
+    region_id: 12
+    descripcion: "Descripción"
+
+  comuna112:
+    nombre: Mariquina
+    region_id: 12
+    descripcion: "Descripción"
+
+  comuna113:
+    nombre: Máfil
+    region_id: 12
+    descripcion: "Descripción"
+
+  comuna114:
+    nombre: Paillaco
+    region_id: 12
+    descripcion: "Descripción"
+
+  comuna115:
+    nombre: Panguipulli
+    region_id: 12
+    descripcion: "Descripción"
+
+  comuna116:
+    nombre: Temuco
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna117:
+    nombre: Carahue
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna118:
+    nombre: Cholchol
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna119:
+    nombre: Cunco
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna120:
+    nombre: Curarrehue
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna121:
+    nombre: Freire
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna122:
+    nombre: Galvarino
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna123:
+    nombre: Gorbea
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna124:
+    nombre: Lautaro
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna125:
+    nombre: Loncoche
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna126:
+    nombre: Melipeuco
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna127:
+    nombre: Nueva Imperial
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna128:
+    nombre: Padre Las Casas
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna129:
+    nombre: Perquenco
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna130:
+    nombre: Pitrufquén
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna131:
+    nombre: Pucón
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna132:
+    nombre: Saavedra
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna133:
+    nombre: Teodoro Schmidt
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna134:
+    nombre: Toltén
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna135:
+    nombre: Vilcún
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna136:
+    nombre: Villarrica
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna137:
+    nombre: Angol
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna138:
+    nombre: Collipulli
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna139:
+    nombre: Curacautín
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna140:
+    nombre: Ercilla
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna141:
+    nombre: Lonquimay
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna142:
+    nombre: Los Sauces
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna143:
+    nombre: Lumaco
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna144:
+    nombre: Purén
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna145:
+    nombre: Renaico
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna146:
+    nombre: Traiguén
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna147:
+    nombre: Victoria
+    region_id: 11
+    descripcion: "Descripción"
+
+  comuna148:
+    nombre: Arauco
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna149:
+    nombre: Cañete
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna150:
+    nombre: Contulmo
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna151:
+    nombre: Curanilahue
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna152:
+    nombre: Lebu
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna153:
+    nombre: Los Álamos
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna154:
+    nombre: Tirúa
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna155:
+    nombre: Concepción
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna156:
+    nombre: Coronel
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna157:
+    nombre: Chiguayante
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna158:
+    nombre: Florida
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna159:
+    nombre: Hualpén
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna160:
+    nombre: Hualqui
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna161:
+    nombre: Lota
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna162:
+    nombre: Penco
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna163:
+    nombre: San Pedro de la Paz
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna164:
+    nombre: Santa Juana
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna165:
+    nombre: Talcahuano
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna166:
+    nombre: Tomé
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna167:
+    nombre: Alto Biobío
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna168:
+    nombre: Antuco
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna169:
+    nombre: Cabrero
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna170:
+    nombre: Laja
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna171:
+    nombre: Los Ángeles
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna172:
+    nombre: Mulchén
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna173:
+    nombre: Nacimiento
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna174:
+    nombre: Negrete
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna175:
+    nombre: Quilaco
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna176:
+    nombre: Quilleco
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna177:
+    nombre: San Rosendo
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna178:
+    nombre: Santa Bárbara
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna179:
+    nombre: Tucapel
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna180:
+    nombre: Yumbel
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna181:
+    nombre: Bulnes
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna182:
+    nombre: Chillán
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna183:
+    nombre: Chillán Viejo
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna184:
+    nombre: Cobquecura
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna185:
+    nombre: Coelemu
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna186:
+    nombre: Coihueco
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna187:
+    nombre: El Carmen
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna188:
+    nombre: Ninhue
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna189:
+    nombre: Ñiquén
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna190:
+    nombre: Pemuco
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna191:
+    nombre: Pinto
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna192:
+    nombre: Portezuelo
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna193:
+    nombre: Quillón
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna194:
+    nombre: Quirihue
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna195:
+    nombre: Ránquil
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna196:
+    nombre: San Carlos
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna197:
+    nombre: San Fabián
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna198:
+    nombre: San Ignacio
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna199:
+    nombre: San Nicolás
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna200:
+    nombre: Treguaco
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna201:
+    nombre: Yungay
+    region_id: 10
+    descripcion: "Descripción"
+
+  comuna202:
+    nombre: Cauquenes
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna203:
+    nombre: Chanco
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna204:
+    nombre: Pelluhue
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna205:
+    nombre: Linares
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna206:
+    nombre: San Javier de Loncomilla
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna207:
+    nombre: Parral
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna208:
+    nombre: Villa Alegre
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna209:
+    nombre: Longaví
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna210:
+    nombre: Colbún
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna211:
+    nombre: Retiro
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna212:
+    nombre: Yerbas Buenas
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna213:
+    nombre: Talca
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna214:
+    nombre: San Clemente
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna215:
+    nombre: Pelarco
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna216:
+    nombre: Pencahue
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna217:
+    nombre: Maule
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna218:
+    nombre: San Rafael
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna219:
+    nombre: Curepto
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna220:
+    nombre: Constitución
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna221:
+    nombre: Empedrado
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna222:
+    nombre: Río Claro
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna223:
+    nombre: Curicó
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna224:
+    nombre: Hualañé
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna225:
+    nombre: Licantén
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna226:
+    nombre: Molina
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna227:
+    nombre: Rauco
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna228:
+    nombre: Romeral
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna229:
+    nombre: Sagrada Familia
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna230:
+    nombre: Teno
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna231:
+    nombre: Vichuquén
+    region_id: 9
+    descripcion: "Descripción"
+
+  comuna232:
+    nombre: La Estrella
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna233:
+    nombre: Litueche
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna234:
+    nombre: Marchigüe
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna235:
+    nombre: Navidad
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna236:
+    nombre: Paredones
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna237:
+    nombre: Pichilemu
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna238:
+    nombre: Chépica
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna239:
+    nombre: Chimbarongo
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna240:
+    nombre: Lolol
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna241:
+    nombre: Nancagua
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna242:
+    nombre: Palmilla
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna243:
+    nombre: Peralillo
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna244:
+    nombre: Placilla
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna245:
+    nombre: Pumanque
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna246:
+    nombre: San Fernando
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna247:
+    nombre: Santa Cruz
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna248:
+    nombre: Codegua
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna249:
+    nombre: Coínco
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna250:
+    nombre: Coltauco
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna251:
+    nombre: Doñihue
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna252:
+    nombre: Graneros
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna253:
+    nombre: Las Cabras
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna254:
+    nombre: Machalí
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna255:
+    nombre: Malloa
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna256:
+    nombre: Olivar
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna257:
+    nombre: Peumo
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna258:
+    nombre: Pichidegua
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna259:
+    nombre: Quinta de Tilcoco
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna260:
+    nombre: Rancagua
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna261:
+    nombre: Requínoa
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna262:
+    nombre: Rengo
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna263:
+    nombre: Mostazal
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna264:
+    nombre: San Vicente de Tagua Tagua
+    region_id: 8
+    descripcion: "Descripción"
+
+  comuna265:
+    nombre: Isla de Pascua
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna266:
+    nombre: Algarrobo
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna267:
+    nombre: El Quisco
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna268:
+    nombre: El Tabo
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna269:
+    nombre: Cartagena
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna270:
+    nombre: San Antonio
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna271:
+    nombre: Santo Domingo
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna272:
+    nombre: Quilpué
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna273:
+    nombre: Limache
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna274:
+    nombre: Olmué
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna275:
+    nombre: Villa Alemana
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna276:
+    nombre: Valparaíso
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna277:
+    nombre: Viña del Mar
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna278:
+    nombre: Concón
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna279:
+    nombre: Quintero
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna280:
+    nombre: Puchuncaví
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna281:
+    nombre: Casablanca
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna282:
+    nombre: Juan Fernández
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna283:
+    nombre: Quillota
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna284:
+    nombre: La Calera
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna285:
+    nombre: Nogales
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna286:
+    nombre: Hijuelas
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna287:
+    nombre: La Cruz
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna288:
+    nombre: San Felipe
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna289:
+    nombre: Llaillay
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna290:
+    nombre: Putaendo
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna291:
+    nombre: Santa María
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna292:
+    nombre: Catemu
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna293:
+    nombre: Panquehue
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna294:
+    nombre: Los Andes
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna295:
+    nombre: San Esteban
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna296:
+    nombre: Calle Larga
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna297:
+    nombre: Rinconada
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna298:
+    nombre: La Ligua
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna299:
+    nombre: Cabildo
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna300:
+    nombre: Zapallar
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna301:
+    nombre: Papudo
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna302:
+    nombre: Petorca
+    region_id: 6
+    descripcion: "Descripción"
+
+  comuna303:
+    nombre: Canela
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna304:
+    nombre: Illapel
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna305:
+    nombre: Los Vilos
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna306:
+    nombre: Salamanca
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna307:
+    nombre: Ovalle
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna308:
+    nombre: Río Hurtado
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna309:
+    nombre: Punitaqui
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna310:
+    nombre: Monte Patria
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna311:
+    nombre: Combarbalá
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna312:
+    nombre: La Higuera
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna313:
+    nombre: Vicuña
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna314:
+    nombre: La Serena
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna315:
+    nombre: Coquimbo
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna316:
+    nombre: Andacollo
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna317:
+    nombre: Paihuano
+    region_id: 5
+    descripcion: "Descripción"
+
+  comuna318:
+    nombre: Huasco
+    region_id: 4
+    descripcion: "Descripción"
+
+  comuna319:
+    nombre: Vallenar
+    region_id: 4
+    descripcion: "Descripción"
+
+  comuna320:
+    nombre: Freirina
+    region_id: 4
+    descripcion: "Descripción"
+
+  comuna321:
+    nombre: Alto del Carmen
+    region_id: 4
+    descripcion: "Descripción"
+
+  comuna322:
+    nombre: Caldera
+    region_id: 4
+    descripcion: "Descripción"
+
+  comuna323:
+    nombre: Copiapó
+    region_id: 4
+    descripcion: "Descripción"
+
+  comuna324:
+    nombre: Tierra Amarilla
+    region_id: 4
+    descripcion: "Descripción"
+
+  comuna325:
+    nombre: Chañaral
+    region_id: 4
+    descripcion: "Descripción"
+
+  comuna326:
+    nombre: Diego de Almagro
+    region_id: 4
+    descripcion: "Descripción"
+
+  comuna327:
+    nombre: Mejillones
+    region_id: 3
+    descripcion: "Descripción"
+
+  comuna328:
+    nombre: Sierra Gorda
+    region_id: 3
+    descripcion: "Descripción"
+
+  comuna329:
+    nombre: Antofagasta
+    region_id: 3
+    descripcion: "Descripción"
+
+  comuna330:
+    nombre: Taltal
+    region_id: 3
+    descripcion: "Descripción"
+
+  comuna331:
+    nombre: Calama
+    region_id: 3
+    descripcion: "Descripción"
+
+  comuna332:
+    nombre: Ollagüe
+    region_id: 3
+    descripcion: "Descripción"
+
+  comuna333:
+    nombre: San Pedro de Atacama
+    region_id: 3
+    descripcion: "Descripción"
+
+  comuna334:
+    nombre: Tocopilla
+    region_id: 3
+    descripcion: "Descripción"
+
+  comuna335:
+    nombre: María Elena
+    region_id: 3
+    descripcion: "Descripción"
+
+  comuna336:
+    nombre: Iquique
+    region_id: 2
+    descripcion: "Descripción"
+
+  comuna337:
+    nombre: Alto Hospicio
+    region_id: 2
+    descripcion: "Descripción"
+
+  comuna338:
+    nombre: Huara
+    region_id: 2
+    descripcion: "Descripción"
+
+  comuna339:
+    nombre: Camiña
+    region_id: 2
+    descripcion: "Descripción"
+
+  comuna340:
+    nombre: Colchane
+    region_id: 2
+    descripcion: "Descripción"
+
+  comuna341:
+    nombre: Pica
+    region_id: 2
+    descripcion: "Descripción"
+
+  comuna342:
+    nombre: Pozo Almonte
+    region_id: 2
+    descripcion: "Descripción"
+
+  comuna343:
+    nombre: Arica
+    region_id: 1
+    descripcion: "Descripción"
+
+  comuna344:
+    nombre: Camarones
+    region_id: 1
+    descripcion: "Descripción"
+
+  comuna345:
+    nombre: General Lagos
+    region_id: 1
+    descripcion: "Descripción"
+
+  comuna346:
+    nombre: Putre
+    region_id: 1
+    descripcion: "Descripción"

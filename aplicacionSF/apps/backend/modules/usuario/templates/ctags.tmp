@@ -1,0 +1,21 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_MOD_BY	Bostjan Mihoric	/ccompletion@gmail.com/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	/unofficial modification/
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	/unofficial modification/
+estado	postulantesSuccess.php	22;"	variable
+mision	inscritosSuccess.php	19;"	variable
+mision	inscritosSuccess.php	26;"	variable
+mision	inscritosSuccess.php	75;"	variable
+mision	inscritosSuccess.php	84;"	variable
+mision	postulantesSuccess.php	11;"	variable
+onError	pruebaMovilSuccess.php	29;"	function
+onSuccess	pruebaMovilSuccess.php	21;"	function
+pastoral_cargo	testSuccess.php	21;"	variable
+pastoral_estado_mision	postulantesSuccess.php	49;"	variable
+pastoral_mision	postulantesSuccess.php	48;"	variable
+pastoral_mision	testSuccess.php	19;"	variable
+pastoral_usuario	postulantesSuccess.php	47;"	variable
+pastoral_usuario	testSuccess.php	20;"	variable

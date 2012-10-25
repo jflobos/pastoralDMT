@@ -1,0 +1,13 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/08-Security
+
+AjaxGetNecesidades:
+  is_secure: false
+
+AjaxSetNecesidades:
+  is_secure: false
+  
+AjaxGetTiposNecesidades:
+  is_secure: false
+  
+

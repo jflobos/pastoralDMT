@@ -1,0 +1,28 @@
+# You can find more information about this file on the symfony website:
+# http
+
+
+newSuccess:
+    javascripts:    [proyectoJefesChoosen.js,  InfoJefesProyectoNew.js]
+
+editJefeSuccess:    
+    javascripts:    [proyectoVersionEditarJefe.js]
+    
+
+indexSuccess:
+    javascripts:    [proyecto.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js]
+    stylesheets:    [jquery.jqplot.min.css]
+    
+menuInstanciaSuccess:
+    javascripts:    [proyecto.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js, GraficoInscritosAcumulado.js]
+    stylesheets:    [jquery.jqplot.min.css]
+
+estadisticasVersionSuccess:
+    javascripts:    [proyecto.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js, graphProyecto.js]
+    stylesheets:    [jquery.jqplot.min.css]
+    
+grupoSuccess:
+    javascripts:    [proyecto.js]
+    
+masJefesInstanciaSuccess:    
+    javascripts:    [proyectoVersionMasJefes.js]

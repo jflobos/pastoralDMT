@@ -1,0 +1,2 @@
+indexSuccess:
+    javascripts:    [ diadesalida.js, jquery.Rut.min.js]

@@ -1,0 +1,13 @@
+PastoralTipoInstitucion:
+
+  Tipo_institucion1:
+    nombre:             Universidad
+    descripcion:       "Descripción"
+
+  Tipo_institucion2:
+    nombre:             Colegio
+    descripcion:       "Descripción"
+
+  Tipo_institucion3:
+    nombre:             Ninguna
+    descripcion:       "Descripción"

@@ -1,0 +1,8 @@
+all: 
+  meta: 
+    creator: chuncho
+    title:   phpExcel
+    subject: excel
+    description: excel plugin 
+    keywords: excel
+    category: excel

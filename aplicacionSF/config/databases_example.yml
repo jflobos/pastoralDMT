@@ -1,0 +1,8 @@
+all:
+  doctrine:
+    class: sfDoctrineDatabase
+    param:
+      dsn: 'mysql:host=localhost;dbname=dmisiones_gestor'
+      username: dmisiones
+      password: Xhrp438fCf96V6hv
+      encoding: latin1

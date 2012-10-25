@@ -1,0 +1,42 @@
+# You can find more information about this file on the symfony website:
+# http://www.symfony-project.org/reference/1_4/en/08-Security
+
+AjaxLogin:
+  is_secure: false
+  
+PruebaMovil:
+  is_secure: false
+  
+AjaxLogout:
+  is_secure: false
+  
+AjaxTestLogin:
+  is_secure: false
+  
+new:
+  is_secure: false
+  
+index:
+  is_secure: false
+  
+create:
+  is_secure: false
+  
+AjaxGetMisionesPorSalida:
+  is_secure: false
+  
+AjaxGetInformacionMision:
+  is_secure: false
+  
+AjaxGetComunas:
+  is_secure: false
+
+AjaxGetColegios:
+  is_secure: false
+
+AjaxPasswordReset:
+  is_secure: false
+  
+RecuperarPassword:
+  is_secure: false
+  

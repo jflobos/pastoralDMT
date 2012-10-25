@@ -1,0 +1,23 @@
+PastoralFiltro:
+
+  Filtro1:
+    nombre: Edad mínima
+    descripcion: Útil para filtrar cuando se desea que los voluntarios sean mayores de edad.
+  Filtro2:
+    nombre: Total de inscritos 
+    descripcion: Determina el cupo máximo para una zona.
+  Filtro3:
+    nombre: Máximo porcentaje de hombres 
+    descripcion: Sirve para equilibrar ambos sexos.
+  Filtro4:
+    nombre: Máximo porcentaje de mujeres 
+    descripcion: Sirve para equilibrar ambos sexos.
+  Filtro5:
+    nombre: Movimiento
+    descripcion: Útil cuando se desea que las zonas no se sesgen por un determinado movimiento religioso.
+  Filtro6:
+    nombre: Universidad
+    descripcion: Útil cuando se desea que las zonas no se sesgen por una determinada universidad.
+  Filtro7:
+    nombre: Carrera 
+    descripcion: Útil cuando se desea que las zonas no se sesgen por una determinada carrera.

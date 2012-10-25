@@ -1,0 +1,29 @@
+PastoralEstadoPostulacion:
+
+  rechazado:
+    nombre:                     Rechazado
+    descripcion:                El voluntario fue rechazado.
+
+  pendiente:
+    nombre:                     Pendiente
+    descripcion:                Se está a la espera para saber cual será el estado final del voluntario.
+
+  aceptado:
+    nombre:                     Aceptado
+    descripcion:                El voluntario fue aceptado en la misión.
+    
+  confirmado:
+    nombre:                     Confirmado
+    descripcion:                El voluntario ya confirmo que va a la misión.
+ 
+  no_va:
+    nombre:                     No va
+    descripcion:                El voluntario por algún motivo no va a ir a la misión.
+    
+  no_asistio:
+    nombre:                     No asistió
+    descripcion:                El voluntario por algún motivo no asistió a la misión.
+    
+  llega_mas_tarde:
+    nombre:                     Llega más tarde
+    descripcion:                El voluntario llegará más tarde.

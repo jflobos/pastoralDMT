@@ -1,0 +1,363 @@
+# config/doctrine/schema.yml
+
+detect_relations: true
+
+PastoralUsuario:
+  columns:  
+    user_id:                     { type: integer, notnull: true}
+    rut:                         { type: string(32)}
+    nombre:                      { type: string(255), notnull: true }
+    apellido_materno:            { type: string(255), notnull: true }
+    apellido_paterno:            { type: string(255), notnull: true }
+    fecha_nacimiento:            { type: timestamp, notnull:true }
+    telefono_celular:            { type: string(255) }
+    telefono_emergencia:         { type: string(255) }
+    sexo:                        { type: enum, values:['Masculino','Femenino'] }
+    es_extranjero:               { type: boolean, default: 0}
+    tipo_institucion_id:         { type: integer }
+    universidad_id:              { type: integer }
+    carrera_id:                  { type: integer }
+    ano_ingreso:                 { type: integer }
+    colegio_id:                  { type: integer }
+    curso_id:                    { type: integer }
+    movimiento_id:               { type: integer }
+    direccion:                   { type: string(255) }
+    comuna_id:                   { type: integer }
+    region_id:                   { type: integer }
+    enfermedades_alergias:       { type: string(255) }
+    ultimo_proyecto_accedido_id: { type: integer }
+    email_validado:              { type: boolean, default: 0}
+    token:                       { type: string(50) }
+  relations:                     
+    PastoralProyecto:            { onDelete: CASCADE, local: ultimo_proyecto_accedido_id, foreign: id }
+    PastoralNecesidad:           { type: many, onDelete: CASCADE, local: id, foreign: usuario_creador_id }
+    PastoralNecesidad:           { type: many, onDelete: CASCADE, local: id, foreign: usuario_editor_id }
+    User:                        { class: sfGuardUser, local: user_id, foreign: id, foreignAlias: Profile, foreignType: one, type: one, onDelete: CASCADE }
+    PastoralMovimiento:          { onDelete: CASCADE, local: movimiento_id, foreign: id }
+    PastoralComuna:              { onDelete: CASCADE, local: comuna_id, foreign: id }
+    PastoralRegion:              { onDelete: CASCADE, local: region_id, foreign: id }
+    PastoralMovimiento:          { onDelete: CASCADE, local: movimiento_id, foreign: id }
+    PastoralTipoInstitucion:     { onDelete: CASCADE, local: tipo_institucion_id, foreign: id }
+    PastoralUniversidad:         { onDelete: CASCADE, local: universidad_id, foreign: id }
+    PastoralCarrera:             { onDelete: CASCADE, local: carrera_id, foreign: id }
+    PastoralColegio:             { onDelete: CASCADE, local: colegio_id, foreign: id }
+    PastoralCurso:               { onDelete: CASCADE, local: curso_id, foreign: id }
+
+PastoralUniversidad:
+  columns:
+    nombre:                     { type: string(255), notnull:true, unique: true}
+    sigla:                      { type: string(255), unique: true }
+    descripcion:                { type: string(4000) }
+
+PastoralTipoInstitucion:
+  columns:
+    nombre:                     { type: string(255), notnull:true, unique: true }
+    descripcion:                { type: string(4000) }
+
+PastoralExtranjeroInscrito:
+  columns:
+    usuario_id:                 { type: integer }
+    proyecto_version_id:        { type: integer }
+  relations:
+    PastoralUsuario:            { onDelete: CASCADE, local: usuario_id, foreign: id }
+    PastoralProyectoVersion:    { onDelete: CASCADE, local: proyecto_version_id, foreign: id }
+    
+PastoralCarrera:
+  columns:
+    nombre:                     { type: string(255), notnull:true, unique: true }
+    descripcion:                { type: string(4000) }
+
+PastoralColegio:                
+  columns:                      
+    nombre:                     { type: string(255), notnull:true}
+    descripcion:                { type: string(4000) }
+
+PastoralCurso:                  
+  columns:                      
+    nombre:                     { type: string(255), notnull:true, unique: true }
+    descripcion:                { type: string(4000) }
+
+PastoralMovimiento:             
+  columns:                      
+    nombre:                     { type: string(255), notnull:true, unique: true }
+    descripcion:                { type: string(4000) }
+
+PastoralComuna:                 
+  columns:                      
+    nombre:                     { type: string(255), notnull:true, unique: true }
+    region_id:                  { type: integer }
+    descripcion:                { type: string(4000) }
+  relations:                    
+    PastoralRegion:             { onDelete: CASCADE, local: region_id, foreign: id }
+
+PastoralRegion:                 
+  columns:                      
+    nombre:                     { type: string(255), notnull:true, unique: true }
+    descripcion:                { type: string(4000) }
+
+PastoralGrupo: 
+  columns:              
+    nombre:                     { type: string(255), notnull:true}    
+    descripcion:                { type: string(4000) } 
+    proyecto_version_id:        { type: integer }
+    fecha_inicio:               { type: timestamp }      
+    fecha_termino:              { type: timestamp }
+    cuota:                      { type: integer, notnull:true}
+  relations:
+    PastoralProyectoVersion:    { onDelete: CASCADE, local: proyecto_version_id, foreign: id }
+
+PastoralLocalidad: 
+  columns:              
+    nombre:                     { type: string(255), notnull:true, unique: true }    
+    descripcion:                { type: string(4000) } 
+    localidad_fantasia_id:      { type: integer }
+    latitud:                    { type: string(30), notnull:true }
+    longitud:                    { type: string(30), notnull:true }
+  relations:
+    PastoralLocalidadFantasia:          { onDelete: CASCADE, local: localidad_fantasia_id, foreign: id }
+
+PastoralLocalidadFantasia:      
+  columns:                      
+    nombre:                     { type: string(255), notnull:true, unique: true }  
+    descripcion:                { type: string(4000) }  
+    foto_url:                   { type: string(1023) } 
+
+PastoralMision: 
+  columns:  
+    descripcion:                { type: string(4000) }  
+    fecha_inicio:               { type: timestamp }      
+    fecha_termino:              { type: timestamp }   
+    inscripcion_abierta:        { type: boolean, default: 1}
+    salida_id:                  { type: integer }
+    localidad_id:               { type: integer}
+    localidad_fantasia_id:      { type: integer }
+    grupo_id:                   { type: integer, notnull:true}
+    cuota:                      { type: integer, notnull:true}
+  relations:  
+    PastoralMisionFiltro:       { onDelete: CASCADE, local: id, foreign: mision_id }
+    PastoralSalida:             { onDelete: CASCADE, local: salida_id, foreign: id } 
+    PastoralLocalidad:          { onDelete: CASCADE, local: localidad_id, foreign: id }
+    PastoralLocalidadFantasia:  { type:one, onDelete: CASCADE, local: localidad_fantasia_id, foreign: id }
+    PastoralGrupo:              { type:one, onDelete: CASCADE, local: grupo_id, foreign: id }
+
+PastoralSalida:
+  columns:
+    nombre:                     { type: string(255), notnull:true, unique: true } 
+    descripcion:                { type: string(4000) } 
+
+PastoralNecesidad:              
+  actAs:                        { Timestampable: ~ }
+  columns:                       
+    localidad_id:               { type: integer }    
+    descripcion:                { type: string(4000) }      
+    usuario_creador_id:         { type: integer }
+    usuario_editor_id:          { type: integer }
+    estado_necesidad_id:        { type: integer }
+    tipo_necesidad_id:          { type: integer } 
+    latitud:                    { type: string }
+    longitud:                   { type: string }
+    proyecto_version_id:        { type: integer }
+    
+  relations:                    
+    PastoralLocalidad:          { onDelete: CASCADE, local: localidad_id, foreign: id }
+    Creador:                    { class: PastoralUsuario, onDelete: CASCADE, local: usuario_creador_id, foreign: id }
+    Editor:                     { class: PastoralUsuario, onDelete: CASCADE, local: usuario_editor_id, foreign: id }
+    PastoralEstadoNecesidad:    { onDelete: CASCADE, local: estado_necesidad_id, foreign: id }
+    PastoralTipoNecesidad:      { onDelete: CASCADE, local: tipo_necesidad_id, foreign: id }
+    PastoralProyectoVersion:    { onDelete: CASCADE, local: proyecto_version_id, foreign: id }
+
+PastoralProyecto:
+  columns:
+    nombre:                     { type: string(255), notnull:true, unique: true }     
+    descripcion:                { type: string(4000) }  
+    logo_url:                   { type: string(4000) }
+  relations:                    
+    PastoralProyectoVersion:    { onDelete: CASCADE, local: id, foreign: proyecto_id }
+    PastoralUsuario:            { onDelete: CASCADE, local: id, foreign: ultimo_proyecto_accedido_id }
+
+PastoralProyectoVersion:
+  columns:
+    proyecto_id:                { type: integer }
+    version:                    { type: string  } 
+    ano:                        { type: integer }
+    logo_url:                   { type: string(4000) }
+    token:                      { type: string(255) }
+    fecha_creacion_token:       { type: timestamp }
+  relations:                    
+    PastoralMision:             { onDelete: CASCADE, local: id, foreign: proyecto_version_id }
+    PastoralProyecto:           { onDelete: CASCADE, local: proyecto_id, foreign: id }
+
+PastoralTipoContacto:
+  columns:
+    nombre:                   { type: string(255), notnull:true, unique: true }
+
+PastoralLugar:
+  columns:
+    tipo_contacto_id:         { type: integer }
+    nombre:                   { type: string(255), notnull:true}  
+    comentario:                { type: string(4000) }      
+    direccion:                  { type: string(255) }
+    localidad_id:            { type: integer }
+  relations:                    
+    PastoralTipoContacto:     { onDelete: CASCADE, local: tipo_contacto_id, foreign: id }
+    PastoralLocalidad:          { onDelete: CASCADE, local: localidad_id, foreign: id }
+
+PastoralPerfilAlojamiento:
+  columns:
+    lugar_id:             { type: integer, unique:true }
+    camas:                { type: boolean, default: 0}
+    implementos_cocina:   { type: boolean, default: 0}
+    cuchillos:            { type: boolean, default: 0}
+    refrigerador:         { type: boolean, default: 0}
+    horno:                { type: boolean, default: 0}
+    implementos_servicio: { type: boolean, default: 0}
+    banos:                { type: boolean, default: 0} 
+    duchas:               { type: boolean, default: 0}
+    agua_caliente:        { type: boolean, default: 0}
+    lugar_capilla:        { type: boolean, default: 0}
+    comedor:              { type: boolean, default: 0}
+  relations:                    
+    PastoralLugar:                { onDelete: CASCADE, local: lugar_id, foreign: id }
+
+PastoralContacto:
+  columns:
+    tipo_contacto_id:         { type: integer }
+    nombre:                   { type: string(255), notnull:true }  
+    cargo:                    { type: string(255) }  
+    telefono:                 { type: string(255) }  
+    localidad_id:             { type: integer }
+    lugar_id:                 { type: integer }
+  relations:                    
+    PastoralTipoContacto:     { onDelete: CASCADE, local: tipo_contacto_id, foreign: id }
+    PastoralLocalidad:        { onDelete: CASCADE, local: localidad_id, foreign: id }
+    PastoralLugar:            { onDelete: CASCADE, local: lugar_id, foreign: id }
+
+PastoralTipoNecesidad:          
+  columns:                      
+    nombre:                     { type: string(255) , notnull:true, unique: true }    
+    descripcion:                { type: string(4000) }  
+    color:                      { type: string(20) }
+
+PastoralEstadoNecesidad:        
+  columns:                      
+    nombre:                     { type: string(255) , notnull:true, unique: true }   
+
+PastoralSalida:              
+  columns:                      
+    nombre:                     { type: string(255) , notnull:true, unique: true }       
+    descripcion:                { type: string(4000) }  
+
+PastoralNecesidadMision:        
+  columns:                      
+    necesidad_id:               { type: integer, primary: true  }
+    mision_id:                  { type: integer, primary: true  }
+  relations:                    
+    PastoralNecesidad:          { onDelete: CASCADE, local: necesidad_id, foreign: id }
+    PastoralMision:             { onDelete: CASCADE, local: mision_id, foreign: id }
+
+PastoralMisionUsuarioEstado:
+  actAs:                        { Timestampable: ~ }
+  columns:                      
+    co_evaluacion_enviada:      { type: boolean, default:0 }
+    flag_zona:                  { type: boolean, default:0 }
+    flag_cuota:                 { type: boolean, default:0 }
+    descripcion_zona:           { type: string(4000), default:'Ingresa aqui tus comentarios.' } 
+    descripcion_cuota:          { type: string(4000), default:'Ingresa aqui tus comentarios.' } 
+    recomendado_por_jefes:      { type: boolean, default:0 }
+    recomendado_por_misioneros: { type: integer, default:0 }
+    eval_enviada:               { type: boolean, default:0 }
+    eval_descripcion:           { type: string(4000) } 
+    cuota:                      { type: integer }
+    cuota_solidaria:            { type: integer }
+    asistio:                    { type: boolean, default: 1}
+    mision_id:                  { type: integer }
+    usuario_id:                 { type: integer }
+    estado_postulacion_id:      { type: integer } 
+    cuota_pagada:               { type: boolean, default: 0}
+    fecha_inscripcion:          { type: timestamp }
+  relations:
+    PastoralMision:             { onDelete: CASCADE, local: mision_id, foreign: id }
+    PastoralUsuario:            { onDelete: CASCADE, local: usuario_id, foreign: id }
+    PastoralEstadoPostulacion:  { onDelete: CASCADE, local: estado_postulacion_id, foreign: id }
+
+PastoralUsuarioCargo:
+  actAs:                        { Timestampable: ~ }
+  columns:                    
+    usuario_id:                 { type: integer }
+    cargo_id:                   { type: integer }
+    mision_id:                  { type: integer }
+    proyecto_version_id:        { type: integer }
+    grupo_id:                   { type: integer }
+  relations:
+    PastoralUsuario:            { onDelete: CASCADE, local: usuario_id, foreign: id }
+    PastoralCargo:              { onDelete: CASCADE, local: cargo_id, foreign: id }
+    PastoralMision:             { onDelete: CASCADE, local: mision_id, foreign: id }
+    PastoralProyectoVersion:    { onDelete: CASCADE, local: proyecto_version_id, foreign: id }
+    PastoralGrupo:              { onDelete: CASCADE, local: grupo_id, foreign: id }
+
+PastoralEstadoPostulacion:
+  columns:
+    nombre:                     { type: string(255), unique: true } 
+    descripcion:                { type: string(4000) } 
+
+PastoralFiltro:
+  columns:
+    nombre:                     { type: string(255), unique: true } 
+    descripcion:                { type: string(4000) } 
+  relations:
+    PastoralMisionFiltro:       { onDelete: CASCADE, local: id, foreign: filtro_id }
+
+PastoralMisionFiltro:
+  columns:                     
+    mision_id:                  { type: integer, primary: true  }
+    filtro_id:                  { type: integer, primary: true  }
+    parametros:                 { type: string(4000) } 
+  relations:                    
+    PastoralMision:             { onDelete: CASCADE, local: mision_id, foreign: id }
+    PastoralFiltro:             { onDelete: CASCADE, local: filtro_id, foreign: id }
+
+PastoralNotificacionUsuario:    
+  actAs:                        { Timestampable: ~ }
+  columns:                      
+    recibe_id:                  { type: integer } 
+    envia_id:                   { type: integer } 
+    enviado:                    { type: string(255) }
+    asunto:                     { type: string(255) } 
+    mensaje:                    { type: string(4000) }
+    leido:                      { type: boolean, default:0 }
+    link:                       { type: string(255) }
+  relations:                    
+    PastoralUsuario:            { onDelete: CASCADE, alias: Recibe, type:one, local: recibe_id, foreign: id }
+    PastoralUsuario:            { onDelete: CASCADE, alias: Envia, type:one, local: envia_id, foreign: id }
+
+######################## Cargos y Permisos #################################
+
+PastoralCargo:  
+  actAs:                               { Timestampable: ~ }
+  columns:                             
+    nombre:                            { type: string(255), notnull: true, unique: true }    
+    descripcion:                       { type: string(4000) }
+    es_misionero:                   { type: integer, default:0 }
+    cveb_flag_zona:             { type: integer, default:0 }
+    cveb_flag_cuota:            { type: integer, default:0 }
+    e_inscritos_mision:         { type: integer, default:0 }
+    e_inscritos_cuota:          { type: integer, default:0 }
+    e_inscritos_estado:         { type: integer, default:0 }
+    e_inscritos_cargo:          { type: integer, default:0 }
+    v_misiones:                 { type: integer, default:0 }
+    e_misiones:                 { type: integer, default:0 }
+    cb_misiones:                { type: integer, default:0 }
+    v_grupo:                    { type: integer, default:0 }
+    e_grupo:                    { type: integer, default:0 }
+    cb_grupo:                   { type: integer, default:0 }
+    v_proyectoversion:          { type: integer, default:0 }
+    e_proyectoversion:          { type: integer, default:0 }
+    cb_proyectoversion:         { type: integer, default:0 }
+    v_proyecto:                 { type: integer, default:0 }
+    e_proyecto:                 { type: integer, default:0 }
+    cb_proyecto:                { type: integer, default:0 }
+    v_misioneros:               { type: integer, default:0 }
+    es_director:                { type: integer, default:0 }
+    v_busqueda:                 { type: integer, default:0 }
+    ve_extranjeros:             { type: integer, default:0 }
+    ve_evaluacion_mision:       { type: integer, default:0 }
