@@ -2,14 +2,9 @@
 	$(function(){
 		    var lugar_actual_id=-1;       // Variable auxiliar para manejar los contactos dentro del modal
 		    var contacto_actual_id = -1;
-	
-		    $(".contactos_button").live("click", function(){
-		      
+		    $(".contactos_button").live("click", function(){		      
 		      contactosClickHandler($(this).children(".lugar_id").val());
-		      
 		    });
-	
-		    
 		    $("#agregar_contacto").click(function(){
 		      resetCrearContactoForm();
 		      contacto_actual_id = -1;
@@ -35,7 +30,7 @@
 		    
 		    $(".eliminar_contacto_btn").live("click", function(){
 		      var $contacto = $(this).closest(".contacto");
-		      $.get('../../../localidad/AjaxEliminarContacto',{id: $(this).next(".contacto_id").val()},
+		      $.get(routing.url_for('localidad','AjaxEliminarContacto'),{id: $(this).next(".contacto_id").val()},
 		        function(){
 		          $contacto.hide();
 		      });
@@ -51,7 +46,7 @@
 		    
 		    $('#submit_contacto').click(function(){
 		      //TODO: validar.
-		      $.get("../../../localidad/AjaxCrearActualizarContacto",{tipo_contacto:$('#tipo_contacto_select').val(),nombre:$('#nombre_contacto').val(),
+		      $.get(routing.url_for("localidad","AjaxCrearActualizarContacto"),{tipo_contacto:$('#tipo_contacto_select').val(),nombre:$('#nombre_contacto').val(),
 		      cargo:$('#cargo_contacto').val(),telefono:$('#telefono_contacto').val(), localidad_id:$('#localidad_id').val(),
 		      lugar_id: lugar_actual_id, id: contacto_actual_id},
 		        function(data){
@@ -109,7 +104,7 @@
 		    });
 		    
 		    $("#submit_lugar").click(function(){
-		      $.get("../../../localidad/AjaxCrearActualizarLugar", {nombre_tipo_lugar:$('#nombre_tipo_lugar').val(),nombre:$('#nombre_lugar').val(), 
+		      $.get(routing.url_for("localidad", "AjaxCrearActualizarLugar"), {nombre_tipo_lugar:$('#nombre_tipo_lugar').val(),nombre:$('#nombre_lugar').val(), 
 		        direccion:$('#direccion_lugar').val(), comentario:$('#comentario_lugar').val(), localidad_id:$('#localidad_id').val(),
 		        lugar_id: lugar_actual_id},
 		        function(data){
@@ -155,7 +150,7 @@
 		    
 		    
 		    $("#guardar_checklist_btn").click(function(){
-		      $.get("../../../localidad/AjaxActualizarChecklistLugar", {id:lugar_actual_id, checklist:$('#checklist_form').serialize()},
+		      $.get(routing.url_for("localidad","AjaxActualizarChecklistLugar"), {id:lugar_actual_id, checklist:$('#checklist_form').serialize()},
 		        function(data){
 		          if(!($("#checklist_tab").find(".alert").length > 0))
 		          {
@@ -170,7 +165,7 @@
 		    
 		    
 		    $("#guardar_comentario_lugar_btn").click(function(){
-		      $.get("../../../localidad/AjaxActualizarComentarioLugar", {id:lugar_actual_id, comentario:$('#comentario_lugar_en_tab').val()},
+		      $.get(routing.url_for("localidad", "AjaxActualizarComentarioLugar"), {id:lugar_actual_id, comentario:$('#comentario_lugar_en_tab').val()},
 		        function(data){
 		          if(!($("#descripcion_tab").find(".alert").length > 0))
 		          {
@@ -192,7 +187,7 @@
 		      $('input:checkbox').attr('checked', false);
 		      $("#comentario_lugar_en_tab").val("Cargando...");
 		      
-		      $.get('../../../localidad/AjaxGetInfoLugar',{id: lugar_actual_id},
+		      $.get(routing.url_for('localidad', 'AjaxGetInfoLugar'),{id: lugar_actual_id},
 		        function(data){
 		          $("#contactos_tab").children(".modal-body").html("");
 		          $("#comentario_lugar_en_tab").val("");

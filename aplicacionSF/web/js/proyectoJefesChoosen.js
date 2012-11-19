@@ -12,8 +12,6 @@
 	    $("#pastoral_proyecto_version_ano").parent().change(autocompletarVersionConAno);
 	    
 	    $("#guardar").click(function(){
-	
-	        
 	        var nacional = $("#jefe_nacional option:selected").val();
 	        var finanzas = $("#jefe_finanzas option:selected").val();
 	        var inscripciones = $("#jefe_inscripc option:selected").val();

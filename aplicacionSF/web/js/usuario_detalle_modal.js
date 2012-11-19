@@ -9,7 +9,7 @@ $(function()
 function crear_modal(usuario_id,append_to,mue_id)
 { 
    modal ="";
-   $.get('../usuario/AjaxGetInfoUsuarioParaModal', { usuario_id:usuario_id, mue_id:mue_id },
+   $.get(routing.url_for('usuario', 'AjaxGetInfoUsuarioParaModal'), { usuario_id:usuario_id, mue_id:mue_id },
    function(data){
        usuario      = data[0];
        cuota = "";

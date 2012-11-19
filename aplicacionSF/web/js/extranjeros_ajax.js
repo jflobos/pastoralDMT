@@ -24,7 +24,7 @@
 	         id = $(this).val();
 	    }); 
 	    console.log(selected+" "+mision_nueva);
-	    $.get('AjaxEditarExtranjeros', { selected:selected, mision_nueva:mision_nueva,},
+	    $.get(routing.url_for('extranjero', 'AjaxEditarExtranjeros'), { selected:selected, mision_nueva:mision_nueva,},
 	    function(data){
 	        if(data==1)
 	        {         
@@ -51,7 +51,7 @@
 	    var flag   = $("#flag_postulante").val();
 	    var pagina = $('#pagina').val();
 	    
-	    $.get('AjaxGetExtranjeros', { mision_id: mision, estado_id:estado, pagina:pagina},
+	    $.get(routing.url_for('extranjero','AjaxGetExtranjeros'), { mision_id: mision, estado_id:estado, pagina:pagina},
 	        function(data){
 	            $("#postulantes_content  tr").remove();
 	            $("#tabla_input tr").remove();
@@ -138,7 +138,7 @@
 	            $("#info_tabla_vacia").show();
 	            $("#info_tabla_vacia").html("<br/>La tabla no contiene resultados con los filtro actuales<br/><br/>");
 	        }
-	        $("head").append("<script type='text/javascript' src='http://www.pastoraluc.cl/dm/gestorProyectos/web/js/extranjeros.js'></script>");
+	        $("head").append("<script type='text/javascript' src='"+routing.public_path('js/extranjeros.js')+"'></script>");
 	    }, "json"); 
 	  }
 	  

@@ -22,7 +22,7 @@ $(document).ready(function($){
     var id = $("#jefe option:eq("+position+")").val();
     var element = $(this);
     
-    $.get('../usuario/AjaxGetUserInformation', {usuario_id : id},
+    $.get(routing.url_for('usuario','AjaxGetUserInformation'), {usuario_id : id},
       function(data){
         element.unbind('mouseover');
         element.popover({
@@ -45,7 +45,7 @@ function cambioIndexDeSector()
 {
     document.getElementById('pastoral_mision_localidad_id').options.length = 0;
     var localidad_fantasia_id = $('#pastoral_mision_localidad_fantasia_id').val();
-    $.get('AjaxSectorCambio', { sector_id: localidad_fantasia_id},
+    $.get(routing.url_for('mision','AjaxSectorCambio'), { sector_id: localidad_fantasia_id},
         function(data){
             data = jQuery.parseJSON(data);
             $("#pastoral_mision_localidad_id").append($("<option value=''>"+data[0]+"</option>"));
@@ -61,7 +61,7 @@ function cambioIndexDeProyecto()
 {
     document.getElementById('pastoral_mision_grupo_id').options.length = 0;
     var proyecto_version = $('#pastoral_mision_proyecto_version_id').val();
-    $.get('AjaxProyectoCambio', { proyecto_version_id: proyecto_version},
+    $.get(routing.url_for('mision', 'AjaxProyectoCambio'), { proyecto_version_id: proyecto_version},
         function(data){
             data = jQuery.parseJSON(data);
             for(var i=0;i<data.length;i++)
@@ -76,7 +76,7 @@ function cambioIndexDeProyecto()
 function cambioIndexDeGrupo()
 {
     var grupo = $('#pastoral_mision_grupo_id').val();
-    $.get('AjaxGrupoCambio', { grupo_id: grupo},
+    $.get(routing.url_for('mision', 'AjaxGrupoCambio'), { grupo_id: grupo},
         function(data){
             data = jQuery.parseJSON(data);
             document.getElementById("pastoral_mision_cuota").value = data[0];

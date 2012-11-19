@@ -11,7 +11,7 @@ $(document).ready(function($) {
     $(".guardar_comentarios_usuario").click(function() {
       var mue_id = this.getAttribute("value");
       var descripcion = $("#textarea_"+mue_id).val();
-      $.get('AjaxEditarEvalDescripcion', { mue_id:mue_id,descripcion:descripcion},
+      $.get(routing.url_for('usuario', 'AjaxEditarEvalDescripcion'), { mue_id:mue_id,descripcion:descripcion},
         function(data){
         });
     });
@@ -47,7 +47,7 @@ function enviarSolicitud()
   var recomendado = $('input:checkbox[name=recomiendo]:checked').map(function () {
   return this.value;
   }).get();
-  $.get('AjaxEditarCoEvaluacion', {recomendado:recomendado},
+  $.get(routing.url_for('usuario', 'AjaxEditarCoEvaluacion'), {recomendado:recomendado},
   function(data){
           if(data==1){
           $("#mensaje_enviado").html('<br/>Su evaluaci&oacute;n ha sido enviada exitosamente<br/><br/>');

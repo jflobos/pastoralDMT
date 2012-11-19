@@ -1,4 +1,4 @@
-﻿$(document).ready(function($){
+$(document).ready(function($){
 	$(function()
 	{           
 	    $("#masinfo").children().change(cambioRadiosInfoMetricas);	    
@@ -15,7 +15,7 @@
 	         var vacioZona = document.getElementById('Zona_vacio_o_no_'+id_z).value;	         
 	         if(vacioZona =='vacio'){
 	                       // Se llama al ajax que esta en el action del modulo grupo.  
-	           $.get('../../AjaxEstadisticaZona', {mision_id: id_z},
+	           $.get(routing.url_for('proyecto', 'AjaxEstadisticaZona'), {mision_id: id_z},
 	              function(data){ 
 	                  data = jQuery.parseJSON(data);	                  
 	                  pieChart("chart1_"+data[12],data[0],data[1],"Genero Misioneros");
@@ -34,7 +34,7 @@
 	        var mail_token = document.getElementById('mail_usuario').value;
 	        var nombre_token = document.getElementById('nombre_usuario').value;	                
 	        //Se llama al ajax que esta en el action del modulo grupo.  
-	        $.get('../../AjaxGenerarToken', {proyecto_version_id: pv_id, mail: mail_token, nombre: nombre_token},
+	        $.get(routing.url_for('proyecto', 'AjaxGenerarToken'), {proyecto_version_id: pv_id, mail: mail_token, nombre: nombre_token},
 	          function(data){ 
 	              data = jQuery.parseJSON(data);
 	              if(data[0]!=-1){
@@ -54,6 +54,7 @@
 	    });
 	    
 	});
+});
 	
 	function verMetricasVersion(){       
 	          
@@ -64,7 +65,7 @@
 	         if(vacioGrupo=='vacio'){
 	
 	           // Se llama al ajax que esta en el action del modulo grupo.  
-	           $.get('../../AjaxEstadisticaGrupo', {grupo_id: id_g},
+	           $.get(routing.url_for('proyecto', 'AjaxEstadisticaGrupo'), {grupo_id: id_g},
 	              function(data){ 
 	                  data = jQuery.parseJSON(data);       
 	                  pieChart("chart1_"+data[10],data[0],data[1],"Genero Misioneros");
@@ -94,7 +95,7 @@
 	         
 	         if(vacio=='vacio'){
 	
-	           $.get('proyecto/AjaxEstadisticasGlobales', { id_proyecto: idp},
+	           $.get(routing.url_for('proyecto', 'AjaxEstadisticasGlobales'), { id_proyecto: idp},
 	              function(data){
 	                  
 	                  data = jQuery.parseJSON(data);
@@ -213,7 +214,7 @@
 	      //cambioRadiosInfoMetricas();
 	      
 	      var idp = $("#dropdownProyectos option:selected").val();
-	      $.get('proyecto/SetearComoJefeDeProyecto', { proyecto_id: idp},
+	      $.get(routing.url_for('proyecto', 'SetearComoJefeDeProyecto'), { proyecto_id: idp},
 	              function(data){  
 	                data = jQuery.parseJSON(data);
 	                $("#768531").css("display", "block");
@@ -329,12 +330,11 @@
 	    
 	function SetearComoJefeNacional(proyecto_version)
 	  {
-	      $.get('proyecto/SetearComoJefeDeProyectoVersion', { proyecto_id: proyecto_version},
-	              function(data){  
-	                data = jQuery.parseJSON(data);
-	                $("#768531").css("display", "block");
-	                $("#768532").css("display", "block");
-	                document.getElementById('99876').innerHTML = "<span><span style='font-size:20px;'>"+data[0]+"</span></br><span style='font-size:10px;'>"+data[1]+"</span></span>";
-	            }); 
+	      $.get(routing.url_for('proyecto', 'SetearComoJefeDeProyectoVersion'), { proyecto_id: proyecto_version},
+                  function(data){  
+                    data = jQuery.parseJSON(data);
+                    $("#768531").css("display", "block");
+                    $("#768532").css("display", "block");
+                    document.getElementById('99876').innerHTML = "<span><span style='font-size:20px;'>"+data[0]+"</span></br><span style='font-size:10px;'>"+data[1]+"</span></span>";
+                }); 
 	  }
-});

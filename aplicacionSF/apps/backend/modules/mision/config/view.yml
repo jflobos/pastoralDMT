@@ -1,28 +1,27 @@
 # You can find more information about this file on the symfony website:
 # http
 indexSuccess:
-    javascripts:    [AbrirCerrarInscripcionDesdeIndex.js]
-    
+    javascripts:    [AbrirCerrarInscripcionDesdeIndex.js]    
 
 showSuccess:
-    javascripts:    [jquery-1.7.2.min.js, bootbox.min.js, contactosLocalidad.js, ajaxAbrirCerrarInscripcionMision.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js, graphMision.js]
-    stylesheets:    [jquery.jqplot.min.css]
+    javascripts:    [jquery-1.7.2.min.js, bootstrap/bootstrap-tooltip.js, bootstrap/bootstrap-popover.js, bootstrap/bootbox.min.js, contactosLocalidad.js, ajaxAbrirCerrarInscripcionMision.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js, fineUploader/fileuploader.js, graficos/graphMision.js]
+    stylesheets:    [jquery.jqplot.min.css, fineUploader/fileuploader.css]
 
 newSuccess:
-    javascripts:    [nuevaMision.js, cambioIndexMisionNueva.js, chosen.jquery.js, bootstrap-tooltip.js, bootstrap-dropdown.js, bootstrap-popover.js]
+    javascripts:    [nuevaMision.js, cambioIndexMisionNueva.js, chosen/chosen.jquery.js, bootstrap/bootstrap-tooltip.js, bootstrap/bootstrap-dropdown.js, bootstrap/bootstrap-popover.js]
     stylesheets:    [chosen.css]
     
 estadisticasGrupoSuccess:
-    javascripts:    [proyecto.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js]
+    javascripts:    [proyecto.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graficos/graphFunctions.js]
     stylesheets:    [jquery.jqplot.min.css]
 
 estadisticasMisionSuccess:
-    javascripts:    [proyecto.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js]
+    javascripts:    [proyecto.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graficos/graphFunctions.js]
     stylesheets:    [jquery.jqplot.min.css]
 
 estadisticasVersionSuccess:
-    javascripts:    [proyecto.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js]
+    javascripts:    [proyecto.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graficos/graphFunctions.js]
     stylesheets:    [jquery.jqplot.min.css]
 
 editSuccess:
-    javascripts:    [bootstrap-tooltip.js, bootstrap-popover.js, nuevaMision.js, cambioIndexMisionEdit.js]    
+    javascripts:    [bootstrap/bootstrap-tooltip.js, bootstrap/bootstrap-popover.js, nuevaMision.js, cambioIndexMisionEdit.js]    

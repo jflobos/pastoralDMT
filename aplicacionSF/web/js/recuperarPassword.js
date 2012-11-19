@@ -19,7 +19,7 @@ $(document).ready(function($){
 	  
 	    $("#enviar_password").attr('disabled', 'disabled');
 	    $("#enviar_password").text('Enviando...');
-	    $.get("AjaxPasswordReset",{ rut: $('#rut').val(), email: $('#email').val()},
+	    $.get(routing.url_for('usuario',"AjaxPasswordReset"),{ rut: $('#rut').val(), email: $('#email').val()},
 	      function(data){
 	        $("#enviar_password").text('Enviar contrase\u00f1a');
 	        $("#enviar_password").removeAttr('disabled');

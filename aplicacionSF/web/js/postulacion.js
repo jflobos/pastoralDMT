@@ -2,19 +2,17 @@ $(document).ready(function($){
 	$(function(){
 	   hideMision();
 	    
-	   $("#salidas").change(function () {
-	        
+	   $("#salidas").change(function () {        
 	        
 	        $("#zonas_lista").html("");
 	        $("#zonas_mini").html("");
 	        hideMision();
-	        $("#inscripcion_img").show();
-	        
+	        $("#inscripcion_img").show();	        
 	        
 	        var salida_id = $("#salidas").val();
 	        var proyecto_id = $("#proyecto_id").lenght > 0 ? null : $("#proyecto_id").val();
 	        
-	        $.get('http://www.pastoraluc.cl/dm/gestorProyectos/web/frontend.php/usuario/AjaxGetGruposPorSalida', { salida_id: salida_id, proyecto_id: $("#proyecto_id").val()},
+	        $.get(routing.url_for('usuario','AjaxGetGruposPorSalida'), { salida_id: salida_id, proyecto_id: $("#proyecto_id").val()},
 	            function(data){
 	            $("#grupos").html("");                
 	                jQuery.each(data, function(id, val) {
@@ -34,7 +32,7 @@ $(document).ready(function($){
 	
 	                  hideMision();
 	                  
-	                  $.get('http://www.pastoraluc.cl/dm/gestorProyectos/web/frontend.php/usuario/AjaxGetMisionesPorGrupo', { grupo_id: id},
+	                  $.get(routing.url_for('usuario', 'AjaxGetMisionesPorGrupo'), { grupo_id: id},
 	                      function(data){
 	                        $("#zonas_lista"+id).html("");
 	                        $("#zonas_mini"+id).html("");
@@ -89,14 +87,14 @@ $(document).ready(function($){
 	  
 	  $("#zonas_mini").hide();
 	  hideMision();
-	  $.get('http://www.pastoraluc.cl/dm/gestorProyectos/web/frontend.php/usuario/AjaxGetInformacionMision', { mision_id: id },
+	  $.get(routing.url_for('usuario', 'AjaxGetInformacionMision'), { mision_id: id },
 	      function(data){
 	        var localidad_fantasia = data[0][0];
 	        var mision = data[2][0];
 	        var jefes = data[1];
 	        $("#zona_id").val(mision.id);
 	        $("#foto_localidad li").remove();
-	        $("#foto_localidad").append($("<li class='span3'><span class='thumbnail'><img src='"+localidad_fantasia.foto_url+"' alt=''></span></li>"));
+	        $("#foto_localidad").append($("<li class='span3'><img style='width: 375px' src='"+routing.public_path('uploads/infoZonas/localidadFantasia/'+localidad_fantasia.foto_url)+"' alt='"+localidad_fantasia.nombre+"'></li>"));
 	        $("#info_localidad tr").remove();
 	        $("#info_localidad").append($("<tr><th> Localidad: </th><td>"+localidad_fantasia.nombre+"</td></tr>"));
 	        $("#info_localidad").append($("<tr><th> Descripcion: </th><td>"+localidad_fantasia.descripcion+"</td></tr>"));
@@ -111,7 +109,7 @@ $(document).ready(function($){
 	function submitPostulacion(){
 	  $(".submit_postulacion").button('loading');
 	    var id = $("#zona_id").val();
-	   $.get('http://www.pastoraluc.cl/dm/gestorProyectos/web/frontend.php/usuario/AjaxIngresarPostulante', { mision_id: id },
+	   $.get(routing.url_for('usuario','AjaxIngresarPostulante'), { mision_id: id },
 	      function(data){
 	
 	            var exito = data==1?true:false;

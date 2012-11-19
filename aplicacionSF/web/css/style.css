@@ -104,5 +104,11 @@ span.jPag-sprevious-img{
 span.jPag-snext-img{
     background:transparent url(../images/snext.png) no-repeat center left;
             }
+#detalle-mision .span5{
+    width: 370px;
+}
+#detalle-mision thumbnail img{
+    max-width: 400px;
+}
 
 

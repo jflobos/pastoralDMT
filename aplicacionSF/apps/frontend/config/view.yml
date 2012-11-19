@@ -14,7 +14,7 @@ default:
 
   stylesheets:    [main.css, bootstrap.css, bootstrap.min.css, style.css]
 
-  javascripts:    [jquery-1.7.2.min.js, jquery.paginate.js, postulacion.js, bootstrap.min.js, bootstrap-tab.js, bootstrap-dropdown.js, bootstrap-tab.js]
+  javascripts:    [jquery-1.7.2.min.js, jquery.paginate.js, bootstrap/bootstrap.min.js, bootstrap/bootstrap-tab.js, bootstrap/bootstrap-dropdown.js, bootstrap/bootstrap-tab.js]
 
   has_layout:     true
   layout:         layout

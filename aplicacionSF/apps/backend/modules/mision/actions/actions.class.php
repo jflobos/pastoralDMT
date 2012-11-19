@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 /**
  * mision actions.
@@ -248,7 +248,7 @@ class misionActions extends sfActions
 
     $this->redirect('mision/index');
   }
-
+  
   protected function processForm(sfWebRequest $request, sfForm $form)
   {	
   
@@ -405,7 +405,7 @@ class misionActions extends sfActions
 	  }
     
 	return $this->renderText(json_encode($zona));
-  }
+  }  
   
   public function executeAjaxProyectoCambio(sfWebRequest $request)
   {
@@ -455,7 +455,7 @@ class misionActions extends sfActions
     
   public function executeAjaxEstadisticaMisionGenero(sfWebRequest $request)
   {
-		$mision_id = $request->getParameter('mision_id');    
+    $mision_id = $request->getParameter('mision_id');    
     $respuesta = array();
     
     $mision = Doctrine_Core::getTable('PastoralMision')->findOneById($mision_id);
@@ -473,7 +473,7 @@ class misionActions extends sfActions
   
   public function executeAjaxEstadisticaMisionNecesidades(sfWebRequest $request)
   {
-		$mision_id = $request->getParameter('mision_id');    
+    $mision_id = $request->getParameter('mision_id');    
     $respuesta = array();
     
     $mision = Doctrine_Core::getTable('PastoralMision')->findOneById($mision_id);
@@ -501,8 +501,7 @@ class misionActions extends sfActions
     $experiencia = array();
 
     foreach($misioneros_uc as $misionero_uc)
-    {
-      
+    {      
       $misionero = $misionero_uc->getPastoralUsuario();
       if($misionero->fueAMision($mision->getId()))
       {
@@ -518,7 +517,7 @@ class misionActions extends sfActions
   
   public function executeAjaxEstadisticaMisionEdades(sfWebRequest $request)
   {
-		$mision_id = $request->getParameter('mision_id');       
+    $mision_id = $request->getParameter('mision_id');       
     $mision = Doctrine_Core::getTable('PastoralMision')->findOneById($mision_id);
     $respuesta = $mision->cantidadPorEdades();
     
@@ -527,7 +526,7 @@ class misionActions extends sfActions
   
   public function executeAjaxEstadisticaMisionMovimiento(sfWebRequest $request)
   {
-		$mision_id = $request->getParameter('mision_id');    
+    $mision_id = $request->getParameter('mision_id');    
     $respuesta = array();    
     $movimientos = array();
     $movimientos_religiosos = Doctrine_Core::getTable('PastoralMovimiento')->findAll();
@@ -545,7 +544,7 @@ class misionActions extends sfActions
   
   public function executeAjaxEstadisticaMisionCarreras(sfWebRequest $request)
   {
-		$respuesta = array();
+    $respuesta = array();
     
     $mision = Doctrine_Core::getTable('PastoralMision')->findOneById($request->getParameter('mision_id'));
     $carreras = array();
@@ -556,7 +555,7 @@ class misionActions extends sfActions
       $total = $c->cantidadPorMision($request->getParameter('mision_id'));
       if($total != 0)
       {
-        $carreras[$c->getNombre()] =$total;
+        $carreras[$c->getNombre()] = $total;
       }
     }
     
@@ -564,5 +563,37 @@ class misionActions extends sfActions
     $respuesta[1]=array_values($carreras);
     
     return $this->renderText(json_encode($respuesta));
+  }
+  /*
+   * A partir de este punto programado por Juan Francisco Lobos Galilea
+   */
+  public function executeGetImagenLocalidadFantasiaAjax(sfWebRequest $request){
+      // list of valid extensions, ex. array("jpeg", "xml", "bmp")
+      $allowedExtensions = array("jpeg", "jpg", "bmp", 'gif', 'png');
+      // max file size in bytes
+      $sizeLimit = 2 * 1024 * 1024;      
+      $uploader = new qqFileUploader($allowedExtensions, $sizeLimit);
+      $pathInfo = pathinfo($_GET['qqfile']);
+      $ext = @$pathInfo['extension'];
+      $pastoral_localidad_fantasia = Doctrine_Core::getTable('PastoralLocalidadFantasia')->findOneById($request->getParameter('id'));
+      $_GET['qqfile']= $pastoral_localidad_fantasia->getNombre().$pastoral_localidad_fantasia->getId().".".$ext;
+      $pastoral_localidad_fantasia->setFotoURL($_GET['qqfile']);
+      $pastoral_localidad_fantasia->save();
+      // Call handleUpload() with the name of the folder, relative to PHP's getcwd()
+      $remplazarArchivo = true;
+      $result = $uploader->handleUpload(sfConfig::get('sf_upload_dir').'/infoZonas/localidadFantasia/', $remplazarArchivo);
+      $result['url'] = $pastoral_localidad_fantasia->getFotoUrl();
+      // to pass data through iframe you will need to encode all html tags      
+      return $this->renderText(json_encode($result));
+  }
+  
+  public function executeNombreFantasiaEdit(sfWebRequest $request){
+      $pastoral_localidad_fantasia = Doctrine_Core::getTable('PastoralLocalidadFantasia')->findOneById($request->getParameter('id'));
+      $pastoral_localidad_fantasia->setDescripcion($request->getParameter('info'));
+      $pastoral_localidad_fantasia->save();
+      $result = array();      
+      $result['texto'] = $pastoral_localidad_fantasia->getDescripcion();
+      $this->getResponse()->setContentType('application/json');
+      return $this->renderText(json_encode($result));
   }
 }

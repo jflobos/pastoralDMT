@@ -51,7 +51,7 @@ $(document).ready(function($){
 	    proyecto_version = $("#proyecto_version").val();
 	    proyecto         = $("#proyecto").val();
 	    
-	    $.get('AjaxCambioFiltros', { grupo:grupo, proyecto_version:proyecto_version, proyecto:proyecto},
+	    $.get(routing.url_for('usuario','AjaxCambioFiltros'), { grupo:grupo, proyecto_version:proyecto_version, proyecto:proyecto},
 	    function(data){
 	         misiones             =  data[2];
 	         grupos               =  data[1];
@@ -110,7 +110,7 @@ $(document).ready(function($){
 	    
 	    $('#tabla_usuarios tr').remove();
 	    
-	    $.get('AjaxBusqueda', { pagina:pagina, rj:rj, rc:rc, mision: mision, grupo:grupo, proyecto_version:proyecto_version, proyecto:proyecto, carrera:carrera, universidad:universidad, movimiento:movimiento, sexo:sexo, busqueda_string:busqueda_string, cargo:cargo},
+	    $.get(routing.url_for('usuario','AjaxBusqueda'), { pagina:pagina, rj:rj, rc:rc, mision: mision, grupo:grupo, proyecto_version:proyecto_version, proyecto:proyecto, carrera:carrera, universidad:universidad, movimiento:movimiento, sexo:sexo, busqueda_string:busqueda_string, cargo:cargo},
 	       function(data){
 	       if(data[0]!='')
 	       {
@@ -180,7 +180,7 @@ $(document).ready(function($){
 	           $("#info_tabla_vacia").show();
 	           $("#info_tabla_vacia").html("<br/>La tabla no contiene resultados con los filtro actuales<br/><br/>");
 	       }
-	       $("head").append("<script type='text/javascript' src='http://www.pastoraluc.cl/dm/gestorProyectos/web/js/usuario_detalle_modal.js'></script>");
+	       $("head").append("<script type='text/javascript' src='"+public_path('js/usuario_detalle_modal.js')+"'></script>");
 	    }, "json"); 
 	}
 	

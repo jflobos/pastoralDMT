@@ -1,4 +1,4 @@
-﻿$(document).ready(function($){
+$(document).ready(function($){
 
     $('#jefe_nuevo').chosen({no_results_text: "Error, no existe el campo indicado"});
     $('#cargo_nuevo').chosen({no_results_text: "Error, no existe el campo indicado"});
@@ -9,15 +9,15 @@
         var id_proyecto = document.getElementById('id_proyecto').value;
         
         
-        $.get('../../AjaxMasJefeInstancia', { id_jefe: id_jefe_nuevo, id_cargo: id_cargo_nuevo, proyecto: id_proyecto },
+        $.get(routing.url_for('proyecto' ,'AjaxMasJefeInstancia'), { id_jefe: id_jefe_nuevo, id_cargo: id_cargo_nuevo, proyecto: id_proyecto },
         function(data){     
             
             if(data==1){
-              window.location = "../../menuInstancia/id/"+id_proyecto;
+              window.location = routing.url_for('proyecto' ,'AjaxMasJefeInstancia')+"/id/"+id_proyecto;
             }
             else{
               alert("Error! No se ha podido agregar el nuevo jefe. Intentelo de nuevo mas tarde");
-              window.location = "../../menuInstancia/id/"+id_proyecto; 
+              window.location = routing.url_for('proyecto' ,'AjaxMasJefeInstancia')+"/id/"+id_proyecto; 
             }
             
         }, "json"); 
@@ -30,7 +30,7 @@
     var nombre = $("#jefe_nuevo option:eq("+position+")").text();
     var id = $("#jefe_nuevo option:eq("+position+")").val();
     var element = $(this);
-    $.get('../../../usuario/AjaxGetUserInformation', {usuario_id : id},
+    $.get(routing.url_for('usuario', 'AjaxGetUserInformation'), {usuario_id : id},
       function(data){
         element.unbind('mouseover');
         element.popover({

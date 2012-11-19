@@ -3,7 +3,7 @@
 <div class="page-header">
  <h1><?php echo $pastoral_mision->getNombre() ?> <small>Pastoral UC</small></h1>
 </div>
-<div>
+<div style="margin-bottom: 10px;">
     <a href="<?php echo url_for('mision/index') ?>"><button class="btn btn-info">Atr&aacute;s</button></a>
     <?php if($cargo_actual->getEMisiones()!=0): ?> 
     <a href="<?php echo url_for('mision/edit?id='.$pastoral_mision->getId()) ?>"><button class="btn btn-info">Editar zona</button></a>
@@ -112,17 +112,31 @@
             <tr>
             	<th>Descripci&oacute;n:</th>
             	<?php if($pastoral_localidad_fantasia->getDescripcion() != ''):?>
-            		<td><?php echo $pastoral_localidad_fantasia->getDescripcion()?></td>
+            		<td class="descripcion_localidad_fantasia_container">
+                            <div id="descripcion_localidad_fantasia_texto">
+                                <?php echo $pastoral_localidad_fantasia->getDescripcion()?>
+                            </div>
+                            <a class="btn btn-small btn-mini btn-info cambiar_descripcion_zona_fantasia" data-toggle="modal" href="#modal">Cambiar</a>
+                        </td>                        
             	<?php else:?>
-            		<td>No se ha agregado una descripci&oacute;n para la zona</td>
+            		<td class="descripcion_localidad_fantasia_container">
+                            No se ha agregado una descripci&oacute;n para la zona                            
+                            <a class="btn btn-small btn-mini btn-info agregar_descripcion_zona_fantasia" data-toggle="modal" href="#modal">Agregar</a>                            
+                        </td>                        
             	<?php endif;?>                
             </tr>
             <tr>
             	<th>Foto:</th>
             	<?php if($pastoral_localidad_fantasia->getFotoUrl() != ''):?>
-            		<td><img src="<?php echo $pastoral_localidad_fantasia->getFotoUrl()?>"/></td>
+            		<td class="imagen_localidad_fantasia">
+                            <img style="max-width: 500px;" src="<?php echo public_path('uploads/infoZonas/localidadFantasia/'.$pastoral_localidad_fantasia->getFotoUrl()) ?>"/>
+                            <a class="btn btn-small btn-mini btn-info cambiar_imagen_zona_fantasia">Cambiar</a>
+                        </td>                        
             	<?php else:?>
-            		<td>No hay foto disponible</td>
+            		<td class="imagen_localidad_fantasia">
+                            No hay foto disponible
+                            <a class="btn btn-small btn-mini btn-info cambiar_imagen_zona_fantasia">Agregar</a>
+                        </td>                        
             	<?php endif;?>
             </tr>
           </tbody>
@@ -132,8 +146,6 @@
   </div>
 </div>
 <!-- Fin acordion con los jefes de la zona -->
-
-
 <!-- Acordion con los jefes de la zona -->
 <div class="accordion" id="infoJefes">
   <div class="accordion-group">
@@ -319,7 +331,6 @@
   </table>
 </div>
 </div> 
-
 <div>
     <a href="<?php echo url_for('mision/index') ?>"><button class="btn btn-info">Atr&aacute;s</button></a>
     <?php if($cargo_actual->getEMisiones()!=0): ?> 
@@ -327,8 +338,98 @@
     <?php endif; ?> 
  </div> 
 <br></br>
-
 </div>
+<div id="modal" class="modal hide fade">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+    <h3>Editar Sector</h3>
+  </div>
+  <div id="form-editar-localidad-fantasia" class="modal-body">    
+      Cargando informaci&oacute;n
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal" >Cerrar</a>
+    <a href="#" class="btn btn-primary enviar_informacion">Guardar</a>
+  </div>
+</div>
+<script type="text/javascript">    
+    $(document).ready(function(){
+        $('.cambiar_descripcion_zona_fantasia').click(function(){
+            //Ver como agregar el tipo de accion en el AJAX que llama al agregar dato            
+            imprimirFormulario('descripcion','editar');            
+        });
+        $('.agregar_descripcion_zona_fantasia').click(function(){
+            //Cambiar el valor del modal-body
+            imprimirFormulario('descripcion','agregar');            
+        });
+        $('.cambiar_imagen_zona_fantasia').click(function(){
+            imprimirFormulario('imagen', 'cambiar');
+        });
+        $('.enviar_informacion').click(function(){
+            var texto = $('.text_area_descripcion_form_localidad_fantasia').val();
+            $.ajax({
+                url: '<?php echo url_for('mision/nombreFantasiaEdit?id='.$pastoral_localidad_fantasia->getId()) ?>',
+                type: 'POST',
+                data:{
+                    info: texto
+                },
+              success: function(data){                
+                $('.descripcion_localidad_fantasia_container').empty();
+                $('.descripcion_localidad_fantasia_container').append('<div id="descripcion_localidad_fantasia_texto">'+data.texto+'</div>');
+                $('.descripcion_localidad_fantasia_container').append('<a class="btn btn-small btn-mini btn-info cambiar_descripcion_zona_fantasia" data-toggle="modal" href="#modal">Cambiar</a>');
+                //Volvemos a suscribir el evento
+                $('.cambiar_descripcion_zona_fantasia').click(function(){
+                    //Ver como agregar el tipo de accion en el AJAX que llama al agregar dato            
+                    imprimirFormulario('descripcion','editar');      
+                });
+                $('#modal').modal('hide');
+              }
+            });
+        });
+    });
+    function imprimirFormulario(tipo_de_dato, accion){
+        modal_form = $('#form-editar-localidad-fantasia');
+        modal_form.empty();        
+        if(tipo_de_dato == 'descripcion'){            
+            modal_form.append('<div id="tipo_de_dato_form_localidad_fantasia" style="display: none;" valor="descripcion"/>');
+            modal_form.append("<fieldset><legend>Descripci&oacute;n</legend>"); 
+            if(accion == 'agregar'){                                          
+                modal_form.append('<textarea class="text_area_descripcion_form_localidad_fantasia" rows="8" style="width: 495px">Agregar</textarea>');
+            }            
+            else{
+                modal_form.append('<textarea class="text_area_descripcion_form_localidad_fantasia" rows="8" style="width: 495px"></textarea>');
+                $('.text_area_descripcion_form_localidad_fantasia').append($.trim($('#descripcion_localidad_fantasia_texto').text()));
+            }
+        }
+        else{
+            modal_form.append('<div id="tipo_de_dato_form_localidad_fantasia" style="display: none;" valor="imagen"/>');
+            modal_form.append('<div id="imagen_localidad_fantasia"></div>');
+            modal_form.append('<div class="drop_area">Arrastra una imagen hacia aqui</div>');
+            createUploader();
+            $('#modal').modal('toggle');
+        }
+    }
+    function createUploader(){    
+        //Agregar evento para el fin de la carga de los datos.
+        var uploader = new qq.FileUploader({
+            element: document.getElementById('imagen_localidad_fantasia'),
+            action: '<?php echo url_for('mision/getImagenLocalidadFantasiaAjax?id='.$pastoral_localidad_fantasia->getId()) ?>',
+            debug: false,
+            extraDropzones: [qq.getByClass(document, 'drop_area')[0]],
+            multiple: false,
+            onComplete: function(id, fileName, responseJSON){                
+                $('.imagen_localidad_fantasia').empty();
+                $('.imagen_localidad_fantasia').append('<img style="max-width: 500px;" src="<?php echo public_path('uploads/infoZonas/localidadFantasia/') ?>'+responseJSON.url+'"/>');
+                $('.imagen_localidad_fantasia').append('<a class="btn btn-small btn-mini btn-info cambiar_imagen_zona_fantasia">Cambiar</a>');
+                //Agregamos el listener al evento
+                $('.cambiar_imagen_zona_fantasia').click(function(){
+                    imprimirFormulario('imagen', 'cambiar');
+                });
+                $('#modal').modal('hide');
+            }
+        });           
+    }
+</script>
 <br/>
 <br/>
 <br/>

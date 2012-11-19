@@ -184,7 +184,7 @@
 	  //Carga los marcadores de las localidades, poniendole handlers a los del sector de la mision para poder clickiarlos.
 	  function cargarMarkers()
 	  {
-	     $.get('AjaxGetLocalidades',{},
+	     $.get(routing.url_for('localidad', 'AjaxGetLocalidades'),{},
 	      function(data){
 	        var image = getPinImage("7569FE");
 	        var maxLoc = [-1000, -1000];

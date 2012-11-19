@@ -28,7 +28,7 @@
 	         if(checkBox==1){
 	              if(esNumero){
 	                  if(esPositivo){
-	                      $.get('diadesalida/AjaxCambiarEstadoCuota', { rut_misionero: rut, cuotaSolidaria: cuota_solidaria }, function(data){ 
+	                      $.get(routing.url_for('diadesalida','AjaxCambiarEstadoCuota'), { rut_misionero: rut, cuotaSolidaria: cuota_solidaria }, function(data){ 
 	                          if(data==1){                   
 	                             document.getElementById('cambios').style.display = 'none';
 	                             document.getElementById('resultado').style.display = 'none';
@@ -70,7 +70,7 @@
 	       
 	     if(rut){
 	               
-	         $.get('diadesalida/AjaxDiaDeSalida', { rut_misionero: rut, version_id: id_proyecto_version},
+	         $.get(routing.url_for('diadesalida','AjaxDiaDeSalida'), { rut_misionero: rut, version_id: id_proyecto_version},
 	            function(data){ 
 	                data = jQuery.parseJSON(data);
 	                

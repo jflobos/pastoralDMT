@@ -1,0 +1,6 @@
+# You can find more information about this file on the symfony website:
+# http
+
+indexSuccess:
+    javascripts:    []
+    layout:         layoutPublico

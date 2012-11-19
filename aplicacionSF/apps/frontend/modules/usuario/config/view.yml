@@ -8,23 +8,23 @@ editSuccess:
     javascripts:    [registro.js, jquery.Rut.min.js]
     
 showSuccess:
-    javascripts:    [bootstrap-tab.js ,bootbox.min.js]
+    javascripts:    [bootstrap/bootstrap-tab.js ,bootstrap/bootbox.min.js, postulacion.js]
 
 editComentarioSuccess:
-    javascripts:    [bootstrap-typeahead.js]
+    javascripts:    [bootstrap/bootstrap-typeahead.js]
 
 recuperarPasswordSuccess:
     javascripts:    [recuperarPassword.js, jquery.Rut.min.js]
     
 formularioCoEvaluacionSuccess:
-    javascripts:    [bootstrap-modal.js, coEvaluacion.js]
+    javascripts:    [bootstrap/bootstrap-modal.js, coEvaluacion.js]
     
 informacionSuccess:
-    javascripts:    [bootstrap-tab.js]
+    javascripts:    [bootstrap/bootstrap-tab.js]
 
 inscripcionSuccess:
-    javascripts:    [bootstrap-tab.js]
+    javascripts:    [bootstrap/bootstrap-tab.js]
     stylesheets:    [inscripcion_web.css]
     
 reportesVoluntariosSuccess.php:
-    javascripts:    [bootstrap-modal.js, evaluacionJefe.js]
+    javascripts:    [bootstrap/bootstrap-modal.js, evaluacionJefe.js]

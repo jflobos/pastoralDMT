@@ -49,7 +49,7 @@ $(function(){
          if(cuota_nueva>0)
             $('#'+id+'_cuota_en_tabla span').html($("#cuota_nueva").val());
     }); 
-    $.get('AjaxEditarInscritos', { selected:selected, mision_nueva:mision_nueva,cargo_nuevo:cargo_nuevo,estado_nuevo:estado_nuevo,cuota_nueva:cuota_nueva},
+    $.get(routing.url_for('usuario', 'AjaxEditarInscritos'), { selected:selected, mision_nueva:mision_nueva,cargo_nuevo:cargo_nuevo,estado_nuevo:estado_nuevo,cuota_nueva:cuota_nueva},
     function(data){
         if(data==1)
         {
@@ -64,7 +64,7 @@ $(function(){
           $("#"+id+"_solucionar_solicitud_zona").show();
           $("#"+id+"_guardar_flag_zona_button").html('Guardar Cambios');
           var text =$("#"+id+"_text_zona").val();
-          $.get('AjaxEditarFlagZona', { uem_id:id,descripcion:text},
+          $.get(routing.url_for('usuario','AjaxEditarFlagZona'), { uem_id:id,descripcion:text},
           function(data){
               if(data==1){}
               else if(data==0){}
@@ -81,7 +81,7 @@ $(function(){
           $("#"+id+"_solucionar_solicitud_cuota").show();
           $("#"+id+"_guardar_flag_cuota_button").html('Guardar Cambios');
           var text =$("#"+id+"_text_cuota").val();
-          $.get('AjaxEditarFlagCuota', { uem_id:id,descripcion:text},
+          $.get(routing.url_for('usuario', 'AjaxEditarFlagCuota'), { uem_id:id,descripcion:text},
           function(data){
               if(data==1){}
               else if(data==0){}
@@ -153,7 +153,7 @@ $(function(){
     var flag   = $("#flag_postulante").val();
     var pagina = $('#pagina').val();
     
-    $.get('AjaxGetMUEdeEstadoYMision', { mision_id: mision, estado_id:estado, flag_id:flag, pagina:pagina},
+    $.get(routing.url_for('usuario', 'AjaxGetMUEdeEstadoYMision'), { mision_id: mision, estado_id:estado, flag_id:flag, pagina:pagina},
         function(data){
             $("#postulantes_content  tr").remove();
             $("#tabla_input tr").remove();
@@ -361,7 +361,7 @@ $(function(){
             $("#info_tabla_vacia").show();
             $("#info_tabla_vacia").html("<br/>La tabla no contiene resultados con los filtro actuales<br/><br/>");
         }
-        $("head").append("<script type='text/javascript' src='http://www.pastoraluc.cl/dm/gestorProyectos/web/js/postulantes.js'></script>");
+        $("head").append("<script type='text/javascript' src='"+routing.public_path('js/postulantes.js')+"'></script>");
     }, "json"); 
   }
   

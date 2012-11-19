@@ -17,22 +17,33 @@ class PastoralSalidaTable extends Doctrine_Table
         return Doctrine_Core::getTable('PastoralSalida');
     }
 	
-	public function getSalidas()
-	  {
-		$query = Doctrine_Query::create()
-        ->from('PastoralSalida a');
-		
-		return $query ->execute();		
-	  }
+    public function getSalidas()
+    {
+        $query = Doctrine_Query::create()
+            ->from('PastoralSalida a');
+        return $query ->execute();		
+    }
     
     
     public function getSalidaPorId($id_salida)
-	  {
-		$query = Doctrine_Query::create()
-        ->from('PastoralSalida a')
-        ->where('a.id = ?',$id_salida);
-		
-		return $query ->fetchOne();		
-	  }
+    {
+        $query = Doctrine_Query::create()
+            ->from('PastoralSalida a')
+            ->where('a.id = ?',$id_salida);		
+        return $query ->fetchOne();		
+    }
+    
+    public static function getSalidasPorProyecto($id_proyecto)
+    {
+        $data = Doctrine_Core::getTable('PastoralSalida')->createQuery()
+                    ->from('PastoralSalida as ps')
+                    ->leftJoin('ps.PastoralMision pm ON ps.id = pm.salida_id')
+                    ->leftJoin('pm.PastoralGrupo pg ON pg.id = pm.grupo_id')
+                    ->leftJoin('pg.PastoralProyectoVersion ppv ON ppv.id = pg.proyecto_version_id')
+                    ->leftJoin('pm.PastoralLocalidadFantasia plf ON plf.id = pm.localidad_fantasia_id')
+                    ->where('ppv.id = ?', $id_proyecto)->fetchArray();
+        return $data;
+    }
+    
 
 }

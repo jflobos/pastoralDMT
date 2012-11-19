@@ -2,15 +2,15 @@ createSuccess:
     javascripts:    [grupo.js]    
 
 showSuccess:
-    javascripts:    [estadisticasGrupo.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js]
+    javascripts:    [graficos/estadisticasGrupo.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graficos/graphFunctions.js]
     stylesheets:    [jquery.jqplot.min.css]
 
 newSuccess:
     javascripts:    [grupo.js, InfoJefesNew.js]
 
 editSuccess:
-    javascripts:    [grupo.js, InfoJefesEdit.js, bootstrap-tooltip.js, bootstrap-popover.js]
+    javascripts:    [grupo.js, InfoJefesEdit.js, bootstrap/bootstrap-tooltip.js, bootstrap/bootstrap-popover.js]
     
 newSuccess:
-    javascripts:    [bootstrap-tooltip.js, bootstrap-popover.js]
+    javascripts:    [bootstrap/bootstrap-tooltip.js, bootstrap/bootstrap-popover.js]
     

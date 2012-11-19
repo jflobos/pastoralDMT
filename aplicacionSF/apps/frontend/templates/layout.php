@@ -13,6 +13,26 @@
     		width: 160px;
     	}
     </style>
+    <script type="text/javascript">
+        //Libreria para el manejo de routing        
+        var routing = (function(){
+            var getPath = function(){
+                return '<?php echo public_path(); ?>';
+            }
+            return {
+                public_path:  function public_path(path){
+                        if(path)
+                            retorno = getPath()+path;
+                        else
+                            retorno = getPath();
+                        return retorno; 
+                },
+                url_for: function url_for(module, action){
+                    return getPath()+'frontend.php'+'/'+module+'/'+action;
+                }
+            }
+        })();
+    </script>
   </head>
 
 <header>
@@ -35,5 +55,5 @@
     <div id="content" class="embedido" style="width: 800px; margin-left: auto; margin-right: auto;">
     <?php echo $sf_content ?>
     </div>
-  </body>
+  </body>   
 </html>

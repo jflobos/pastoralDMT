@@ -870,7 +870,7 @@ EOF
     $this->forward404Unless($pastoral_usuario_token);   
     $nombre_token = $pastoral_usuario_token->getNombre();
     $this->nombre_token = $nombre_token;    
-    $usuario_para_sacar_mail = Doctrine_Core::getTable('SfGuardUser')->findOneById($id_para_token);
+    $usuario_para_sacar_mail = Doctrine_Core::getTable('SfGuardUser')->findOneById($id_para_token);    
     $this->forward404Unless($usuario_para_sacar_mail); 
     $mail_token = $usuario_para_sacar_mail->getEmailAddress();
     $this->mail_token = $mail_token;

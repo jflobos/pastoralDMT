@@ -1,4 +1,4 @@
-﻿$(document).ready(function($){
+$(document).ready(function($){
 	$(function()
 	{ 
 	   
@@ -40,7 +40,7 @@
 	  function cargarMarkers()
 	  {
 	      
-	      $.get("../../AjaxGetComentarios",{id: $("#localidad_id").val()},
+	      $.get(routing.url_for("localidad","AjaxGetComentarios"),{id: $("#localidad_id").val()},
 	      function(data){
 	        jQuery.each(data['comentarios'], function(id, val) {
 	          agregarMarcador(val);
@@ -76,7 +76,7 @@
 	      comentario_actual_id = comentario['id'];
 	      infowindow.setOptions({maxWidth:600, content: "Cargando..."});
 	      infowindow.open(map,mark);
-	      $.get("../../AjaxGetComentario",{id: comentario['id']},
+	      $.get(routing.url_for("localidad","AjaxGetComentario"),{id: comentario['id']},
 	        function(data){
 	          infowindow.close();
 	          var contentString = crearInfoWindowContent(data['comentario']);
@@ -218,7 +218,7 @@
 	    
 	    function borrarComentario(id)
 	    {
-	      $.get("../../AjaxBorrarComentario", {id: id},
+	      $.get(routing.url_for("localidad","AjaxBorrarComentario"), {id: id},
 	        function(data){
 	          $(".comentario_id[value="+data['comentario']['id']+"]").closest("tr").remove();
 	          $("#nuevo_comentario_modal").modal("hide");
@@ -228,7 +228,7 @@
 	    
 	    function solucionarComentario(id)
 	    {
-	      $.get("../../AjaxSolucionarComentario", {id: id},
+	      $.get(routing.url_for("localidad","AjaxSolucionarComentario"), {id: id},
 	        function(data){
 	          $fila = crearFilaHistorialComentario(data["comentario"]);
 	          $("#historial_table").children("tbody").prepend($fila);

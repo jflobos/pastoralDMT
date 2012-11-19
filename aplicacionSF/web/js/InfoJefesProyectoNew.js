@@ -7,7 +7,7 @@ $(document).ready(function($){
     var nombre = $("#"+id+" option:eq("+position+")").text();
     var id = $("#"+id+" option:eq("+position+")").val();
     var element = $(this);
-    $.get('../usuario/AjaxGetUserInformation', {usuario_id : id},
+    $.get(routing.url_for('usuario','AjaxGetUserInformation'), {usuario_id : id},
       function(data){
         element.unbind('mouseover');
         element.popover({

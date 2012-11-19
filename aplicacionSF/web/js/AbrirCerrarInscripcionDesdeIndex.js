@@ -13,7 +13,7 @@ function botonClick(boton, mision)
     boton.innerHTML='Cerrada';
     estado_inscripcion = 0;
   }
-   $.get('mision/AjaxEstadoInscripcionCambio', { inscripcion_abierta: estado_inscripcion, mision_id: mision},
+   $.get(routing.url_for('mision','AjaxEstadoInscripcionCambio'), { inscripcion_abierta: estado_inscripcion, mision_id: mision},
         function(data){
         
         });

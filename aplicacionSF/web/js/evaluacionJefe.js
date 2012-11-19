@@ -21,7 +21,7 @@ $(document).ready(function($) {
     $(".guardar_comentarios_usuario").click(function() {
       var mue_id = this.getAttribute("value");
       var descripcion = $("#textarea_"+mue_id).val();
-      $.get('../../AjaxEditarEvalDescripcion', { mue_id:mue_id,descripcion:descripcion},
+      $.get(routing.url_for('usuario', 'AjaxEditarEvalDescripcion'), { mue_id:mue_id,descripcion:descripcion},
         function(data){
         });
     });
@@ -70,7 +70,7 @@ function guardarCambios(enviar)
   var no_recomendado = $('input:checkbox[name=recomiendo]:not(:checked)').map(function () {
   return this.value;
   }).get();
-  $.get('../../AjaxEditarEvaluacion', { asistio:asistio, recomendado:recomendado ,no_asistio:no_asistio, no_recomendado:no_recomendado, enviar:enviar},
+  $.get(routing.url_for('usuario', 'AjaxEditarEvaluacion'), { asistio:asistio, recomendado:recomendado ,no_asistio:no_asistio, no_recomendado:no_recomendado, enviar:enviar},
   function(data){
         if(data==1){
           $("#mensaje_enviado").show();

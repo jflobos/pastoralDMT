@@ -10,15 +10,15 @@ editJefeSuccess:
     
 
 indexSuccess:
-    javascripts:    [proyecto.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js]
+    javascripts:    [proyecto.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graficos/graphFunctions.js]
     stylesheets:    [jquery.jqplot.min.css]
     
 menuInstanciaSuccess:
-    javascripts:    [proyecto.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js, GraficoInscritosAcumulado.js]
+    javascripts:    [proyecto.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graficos/graphFunctions.js, graficos/GraficoInscritosAcumulado.js]
     stylesheets:    [jquery.jqplot.min.css]
 
 estadisticasVersionSuccess:
-    javascripts:    [proyecto.js, jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js, graphProyecto.js]
+    javascripts:    [proyecto.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graficos/graphFunctions.js, graficos/graphProyecto.js]
     stylesheets:    [jquery.jqplot.min.css]
     
 grupoSuccess:

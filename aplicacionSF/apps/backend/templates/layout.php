@@ -8,6 +8,26 @@
     <link rel="shortcut icon" href="/favicon.ico" />
     <?php include_stylesheets() ?>
     <?php include_javascripts() ?>
+    <script type="text/javascript">
+        //Libreria para el manejo de routing
+        var routing = (function(){
+            var getPath = function(){
+                return '<?php echo public_path(); ?>';
+            }
+            return {
+                public_path:  function public_path(path){
+                        if(path)
+                            retorno = getPath()+path;
+                        else
+                            retorno = getPath();
+                        return retorno; 
+                },
+                url_for: function url_for(module, action){
+                    return getPath()+'backend.php'+'/'+module+'/'+action;
+                }
+            }
+        })();        
+    </script>
   </head>
 
 <header>

@@ -31,7 +31,7 @@
     <input id="proyecto_id" type="hidden" val="<?php echo $proyecto_version;?>">        
     <div class="span7 well" id="content_zonas">
       </br>
-      <img src="http://www.pastoraluc.cl/dm/gestorProyectos/web/images/inscripcion.png" id="inscripcion_img" style="max-width: 400px;"/>
+      <img src="<?php echo public_path('images/inscripcion.png')?>" id="inscripcion_img" style="max-width: 400px;"/>
        
       <span class="span4" id="resultado_postulacion" ></span> 
       <div id="zonas_mini">

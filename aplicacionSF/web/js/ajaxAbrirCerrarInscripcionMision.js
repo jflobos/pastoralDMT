@@ -28,7 +28,7 @@ function cambioEstadoInscripciones()
     {
       estado_inscripcion = 1;
     }
-    $.get('../../AjaxEstadoInscripcionCambio', { inscripcion_abierta: estado_inscripcion, mision_id: mision},
+    $.get(routing.url_for('mision','AjaxEstadoInscripcionCambio'), { inscripcion_abierta: estado_inscripcion, mision_id: mision},
         function(data){
         
         });

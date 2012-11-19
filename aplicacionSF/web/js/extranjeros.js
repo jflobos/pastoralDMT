@@ -8,7 +8,7 @@ $(document).ready(function($){
 	    $(".solucionar_solicitud_cuota").click(function(){
 	        var id = this.getAttribute('value');
 	        var cuota = $("#"+id+"_cuota_nueva_module").val();
-	        $.get('AjaxSetMueCuota', { id: id, cuota:cuota},
+	        $.get(routing.url_for('usuario','AjaxSetMueCuota'), { id: id, cuota:cuota},
 	            function(data){
 	            if(data ==1)
 	            {
@@ -22,7 +22,7 @@ $(document).ready(function($){
 	        var id = this.getAttribute('value');
 	        var selected = $('#mision_nueva_modal_'+id+' option:selected');
 	        var zona_id = selected.val();
-	        $.get('AjaxSetMueZona', { id: id, zona_id:zona_id},
+	        $.get(routing.url_for('usuario','AjaxSetMueZona'), { id: id, zona_id:zona_id},
 	            function(data){
 	            if(data ==1)
 	            {
