@@ -26,7 +26,7 @@
       </div>
     </div>    
     <div class="span7 well" id="content_zonas">
-      <img src="<?php echo public_path('images/inscripcion.png')?>" id="inscripcion_img" style="max-width: 400px;"/>             
+      <img src="<?php echo public_path('images/chile.png')?>" id="inscripcion_img" style="max-width: 400px;"/>             
       <div id='detalle-mision'>
         <div class="span5">
           <ul class="thumbnails" id="foto_localidad">
