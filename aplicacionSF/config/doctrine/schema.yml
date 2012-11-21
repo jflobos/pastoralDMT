@@ -128,6 +128,7 @@ PastoralMision:
     fecha_inicio:               { type: timestamp }      
     fecha_termino:              { type: timestamp }   
     inscripcion_abierta:        { type: boolean, default: 1}
+    zona_visible:               { type: boolean, default: 1}
     salida_id:                  { type: integer }
     localidad_id:               { type: integer}
     localidad_fantasia_id:      { type: integer }

@@ -4,7 +4,7 @@ indexSuccess:
     javascripts:    [AbrirCerrarInscripcionDesdeIndex.js]    
 
 showSuccess:
-    javascripts:    [jquery-1.7.2.min.js, bootstrap/bootstrap-tooltip.js, bootstrap/bootstrap-popover.js, bootstrap/bootbox.min.js, contactosLocalidad.js, ajaxAbrirCerrarInscripcionMision.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graphFunctions.js, fineUploader/fileuploader.js, graficos/graphMision.js]
+    javascripts:    [jquery-1.7.2.min.js, bootstrap/bootstrap-tooltip.js, bootstrap/bootstrap-popover.js, bootstrap/bootbox.min.js, contactosLocalidad.js, ajaxAbrirCerrarInscripcionMision.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graficos/graphFunctions.js, fineUploader/fileuploader.js, graficos/graphMision.js]
     stylesheets:    [jquery.jqplot.min.css, fineUploader/fileuploader.css]
 
 newSuccess:

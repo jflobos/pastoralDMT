@@ -1,5 +1,6 @@
 <!--[if lt IE 9]><script language="javascript" type="text/javascript" src="excanvas.js"></script><![endif]--> 
-<div>
+<?php $cargo = $sf_user->getAttribute('usuario_cargo')->getPastoralCargo();?>
+<div>    
 <div class="page-header">
  <h1><?php echo $pastoral_mision->getNombre() ?> <small>Pastoral UC</small></h1>
 </div>
@@ -22,6 +23,7 @@
       <th>Lugar de salida</th>
       <th>Cuota</th>
       <th>Estado inscripciones</th>
+      <th>Estado en web proyecto</th>
     </tr>
   </thead>
   <tbody>
@@ -77,13 +79,20 @@
         if(!$inscripcion_abierta)
           $inscripcion = 'Cerrada';
         else
-          $inscripcion = 'Abierta'; 
-        if($inscripcion=='Abierta'){?>
+          $inscripcion = 'Abierta';
+        ?>
+        <?php if(!$cargo->getEMisiones()){ $able = 'disabled="disabled"'; $title="No puedes cambiar el estado de inscripciones";}?>
+        <?php if($inscripcion=='Abierta'):?>
           <td id="centrar"><button id='inscripcion' <?php echo$able ?> title= '<?php echo$title ?>' class="btn btn-success"><?php echo $inscripcion ?></button></td>
-        <?php }
-        else{?>
+        <?php else:?>
           <td id="centrar"><button id='inscripcion' <?php echo$able ?> title= '<?php echo$title ?>' class="btn btn-danger"><?php echo $inscripcion ?></button></td>
-        <?php }?>
+        <?php endif;?>
+        <?php if(!$cargo->getEMisiones()){ $able = 'disabled="disabled"';}?>
+        <?php if($pastoral_mision->getZonaVisible()):?>
+          <td id="centrar"><button id='visibilidad' <?php echo$able ?> title= '<?php echo$title ?>' class="btn btn-success">Visible</button></td>
+        <?php else:?>
+          <td id="centrar"><button id='visibilidad' <?php echo$able ?> title= '<?php echo$title ?>' class="btn btn-danger">Oculta</button></td>
+        <?php endif;?>
         
     </tr>
   </tbody>

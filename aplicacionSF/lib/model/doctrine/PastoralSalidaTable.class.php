@@ -41,7 +41,9 @@ class PastoralSalidaTable extends Doctrine_Table
                     ->leftJoin('pm.PastoralGrupo pg ON pg.id = pm.grupo_id')
                     ->leftJoin('pg.PastoralProyectoVersion ppv ON ppv.id = pg.proyecto_version_id')
                     ->leftJoin('pm.PastoralLocalidadFantasia plf ON plf.id = pm.localidad_fantasia_id')
-                    ->where('ppv.id = ?', $id_proyecto)->fetchArray();
+                    ->where('ppv.id = ?', $id_proyecto)
+                    ->andWhere('pm.zona_visible = 1')
+                    ->fetchArray();
         return $data;
     }
     

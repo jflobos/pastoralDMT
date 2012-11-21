@@ -79,8 +79,7 @@ class PastoralMisionForm extends BasePastoralMisionForm
 	  
 	  $Jefes_con_ids = array_combine($ids_jefe, $JefeArray); 
 
-	   $this->useFields(array('descripcion','fecha_inicio','fecha_termino',
-							  'grupo_id','salida_id','localidad_id','localidad_fantasia_id','cuota','inscripcion_abierta'));
+	   $this->useFields(array('descripcion','fecha_inicio','fecha_termino','grupo_id','salida_id','localidad_id','localidad_fantasia_id','cuota','inscripcion_abierta', 'zona_visible'));
 	  
 	  
 				

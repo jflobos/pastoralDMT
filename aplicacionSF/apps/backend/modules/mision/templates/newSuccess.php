@@ -32,6 +32,7 @@
 				<?php echo $form['cuota']->renderRow() ?>         
 				<?php echo $form['descripcion']->renderRow() ?>
 				<?php echo $form['inscripcion_abierta']->renderRow() ?>
+                                <?php echo $form['zona_visible']->renderRow() ?>
 				<?php echo $form->renderHiddenFields() ?>			 	
 				<td>Jefes
           <td>

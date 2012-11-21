@@ -447,12 +447,24 @@ class misionActions extends sfActions
     $mision = Doctrine_Core::getTable('PastoralMision')->findOneById($mision_id);
     
     $mision->setInscripcionAbierta($inscripcion_abierta)
-           ->save();
-    
+           ->save();    
     $respuesta = 1;
-		return $this->renderText(json_encode($respuesta));
+    return $this->renderText(json_encode($respuesta));
   }
+  
+   public function executeAjaxEstadoVisibilidad(sfWebRequest $request)
+  {
+    $zona_visible = $request->getParameter('zona_visible'); 
+    $mision_id = $request->getParameter('mision_id');
     
+    $mision = Doctrine_Core::getTable('PastoralMision')->findOneById($mision_id);
+    
+    $mision->setZonaVisible($zona_visible)
+           ->save();    
+    $respuesta = 1;
+    return $this->renderText(json_encode($respuesta));
+  }
+  
   public function executeAjaxEstadisticaMisionGenero(sfWebRequest $request)
   {
     $mision_id = $request->getParameter('mision_id');    

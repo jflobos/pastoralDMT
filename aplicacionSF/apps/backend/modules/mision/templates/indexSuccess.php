@@ -1,9 +1,11 @@
+<?php $cargo = $sf_user->getAttribute('usuario_cargo')->getPastoralCargo();?>
+
 <div class="page-header">
  <h1>Zonas <small>Pastoral UC</small></h1>
 </div>
 
 <div >
-		<a href="<?php echo url_for('mision/new') ?>"><button class="btn btn-info">Crear nueva Zona</button></a>
+    <a href="<?php echo url_for('mision/new') ?>"><button class="btn btn-info">Crear nueva Zona</button></a>
 </div >
 <br/>
 <table class="table table-bordered table-striped">
@@ -17,6 +19,7 @@
       <th>Inscritos UC</th>
       <th>Lugar de salida</th>
       <th>Estado inscripciones</th>
+      <th>Estado en web proyecto</th>
     </tr>
   </thead>
   <tbody>
@@ -73,14 +76,31 @@
         if(!$inscripcion_abierta)
           $inscripcion = 'Cerrada';
         else
-          $inscripcion = 'Abierta'; 
-        if($inscripcion=='Cerrada'){?>
-          <td id="centrar"><button id='inscripcion_.<?php echo $pastoral_mision->getId() ?>' <?php echo$able ?> title= '<?php echo$title ?>' style="width : 80px;" class="btn btn-danger" onclick='botonClick(this,<?php echo $pastoral_mision->getId() ?>)'><?php echo $inscripcion ?></button></td>
-        <?php }
-        else{?>
-          <td id="centrar"><button id='inscripcion_.<?php echo $pastoral_mision->getId() ?>' <?php echo$able ?> title= '<?php echo$title ?>' style="width : 80px;" class="btn btn-success" onclick='botonClick(this,<?php echo $pastoral_mision->getId() ?>)'><?php echo $inscripcion?></button></td>
-        <?php }?>
-        
+          $inscripcion = 'Abierta';
+        ?>
+        <?php if($cargo->getEMisiones()):?>
+            <?php if($inscripcion=='Cerrada'):?>
+              <td id="centrar"><button id='inscripcion_.<?php echo $pastoral_mision->getId() ?>' <?php echo$able ?> title= '<?php echo$title ?>' style="width : 80px;" class="btn btn-danger" onclick='botonClick(this,<?php echo $pastoral_mision->getId() ?>)'><?php echo $inscripcion ?></button></td>
+            <?php else:?>
+              <td id="centrar"><button id='inscripcion_.<?php echo $pastoral_mision->getId() ?>' <?php echo$able ?> title= '<?php echo$title ?>' style="width : 80px;" class="btn btn-success" onclick='botonClick(this,<?php echo $pastoral_mision->getId() ?>)'><?php echo $inscripcion?></button></td>
+            <?php endif?>
+        <?php else:?>
+              <td id="centrar"><button id='inscripcion_.<?php echo $pastoral_mision->getId() ?>' disabled="disabled" title= '<?php echo$title ?>' style="width : 80px;" class="btn btn-success"><?php echo $inscripcion?></button></td>
+        <?php endif;?>
+        <?php if(!$cargo->getEMisiones()){ 
+                $able = 'disabled="disabled"';                 
+                $function = '';     
+            }
+            else{
+                $able = '';
+                $function = 'onclick="botonVisibilidadClick(this,'.$pastoral_mision->getId().')"';     
+            }
+        ?>
+        <?php if($pastoral_mision->getZonaVisible()):?>
+          <td id="centrar"><button id='visibilidad' <?php echo$able ?> title= '<?php echo$title ?>' class="btn btn-success" <?php echo $function ?> >Visible</button></td>
+        <?php else:?>
+          <td id="centrar"><button id='visibilidad' <?php echo$able ?> title= '<?php echo$title ?>' class="btn btn-danger" <?php echo $function ?>>Oculta</button></td>
+        <?php endif;?>        
     </tr>
     <?php endforeach; ?>
   </tbody>
