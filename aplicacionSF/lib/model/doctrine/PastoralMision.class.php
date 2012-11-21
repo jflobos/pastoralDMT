@@ -29,8 +29,8 @@ class PastoralMision extends BasePastoralMision
         {
             //Revisamos el estado de postulacion:
             $estadosQueEstanEnMision = array(2,3,4,6,7);            
-            if(in_array($mue->getPastoralEstadoPostulacion()->getId(), $estadosQueEstanEnMision) && 
-              $mue->getPastoralMision()->getFechaTermino() > date("Y-m-d"))
+            if(in_array($mue->getPastoralEstadoPostulacion()->getId(), $estadosQueEstanEnMision))
+              //&& $mue->getPastoralMision()->getFechaTermino() > date("Y-m-d"))
             {
               return $mue;
             }
