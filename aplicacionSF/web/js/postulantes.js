@@ -197,7 +197,7 @@ var postulantesManager = (function()
     }
 })();
 
-$(window).load(function(){
+$(document).ready(function(){
     postulantesManager.init();
 });
 

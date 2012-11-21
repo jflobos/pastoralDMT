@@ -25,9 +25,11 @@ class PastoralMision extends BasePastoralMision
   {
         $q1 = Doctrine_Core::getTable('PastoralMisionUsuarioEstado')->addMUEporUsuarioQuery($usuario_id);
         $mues = Doctrine_Core::getTable('PastoralMisionUsuarioEstado')->addMUEporMisionQuery($this->getId(),$q1)->execute();
-        foreach($mues as $mue)
+        foreach($mues as $mue)            
         {
-            if($mue->getPastoralEstadoPostulacion()->getId() != 1 && 
+            //Revisamos el estado de postulacion:
+            $estadosQueEstanEnMision = array(2,3,4,6,7);            
+            if(in_array($mue->getPastoralEstadoPostulacion()->getId(), $estadosQueEstanEnMision) && 
               $mue->getPastoralMision()->getFechaTermino() > date("Y-m-d"))
             {
               return $mue;

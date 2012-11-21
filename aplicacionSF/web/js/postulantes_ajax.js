@@ -22,7 +22,7 @@ $(function(){
     $(".guardar_cambios").click(function () {
         guardar_cambios_muec();
     });
-  
+    postulantesManager.init();
 });
   
   function guardar_cambios_muec()
@@ -362,7 +362,7 @@ $(function(){
             $("#info_tabla_vacia").html("<br/>La tabla no contiene resultados con los filtro actuales<br/><br/>");
         }
         $("head").append("<script type='text/javascript' src='"+routing.public_path('js/postulantes.js')+"'></script>");
-    }, "json"); 
+    }, "json");     
   }
   
   function toString(data)

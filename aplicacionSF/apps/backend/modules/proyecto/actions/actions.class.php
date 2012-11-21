@@ -204,13 +204,14 @@ class proyectoActions extends sfActions
     $pv_fecha = $pv_fecha[0]['created_at'];
         
     $q = Doctrine_Query::create()
-        ->addSelect('u.id')
+        ->addSelect('u.id')->distinct()
         ->addSelect('mue.id')
         ->addSelect('DATEDIFF(mue.created_at,"'.(string)$pv_fecha.'") as day')
         ->addSelect('COUNT(mue.created_at) as number')
         ->from('PastoralMisionUsuarioEstado mue')
         ->andWhere('pv.id = ?',$pv_id)
         ->andWhere('mue.created_at > 0')
+        ->andWhereIn('mue.estado_postulacion_id', array(3,4))
         ->leftJoin('mue.PastoralUsuario u')
         ->leftJoin('mue.PastoralMision m')
         ->leftJoin('m.PastoralGrupo g')
@@ -258,6 +259,7 @@ class proyectoActions extends sfActions
                 ->from('PastoralMisionUsuarioEstado mue')
                 ->andWhere('pv.id = ?',$pv2_id)
                 ->andWhere('mue.created_at > 0')
+                ->andWhereIn('mue.estado_postulacion_id', array(3,4))
                 ->leftJoin('mue.PastoralMision m')
                 ->leftJoin('m.PastoralGrupo g')
                 ->leftJoin('g.PastoralProyectoVersion pv')
@@ -268,13 +270,14 @@ class proyectoActions extends sfActions
                 $pv_fecha = $pv_fecha[0]['fecha_inscripcion'];
                 
             $q = Doctrine_Query::create()
-                ->addSelect('u.id')
+                ->addSelect('u.id')->distinct()
                 ->addSelect('mue.id')
                 ->addSelect('DATEDIFF(mue.created_at,"'.(string)$pv_fecha.'") as day')
                 ->addSelect('COUNT(mue.created_at) as number')
                 ->from('PastoralMisionUsuarioEstado mue')
                 ->andWhere('pv.id = ?',$pv2_id)
                 ->andWhere('mue.created_at > 0')
+                ->andWhereIn('mue.estado_postulacion_id', array(3,4))
                 ->leftJoin('mue.PastoralUsuario u')
                 ->leftJoin('mue.PastoralMision m')
                 ->leftJoin('m.PastoralGrupo g')
@@ -481,25 +484,20 @@ class proyectoActions extends sfActions
       $pv_id = $uc->getProyectoVersionId();
       $g_id = $uc->getGrupoId();
       $m_id = $uc->getMisionId();
-      $esDirector = false;
-      
+      $esDirector = false;      
       if($cargo_actual->getEsDirector()==1){
         $esDirector = true;  
-      }
-      
+      }      
       if(!$esDirector)
       {	
         $this->redirect("/backend_dev.php/usuario/PermisoDenegado");
       }
-    }
-    
+    }    
     else{
         $this->redirect("/backend_dev.php/usuario/PermisoDenegado"); 
-    }
-    
+    }    
     $this->posibles_jefes = Doctrine_Core::getTable('PastoralUsuario')->findAll();
-    $this->form = new PastoralProyectoVersionForm();
-    
+    $this->form = new PastoralProyectoVersionForm();    
   }
 
   public function executeCreate(sfWebRequest $request)
