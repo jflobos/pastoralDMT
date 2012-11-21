@@ -144,11 +144,12 @@ EOF
     	$proyecto_id = $this->pastoral_usuario->getUltimoProyectoAccedidoId();
     }
     $this -> mostrar_postulacion  = 1;
+    $misiones = Doctrine_Core::getTable('PastoralMision')->getMisionesPorProyecto($proyecto_id);
     $misiones_inscribibles= Doctrine_Core::getTable('PastoralMision')->getMisionesInscribiblesPorProyecto($proyecto_id);
     
-    if($misiones_inscribibles->count()!=0)
+    if($misiones->count()!=0)
     {
-      foreach($misiones_inscribibles as $mision)
+      foreach($misiones as $mision)
       {
         $estadoPostulacion = $mision->getPostulacionActiva($id);
         if($estadoPostulacion)
