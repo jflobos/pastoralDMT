@@ -241,7 +241,7 @@
       <div class="btn-group ">
         <button class="btn btn-mini select_all"><i class="icon-check"></i></button>
         <button class="btn btn-mini select_none"><i class="icon-edit"></i></button>
-        <button class="btn btn-mini download_excel" title="Descargar lista a Excel"><img src="<?php echo url_for('/images/excel.bmp')?>" width="14" height="20"></button>      
+        <button class="btn btn-mini download_excel" title="Descargar lista a Excel"><img src="<?php echo public_path('/images/excel.bmp')?>" width="14" height="20"></button>      
       </div>
     </div>
 <!------------------------------------------------------------------------------------------------------------------------

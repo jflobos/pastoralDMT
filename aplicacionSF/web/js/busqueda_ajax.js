@@ -180,7 +180,7 @@ $(document).ready(function($){
 	           $("#info_tabla_vacia").show();
 	           $("#info_tabla_vacia").html("<br/>La tabla no contiene resultados con los filtro actuales<br/><br/>");
 	       }
-	       $("head").append("<script type='text/javascript' src='"+public_path('js/usuario_detalle_modal.js')+"'></script>");
+	       $("head").append("<script type='text/javascript' src='"+routing.public_path('js/usuario_detalle_modal.js')+"'></script>");
 	    }, "json"); 
 	}
 	
