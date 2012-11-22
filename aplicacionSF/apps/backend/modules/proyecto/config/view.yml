@@ -10,15 +10,15 @@ editJefeSuccess:
     
 
 indexSuccess:
-    javascripts:    [proyecto.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graficos/graphFunctions.js]
+    javascripts:    [proyecto.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, jqplot/jqplot.canvasAxisTickRenderer.min.js, jqplot/jqplot.canvasTextRenderer.min.js, graficos/graficosModule.js]
     stylesheets:    [jquery.jqplot.min.css]
     
 menuInstanciaSuccess:
-    javascripts:    [proyecto.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graficos/graphFunctions.js, graficos/GraficoInscritosAcumulado.js]
+    javascripts:    [proyecto.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, jqplot/jqplot.canvasAxisTickRenderer.min.js, jqplot/jqplot.canvasTextRenderer.min.js, graficos/graficosModule.js]
     stylesheets:    [jquery.jqplot.min.css]
 
 estadisticasVersionSuccess:
-    javascripts:    [proyecto.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graficos/graphFunctions.js, graficos/graphProyecto.js]
+    javascripts:    [proyecto.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, jqplot/jqplot.canvasAxisTickRenderer.min.js, jqplot/jqplot.canvasTextRenderer.min.js, graficos/graficosModule.js]
     stylesheets:    [jquery.jqplot.min.css]
     
 grupoSuccess:

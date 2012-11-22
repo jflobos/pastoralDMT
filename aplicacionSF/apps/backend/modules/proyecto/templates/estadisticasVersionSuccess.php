@@ -21,3 +21,9 @@
 
 <div id="chart7" style= " height: 250px; position: relative; " class="jqplot-target"></div>
 </div>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+       graficosModule.getEstadisticaProyecto(); 
+    });
+</script>

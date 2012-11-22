@@ -14,18 +14,7 @@ $(document).ready(function($){
 	         var id_z = $("#dropdownProyectoVersionMisiones option:selected").val();	         
 	         var vacioZona = document.getElementById('Zona_vacio_o_no_'+id_z).value;	         
 	         if(vacioZona =='vacio'){
-	                       // Se llama al ajax que esta en el action del modulo grupo.  
-	           $.get(routing.url_for('proyecto', 'AjaxEstadisticaZona'), {mision_id: id_z},
-	              function(data){ 
-	                  data = jQuery.parseJSON(data);	                  
-	                  pieChart("chart1_"+data[12],data[0],data[1],"Genero Misioneros");
-	                  barGraph("chart5_"+data[12],data[4],data[5],"Edades Misioneros");
-	                  barGraph("chart6_"+data[12],data[6],data[7],"Movimiento Misioneros");
-	                  barGraph("chart7_"+data[12],data[8],data[9],"Carreras Misioneros");
-	                  pieChart("chart2_"+data[12],data[10],data[11],"Necesidades Abarcadas");	                  
-	                  var v = document.getElementById('Zona_vacio_o_no_'+data[12]);
-	                  v.value = 'lleno';
-	            });  
+                   graficosModule.initMetricasGrupo(id_z);
 	         }
 	    });
 	    
@@ -62,21 +51,8 @@ $(document).ready(function($){
 	         
 	         var vacioGrupo = document.getElementById('Grupo_vacio_o_no_'+id_g).value;
 	         
-	         if(vacioGrupo=='vacio'){
-	
-	           // Se llama al ajax que esta en el action del modulo grupo.  
-	           $.get(routing.url_for('proyecto', 'AjaxEstadisticaGrupo'), {grupo_id: id_g},
-	              function(data){ 
-	                  data = jQuery.parseJSON(data);       
-	                  pieChart("chart1_"+data[10],data[0],data[1],"Genero Misioneros");
-	                  barGraph("chart5_"+data[10],data[2],data[3],"Edades Misioneros");
-	                  barGraph("chart6_"+data[10],data[4],data[5],"Movimiento Misioneros");
-	                  barGraph("chart7_"+data[10],data[6],data[7],"Carreras Misioneros");
-	                  pieChart("chart2_"+data[10],data[8],data[9],"Necesidades Abarcadas");
-	                  
-	                  var v = document.getElementById('Grupo_vacio_o_no_'+data[10]);
-	                  v.value = 'lleno';
-	            });  
+	         if(vacioGrupo=='vacio'){	
+	             graficosModule.initMetricasVersion(id_g);
 	         }
 	    }
 	
@@ -85,30 +61,16 @@ $(document).ready(function($){
 	         
 	
 	         if(director_o_jefe=='director'){
-	            var idp = $("#dropdownProyectos option:selected").val();
+	            var id_p = $("#dropdownProyectos option:selected").val();
 	         }
 	         else if(director_o_jefe=='jefe'){
-	            var idp = $("#id_proyecto_jefe").val();        
+	            var id_p = $("#id_proyecto_jefe").val();        
 	         }
 	                  
-	         var vacio = document.getElementById('vacio_o_no_'+idp).value;
+	         var vacio = document.getElementById('vacio_o_no_'+id_p).value;
 	         
-	         if(vacio=='vacio'){
-	
-	           $.get(routing.url_for('proyecto', 'AjaxEstadisticasGlobales'), { id_proyecto: idp},
-	              function(data){
-	                  
-	                  data = jQuery.parseJSON(data);
-	                  
-	                  pieChart("chart1_"+data[12],data[0],data[1],"Genero Misioneros");
-	                  barGraph("chart5_"+data[12],data[4],data[5],"Edades Misioneros");
-	                  barGraph("chart6_"+data[12],data[6],data[7],"Movimiento Misioneros");
-	                  barGraph("chart7_"+data[12],data[8],data[9],"Carreras Misioneros");
-	                  pieChart("chart2_"+data[12],data[10],data[11],"Necesidades Abarcadas");
-	                  
-	                  var v = document.getElementById('vacio_o_no_'+data[12]);
-	                  v.value = 'lleno';
-	            });  
+	         if(vacio=='vacio'){	
+	             graficosModule.initMetricasGlobales(id_p);
 	         }
 	 
 	    }

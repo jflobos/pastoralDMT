@@ -183,10 +183,71 @@ class proyectoActions extends sfActions
   
   }
   
+  protected function getInscritosPorDia($pv_id ,$pv_fecha, $confirmados = false){
+    $retorno[0] =  Array();
+    $retorno[1] =  Array();
+    $q = Doctrine_Query::create()
+        ->addSelect('u.id')->distinct()
+        ->addSelect('mue.id')
+        ->addSelect('DATEDIFF(mue.created_at,"'.(string)$pv_fecha.'") as day')
+        ->addSelect('COUNT(mue.created_at) as number')
+        ->from('PastoralMisionUsuarioEstado mue')
+        ->andWhere('pv.id = ?',$pv_id)        
+        ->andWhere('mue.created_at > 0')        
+        ->leftJoin('mue.PastoralUsuario u')
+        ->leftJoin('mue.PastoralMision m')
+        ->leftJoin('m.PastoralGrupo g')
+        ->leftJoin('g.PastoralProyectoVersion pv')  
+        ->addOrderBy('mue.created_at ASC')
+        ->addGroupBy('DAY(mue.created_at)'  )
+        ->addGroupBy('MONTH(mue.created_at)')
+        ->addGroupBy('YEAR(mue.created_at)' );
+    if($confirmados){
+        $q->andWhereNotIn('mue.estado_postulacion_id', array(1,2,5));
+    }    
+    $array = $q->fetchArray();
+    $total = 0;    
+    for($i=0;$i<count($array);$i++){ 
+      $total += $array[$i]["number"];
+      $date = $array[$i]["day"];
+      array_push($retorno[1],(int)$total);
+      array_push($retorno[0],(int)$date);
+    }
+    return $retorno;
+  }
+  
+  public function executeAjaxInscritosVSAceptados(sfWebRequest $request)
+  { 
+    $pv_id = $request->getParameter('pv_id');    
+    $q1 = Doctrine_Query::create()
+        ->addSelect('mue.created_at')
+        ->from('PastoralMisionUsuarioEstado mue')
+        ->andWhere('pv.id = ?',$pv_id)
+        ->andWhere('mue.created_at > 0')
+        ->leftJoin('mue.PastoralMision m')
+        ->leftJoin('m.PastoralGrupo g')
+        ->leftJoin('g.PastoralProyectoVersion pv')
+        ->addOrderBy('mue.created_at ASC');        
+    $pv_fecha = $q1->fetchArray();
+    $pv_fecha = $pv_fecha[0]['created_at'];   
+    
+    $aux = $this->getInscritosPorDia($pv_id, $pv_fecha, false);
+    $respuesta[0] = $aux[0];
+    $respuesta[1] = $aux[1];    
+    
+    $aux = $this->getInscritosPorDia($pv_id, $pv_fecha, true);    
+    $respuesta[2] = $aux[0];
+    $respuesta[3] = $aux[1];    
+    $this->getResponse()->setContentType('application/json');
+    return $this->renderText(json_encode($respuesta)); 
+  }
   public function executeAjaxInscritosAcumulados(sfWebRequest $request)
   {
-    $pv_id = $request->getParameter('pv_id');
-    
+    $respuesta[0] = Array();
+    $respuesta[1] = Array();
+    $respuesta[2] = Array();
+    $respuesta[3] = Array();
+    $pv_id = $request->getParameter('pv_id');    
     $q1 = Doctrine_Query::create()
         ->addSelect('mue.created_at')
         ->from('PastoralMisionUsuarioEstado mue')
@@ -196,48 +257,14 @@ class proyectoActions extends sfActions
         ->leftJoin('m.PastoralGrupo g')
         ->leftJoin('g.PastoralProyectoVersion pv')
         ->addOrderBy('mue.created_at ASC')
-        ;
-        
+        ;        
     $pv_fecha = $q1->fetchArray();
-    
-    
     $pv_fecha = $pv_fecha[0]['created_at'];
-        
-    $q = Doctrine_Query::create()
-        ->addSelect('u.id')->distinct()
-        ->addSelect('mue.id')
-        ->addSelect('DATEDIFF(mue.created_at,"'.(string)$pv_fecha.'") as day')
-        ->addSelect('COUNT(mue.created_at) as number')
-        ->from('PastoralMisionUsuarioEstado mue')
-        ->andWhere('pv.id = ?',$pv_id)
-        ->andWhere('mue.created_at > 0')
-        ->andWhereIn('mue.estado_postulacion_id', array(3,4))
-        ->leftJoin('mue.PastoralUsuario u')
-        ->leftJoin('mue.PastoralMision m')
-        ->leftJoin('m.PastoralGrupo g')
-        ->leftJoin('g.PastoralProyectoVersion pv')  
-        ->addOrderBy('mue.created_at ASC')
-        ->addGroupBy('DAY(mue.created_at)'  )
-        ->addGroupBy('MONTH(mue.created_at)')
-        ->addGroupBy('YEAR(mue.created_at)' )
-        ;
-    $array = $q->fetchArray();
-    $respuesta[0] = Array();
-    $respuesta[1] = Array();
-    $respuesta[2] = Array();
-    $respuesta[3] = Array();
-    
-    $total = 0;
-    for($i=0;$i<count($array);$i++)
-    { 
-      $total += $array[$i]["number"];
-      $date = $array[$i]["day"];
-      array_push($respuesta[1],(int)$total);
-      array_push($respuesta[0],(int)$date);
-    }
+    $aux = $this->getInscritosPorDia($pv_id, $pv_fecha, false);
+    $respuesta[0] = $aux[0];
+    $respuesta[1] = $aux[1];  
     
     $p_id = Doctrine_Core::getTable('PastoralProyectoVersion')->findOneById($pv_id)->getProyectoId();
-    
     $q1 = Doctrine_Query::create()
         ->from('PastoralProyectoVersion pv')
         ->leftJoin('pv.PastoralProyecto p')
@@ -245,60 +272,29 @@ class proyectoActions extends sfActions
         ->addSelect('pv.id')
         ->andWhere('p.id = ?',$p_id)
         ->andWhere('pv.id < ?',$pv_id)
-        ->addOrderBy('pv.id DESC')
-        ;
-        
+        ->addOrderBy('pv.id DESC');
     $pv2_id = $q1->fetchArray();
-    if(count($pv2_id)>0)
-    {
+    if(count($pv2_id)>0){
         $pv2_id = $pv2_id[0]['id'];
-        if($pv2_id>0)
-        {
+        if($pv2_id>0){
             $q1 = Doctrine_Query::create()
                 ->addSelect('mue.created_at')
                 ->from('PastoralMisionUsuarioEstado mue')
                 ->andWhere('pv.id = ?',$pv2_id)
-                ->andWhere('mue.created_at > 0')
-                ->andWhereIn('mue.estado_postulacion_id', array(3,4))
+                ->andWhere('mue.created_at > 0')                
                 ->leftJoin('mue.PastoralMision m')
                 ->leftJoin('m.PastoralGrupo g')
                 ->leftJoin('g.PastoralProyectoVersion pv')
-                ->addOrderBy('mue.created_at ASC')
-                ;
-                
+                ->addOrderBy('mue.created_at ASC');                
                 $pv_fecha = $q1->fetchArray();
                 $pv_fecha = $pv_fecha[0]['fecha_inscripcion'];
                 
-            $q = Doctrine_Query::create()
-                ->addSelect('u.id')->distinct()
-                ->addSelect('mue.id')
-                ->addSelect('DATEDIFF(mue.created_at,"'.(string)$pv_fecha.'") as day')
-                ->addSelect('COUNT(mue.created_at) as number')
-                ->from('PastoralMisionUsuarioEstado mue')
-                ->andWhere('pv.id = ?',$pv2_id)
-                ->andWhere('mue.created_at > 0')
-                ->andWhereIn('mue.estado_postulacion_id', array(3,4))
-                ->leftJoin('mue.PastoralUsuario u')
-                ->leftJoin('mue.PastoralMision m')
-                ->leftJoin('m.PastoralGrupo g')
-                ->leftJoin('g.PastoralProyectoVersion pv')  
-                ->addOrderBy('mue.fecha_inscripcion ASC')
-                ->addGroupBy('DAY(mue.created_at)'  )
-                ->addGroupBy('MONTH(mue.created_at)')
-                ->addGroupBy('YEAR(mue.created_at)' )
-                ;
-            $array = $q->fetchArray();
-            $total = 0;
-            for($i=0;$i<count($array);$i++)
-            { 
-              $total += $array[$i]["number"];
-              $date = $array[$i]["day"];
-              array_push($respuesta[3],(int)$total);
-              array_push($respuesta[2],(int)$date);
-            }
+            $aux = $this->getInscritosPorDia($pv2_id, $pv_fecha, false);
+            $respuesta[2] = $aux[0];
+            $respuesta[3] = $aux[1];
         }
     }    
-
+    $this->getResponse()->setContentType('application/json');
     return $this->renderText(json_encode($respuesta)); 
   }
   

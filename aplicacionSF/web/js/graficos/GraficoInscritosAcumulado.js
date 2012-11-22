@@ -7,7 +7,7 @@ $(document).ready(function(){
 function getEstadisticaProyecto()
 {
     pv_id = $("#acumulada1").attr('value');
-    $.get('../../AjaxInscritosAcumulados', { pv_id: pv_id },
+    $.get(routing.url_for('proyecto', 'AjaxInscritosAcumulados'), { pv_id: pv_id },
         function(data){
         
         dias = data[0];
@@ -24,8 +24,7 @@ function getEstadisticaProyecto()
             total2 = data[3];
             for(i=0;i<dias2.length;i++)
                 arreglo2.push([dias2[i],total2[i]]);
-        }
-          
+        }          
          var plot3 = $.jqplot('acumulada1', [arreglo , arreglo2],
             { 
               title:'Evoluci&oacute;n de inscritos', 
@@ -41,8 +40,7 @@ function getEstadisticaProyecto()
                     // Change our line width and use a diamond shaped marker.
                     lineWidth:1, 
                     markerOptions: { size: 2, style:"x" }
-                  }
-
+                  }                  
               ],      
               axes: {
                 // options for each axis are specified in seperate option objects.
@@ -51,10 +49,14 @@ function getEstadisticaProyecto()
                   // Turn off "padding".  This will allow data point to lie on the
                   // edges of the grid.  Default padding is 1.2 and will keep all
                   // points inside the bounds of the grid.
-                  pad: 0
+                  pad: 0,
+                  min: 1,
+                  tickInterval: 1
                 },
                 yaxis: {
-                  label: "Inscritos"
+                  label: "Inscritos",
+                  min: 0,
+                  tickInterval: 50
                 }
               },
               highlighter: {

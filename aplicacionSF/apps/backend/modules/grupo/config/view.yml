@@ -1,8 +1,8 @@
 createSuccess:
-    javascripts:    [grupo.js]    
+    javascripts:    [grupo.js]
 
 showSuccess:
-    javascripts:    [graficos/estadisticasGrupo.js, jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, graficos/graphFunctions.js]
+    javascripts:    [jqplot/jquery.jqplot.min.js, jqplot/jqplot.barRenderer.min.js, jqplot/jqplot.pieRenderer.min.js, jqplot/jqplot.categoryAxisRenderer.min.js, jqplot/jqplot.pointLabels.min.js, jqplot/jqplot.canvasAxisTickRenderer.min.js, jqplot/jqplot.canvasTextRenderer.min.js, graficos/graficosModule.js]
     stylesheets:    [jquery.jqplot.min.css]
 
 newSuccess:
@@ -10,7 +10,6 @@ newSuccess:
 
 editSuccess:
     javascripts:    [grupo.js, InfoJefesEdit.js, bootstrap/bootstrap-tooltip.js, bootstrap/bootstrap-popover.js]
-    
+
 newSuccess:
     javascripts:    [bootstrap/bootstrap-tooltip.js, bootstrap/bootstrap-popover.js]
-    

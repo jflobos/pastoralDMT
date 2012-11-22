@@ -363,6 +363,7 @@
 </div>
 <script type="text/javascript">    
     $(document).ready(function(){
+        graficosModule.initGraficoMision();
         $('.cambiar_descripcion_zona_fantasia').click(function(){
             //Ver como agregar el tipo de accion en el AJAX que llama al agregar dato            
             imprimirFormulario('descripcion','editar');            

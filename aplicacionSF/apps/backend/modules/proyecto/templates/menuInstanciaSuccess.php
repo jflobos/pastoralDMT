@@ -70,6 +70,7 @@
     <div id="estadisticas" class="accordion-body in">
       <div class="accordion-inner">
           <div id="acumulada1" value="<?php echo $pastoral_proyecto_version->getId(); ?>" style="height: 300px; width: 100%; position: relative"></div>
+          <div id="acumulada2" value="<?php echo $pastoral_proyecto_version->getId(); ?>" style="height: 300px; width: 100%; position: relative"></div>
           <a href="<?php echo (url_for('proyecto/estadisticasVersion?id=').$pastoral_proyecto_version->getId().'') ?>">&#9658; Ver m&aacute;s estad&iacute;sticas</a><br/>
           <a href="">&#9658; Excel de inscritos</a>
       </div>
@@ -416,6 +417,12 @@
 <br>
 <br>
 <br>
+
+<script type="text/javascript">
+    $(document).ready(function(){
+        graficosModule.graficoInscritosAcomulados();
+    });
+</script>
 
 <style type="text/css">
  	.menup {

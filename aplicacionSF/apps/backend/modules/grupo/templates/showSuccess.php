@@ -78,23 +78,23 @@
 </table>
 
 <div id="genero_acordion" class="btn_acordion">>>Estad&iacute;stica - Genero</div>
-<div id="chart1" style= " height: 250px; position: relative; " class="jqplot-target"></div>
+<div id="chart1" style= " height: 300px; position: relative; " class="jqplot-target"></div>
 
 <div id="experiencia_acordion" class="btn_acordion">>>Estad&iacute;stica - Experiencia</div>
-<div id="chart4" style= " height: 250px; position: relative; " class="jqplot-target"></div>
+<div id="chart4" style= " height: 300px; position: relative; " class="jqplot-target"></div>
 
 <div id="edades_acordion" class="btn_acordion">>>Estad&iacute;stica - Edades</div>
-<div id="chart5" style= " height: 250px; position: relative; " class="jqplot-target"></div>
+<div id="chart5" style= " height: 300px; position: relative; " class="jqplot-target"></div>
 
 <div id="movimientos_religiosos_acordion" class="btn_acordion">>>Estad&iacute;stica - Movimientos Religiosos</div>
-<div id="chart6" style= " height: 250px; position: relative; " class="jqplot-target"></div>
+<div id="chart6" style= " height: 300px; position: relative; " class="jqplot-target"></div>
 
 
 <div id="carreras_acordion" class="btn_acordion">>>Estad&iacute;stica - Carreras</div>
-<div id="chart7" style=" height: 250px; position: relative; " class="jqplot-target"></div>
+<div id="chart7" style=" height: 300px; position: relative; " class="jqplot-target"></div>
 
 <div id="necesidad_acordion" class="btn_acordion">>>Estad&iacute;stica - Necesidades Abarcadas</div>
-  <div id="chart2" style= " height: 250px; position: relative; " class="jqplot-target"></div>
+  <div id="chart2" style= " height: 300px; position: relative; " class="jqplot-target"></div>
 
 <hr />
 
@@ -105,3 +105,8 @@
 
 <input type ='hidden' id='grupoId' value = "<?php echo $pastoral_grupo->getId()  ?>"/>
  <br></br>
+ <script type="text/javascript">
+     $(document).ready(function(){
+         graficosModule.initGraficosGrupo();
+     });
+ </script>
