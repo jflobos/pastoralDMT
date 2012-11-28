@@ -201,9 +201,10 @@ class proyectoActions extends sfActions
         ->addOrderBy('mue.created_at ASC')
         ->addGroupBy('DAY(mue.created_at)'  )
         ->addGroupBy('MONTH(mue.created_at)')
-        ->addGroupBy('YEAR(mue.created_at)' );
+        ->addGroupBy('YEAR(mue.created_at)' )
+        ->$q->andWhereNotIn('mue.estado_postulacion_id', array(1,5));
     if($confirmados){
-        $q->andWhereNotIn('mue.estado_postulacion_id', array(1,2,5));
+        $q->andWhereNotIn('mue.estado_postulacion_id', array(2));
     }    
     $array = $q->fetchArray();
     $total = 0;    
@@ -287,8 +288,7 @@ class proyectoActions extends sfActions
                 ->leftJoin('g.PastoralProyectoVersion pv')
                 ->addOrderBy('mue.created_at ASC');                
                 $pv_fecha = $q1->fetchArray();
-                $pv_fecha = $pv_fecha[0]['fecha_inscripcion'];
-                
+                $pv_fecha = $pv_fecha[0]['fecha_inscripcion'];                
             $aux = $this->getInscritosPorDia($pv2_id, $pv_fecha, false);
             $respuesta[2] = $aux[0];
             $respuesta[3] = $aux[1];

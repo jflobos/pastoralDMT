@@ -35,3 +35,10 @@
     </tfoot>
   </table>
 </form>
+<script>
+    $(document).ready(function(){
+        $('form').submit(function(){
+           $('#signin_username').val($('#signin_username').val().toLowerCase());           
+        });
+    });    
+</script>

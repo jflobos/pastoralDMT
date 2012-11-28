@@ -594,7 +594,7 @@ class misionActions extends sfActions
       // Call handleUpload() with the name of the folder, relative to PHP's getcwd()
       $remplazarArchivo = true;
       $result = $uploader->handleUpload(sfConfig::get('sf_upload_dir').'/infoZonas/localidadFantasia/', $remplazarArchivo);
-      $result['url'] = $pastoral_localidad_fantasia->getFotoUrl();
+      $result['url'] = $pastoral_localidad_fantasia->getFotoUrl();      
       // to pass data through iframe you will need to encode all html tags      
       return $this->renderText(json_encode($result));
   }
