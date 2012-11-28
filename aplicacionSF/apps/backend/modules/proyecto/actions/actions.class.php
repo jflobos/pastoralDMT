@@ -202,7 +202,7 @@ class proyectoActions extends sfActions
         ->addGroupBy('DAY(mue.created_at)'  )
         ->addGroupBy('MONTH(mue.created_at)')
         ->addGroupBy('YEAR(mue.created_at)' )
-        ->$q->andWhereNotIn('mue.estado_postulacion_id', array(1,5));
+        ->andWhereNotIn('mue.estado_postulacion_id', array(1,5));
     if($confirmados){
         $q->andWhereNotIn('mue.estado_postulacion_id', array(2));
     }    
