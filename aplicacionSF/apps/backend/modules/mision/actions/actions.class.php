@@ -62,33 +62,34 @@ class misionActions extends sfActions
     $this->filtros = Doctrine_Core::getTable('PastoralFiltro')->FindAll();    
     $this->mf = Doctrine_Core::getTable('PastoralMisionFiltro')->FindByMisionId($request->getParameter('mision_id'));
   
-    if($uc->puedeVerMision($this->pastoral_mision)==0)
-    {
+    if($uc->puedeVerMision($this->pastoral_mision)==0){
       $this->redirect("usuario/PermisoDenegado");
     } 
-    if($this->cargo_actual->getVMisiones()==0)
-    {	
+    if($this->cargo_actual->getVMisiones()==0){	
       $this->redirect("usuario/PermisoDenegado");
     }
     
     $jefes_uc = Doctrine_Core::getTable('PastoralUsuarioCargo')->addUCporJefesYMision($mision_id)->fetchArray();
     $jefes = array();
     
-    for($i=0;$i<count($jefes_uc);$i++)
-    {
+    for($i=0;$i<count($jefes_uc);$i++){
       $jefes[$i] = Doctrine_Core::getTable('PastoralUsuario')->findOneById($jefes_uc[$i]['usuario_id']);
     }
     $this->jefes = $jefes;
     
-    $misioneros_uc = Doctrine_Core::getTable('PastoralMisionUsuarioEstado')->findByMisionId($mision_id)->toArray();
-    $misioneros = array();
+    $equipoCargos = $this->pastoral_mision->getVoluntariosConCargo();
+    $this->equipo = $equipoCargos['equipo'];
+    $this->cargos = $equipoCargos['cargos'];
     
-    for($i=0;$i<count($misioneros_uc);$i++)
-    {
-      $misioneros[$i] = Doctrine_Core::getTable('PastoralUsuario')->findOneById($misioneros_uc[$i]['usuario_id']);
-    }
-    $this->misioneros = $misioneros;
+    $this->misioneros = $this->pastoral_mision->getVoluntarios();
   }  
+  
+  public function executeTest(sfWebRequest $request){
+      $this->pastoral_mision = Doctrine_Core::getTable('PastoralMision')->findOneById(1);
+      $data = $this->pastoral_mision->getVoluntariosConCargo();      
+      return $this->renderText(print_r($data['cargos'][0]['PastoralUsuarioCargo'][0]['PastoralCargo'], true) );
+      //$this->equipo = $this->pastoral_mision->getVoluntarios();
+  }
   
   public function executeNew(sfWebRequest $request)
   {

@@ -205,5 +205,33 @@ class PastoralMision extends BasePastoralMision
     return $respuesta;
   }
   
+  public function getVoluntariosConCargo(){
+        $q = Doctrine_Core::getTable('PastoralUsuario')->createQuery()                
+                ->from('PastoralUsuario u')
+                ->leftJoin('u.PastoralUsuarioCargo puc')
+                ->leftJoin('puc.PastoralCargo pc')
+                ->leftJoin('u.PastoralMisionUsuarioEstado pmue')
+                ->where('puc.mision_id = ?',$this->getId())              
+                ->andWhereIn('pc.id', array(1,2,3,4,5,6,7))
+                ->orderBy('pc.id DESC');
+        $equipo = $q->execute();        
+        $cargos = $q->fetchArray();
+        $retorno = array(
+            'equipo' => $equipo,
+            'cargos' => $cargos
+        );
+        return $retorno;
+    }
+    
+  public function getVoluntarios(){
+        $q = Doctrine_Core::getTable('PastoralUsuario')->createQuery()                
+                ->from('PastoralUsuario u')
+                ->leftJoin('u.PastoralMisionUsuarioEstado pmue')
+                ->leftJoin('pmue.PastoralEstadoPostulacion pep')
+                ->where('pmue.mision_id = ?',$this->getId())
+                ->andWhereNotIn('pmue.estado_postulacion_id', array(1,5))                
+                ->orderBy('pmue.created_at ASC');
+        return $q->execute();
+    }
   
 }

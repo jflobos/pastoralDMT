@@ -86,8 +86,7 @@ class PastoralProyecto extends BasePastoralProyecto
   public function ultimoProyectoVersionDeProyecto()
   {
     $proyecto_version = Doctrine_Core::getTable('PastoralProyectoVersion')->findOneByProyectoId($this->getId());
-    return $proyecto_version;
-     
+    return $proyecto_version;     
   }
 
 }

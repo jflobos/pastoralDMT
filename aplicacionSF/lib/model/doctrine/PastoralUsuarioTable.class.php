@@ -177,11 +177,11 @@ class PastoralUsuarioTable extends Doctrine_Table
            return $q;
     }
     
-     public function getUsuarioPorId($id)
-     {
+    public function getUsuarioPorId($id)
+    {
         $q = $this->addUsuarioPorId($id);
         return $q->fetchOne();
-     }
+    }
      
      public function getUsuarioPorRut($rut)
      {
@@ -192,7 +192,7 @@ class PastoralUsuarioTable extends Doctrine_Table
          return $q->fetchOne();
      }
 	 
-	 public function getUsuarioPorNombre($nomb)
+     public function getUsuarioPorNombre($nomb)
      {
       $nombres = explode(" ",$nomb);
           $q = Doctrine_Query::create()
@@ -286,26 +286,24 @@ class PastoralUsuarioTable extends Doctrine_Table
             ->from('PastoralUsuarioCargo u')
             ->andWhere('u.proyecto_version_id = ? AND u.cargo_id = ?',array($proyecto_version_id, $cargo_id));
         $usuario_cargo = $q1->execute();
-        
+
         $retorno = array();
-        
+
         foreach($usuario_cargo as $u_cargo){
            $q2 = Doctrine_Query::create()
               ->from('PastoralUsuario u')
               ->where('u.id = ?',$u_cargo->getUsuarioId());         
-        
+
           $retorno = array_merge($retorno, array($q2->fetchOne()));
         }
-         return $retorno;   
+        return $retorno;   
     }
     
-	
-	static public function RetornarParaSeleccion($q, $limit)
-  { 
-    $dql = Doctrine_Query::create()
-         ->from('PastoralUsuario p')
-    	 ->where('p.nombre LIKE ? OR p.apellido_paterno LIKE ? OR p.apellido_materno LIKE ?', array('%'.$q.'%', '%'.$q.'%', '%'.$q.'%'));
-    return $dql->fetchArray();
-  }
-    
+    static public function RetornarParaSeleccion($q, $limit)
+    { 
+        $dql = Doctrine_Query::create()
+             ->from('PastoralUsuario p')
+             ->where('p.nombre LIKE ? OR p.apellido_paterno LIKE ? OR p.apellido_materno LIKE ?', array('%'.$q.'%', '%'.$q.'%', '%'.$q.'%'));
+        return $dql->fetchArray();
+    }    
 }
