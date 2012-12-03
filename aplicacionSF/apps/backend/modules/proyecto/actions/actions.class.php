@@ -869,6 +869,8 @@ EOF
     $mail_token = $usuario_para_sacar_mail->getEmailAddress();
     $this->mail_token = $mail_token;
     
+    $this->estadisticas = Estadisticas::getEstadisticasProyectoVersion($proyecto_version_id);
+    
     if($uc){
         $cargo_actual = $uc->getPastoralCargo();
         $this->cargo_actual = $cargo_actual;        
@@ -1971,5 +1973,10 @@ EOF
     }
     
     return $this->renderText('');  
-  } 
+  }
+  
+  public function executeGetEstadisticas(sfWebRequest $request){
+      $estadisticas = Estadisticas::getEstadisticasProyectoVersion(1);
+      return $this->renderText(json_encode($estadisticas));
+  }
 }

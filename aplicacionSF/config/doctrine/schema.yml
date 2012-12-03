@@ -140,6 +140,7 @@ PastoralMision:
     PastoralLocalidad:          { onDelete: CASCADE, local: localidad_id, foreign: id }
     PastoralLocalidadFantasia:  { type:one, onDelete: CASCADE, local: localidad_fantasia_id, foreign: id }
     PastoralGrupo:              { type:one, onDelete: CASCADE, local: grupo_id, foreign: id }
+    PastoralMisionUsuarioEstado:{ type:one, onDelete: CASCADE, local: id, foreign: mision_id}
 
 PastoralSalida:
   columns:
