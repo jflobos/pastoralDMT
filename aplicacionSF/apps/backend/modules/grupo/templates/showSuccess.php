@@ -23,6 +23,111 @@
   </tbody>
 </table>
 
+<div class="accordion" id="infoCuadroEstadisticas">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#infoCuadroEstadisticas" href="#cuadroEstadisticas">
+        <h5 style="font-size:16px;"><i class="icon-chevron-down"></i>Cuadro de Estad&iacute;sticas</h5>
+      </a>
+    </div>
+    <div id="cuadroEstadisticas" class="accordion-body in">
+      <div class="accordion-inner">
+          <table class="table table-bordered table-striped">
+              <tr>
+                  <th>Estad&iacute;sticas globales</th>
+                  <th>Total</th>
+                  <th>Hombres</th>
+                  <th>Mujeres</th>
+              </tr>
+              <tr>
+                  <th>Inscritos Totales</th>
+                  <td><?php echo $estadisticas['totales']['sum']['inscritos'] ?></td>
+                  <td><?php echo $estadisticas['totales']['sum']['inscritos'] - $estadisticas['totales']['mujeres']['inscritos'] ?></td>
+                  <td><?php echo $estadisticas['totales']['mujeres']['inscritos']?></td>
+              </tr>
+              <tr>
+                  <th>Confirmados</th>
+                  <td><?php echo $estadisticas['totales']['sum']['confirmados'] ?></td>
+                  <td><?php echo $estadisticas['totales']['sum']['confirmados'] - $estadisticas['totales']['mujeres']['confirmados'] ?></td>
+                  <td><?php echo $estadisticas['totales']['mujeres']['confirmados']?></td>
+              </tr>
+               <tr>
+                  <th>Aceptados</th>
+                  <td><?php echo $estadisticas['totales']['sum']['aceptados'] ?></td>
+                  <td><?php echo $estadisticas['totales']['sum']['aceptados'] - $estadisticas['totales']['mujeres']['aceptados'] ?></td>
+                  <td><?php echo $estadisticas['totales']['mujeres']['aceptados']?></td>
+              </tr>
+              <tr>
+                  <th>Pendientes</th>
+                  <td><?php echo $estadisticas['totales']['sum']['pendientes'] ?></td>
+                  <td><?php echo $estadisticas['totales']['sum']['pendientes'] - $estadisticas['totales']['mujeres']['pendientes'] ?></td>
+                  <td><?php echo $estadisticas['totales']['mujeres']['pendientes']?></td>
+              </tr>
+              <tr>
+                  <th>Bajas</th>
+                  <td><?php echo $estadisticas['totales']['sum']['bajas'] ?></td>
+                  <td><?php echo $estadisticas['totales']['sum']['bajas'] - $estadisticas['totales']['mujeres']['bajas'] ?></td>
+                  <td><?php echo $estadisticas['totales']['mujeres']['bajas']?></td>
+              </tr>
+              
+          </table>
+      </div>
+    </div>
+  </div> <!--End info estadisticas-->
+</div> <!--End acordeon-->
+
+<div class="accordion" id="infoCuadroEstadisticasUC">
+  <div class="accordion-group">
+    <div class="accordion-heading">
+      <a class="accordion-toggle" data-toggle="collapse" data-parent="#infoCuadroEstadisticasUC" href="#cuadroEstadisticasUC">
+        <h5 style="font-size:16px;"><i class="icon-chevron-down"></i>Cuadro de Estad&iacute;sticas UC</h5>
+      </a>
+    </div>
+    <div id="cuadroEstadisticasUC" class="accordion-body in">
+      <div class="accordion-inner">
+          <table class="table table-bordered table-striped">
+              <tr>
+                  <th>Estad&iacute;sticas globales</th>
+                  <th>Total</th>
+                  <th>Hombres</th>
+                  <th>Mujeres</th>
+              </tr>
+              <tr>
+                  <th>Inscritos Totales</th>
+                  <td><?php echo $estadisticas['uc']['sum']['inscritos'] ?></td>
+                  <td><?php echo $estadisticas['uc']['sum']['inscritos'] - $estadisticas['uc']['mujeres']['inscritos'] ?></td>
+                  <td><?php echo $estadisticas['uc']['mujeres']['inscritos']?></td>
+              </tr>
+              <tr>
+                  <th>Confirmados</th>
+                  <td><?php echo $estadisticas['uc']['sum']['confirmados'] ?></td>
+                  <td><?php echo $estadisticas['uc']['sum']['confirmados'] - $estadisticas['uc']['mujeres']['confirmados'] ?></td>
+                  <td><?php echo $estadisticas['uc']['mujeres']['confirmados']?></td>
+              </tr>
+               <tr>
+                  <th>Aceptados</th>
+                  <td><?php echo $estadisticas['uc']['sum']['aceptados'] ?></td>
+                  <td><?php echo $estadisticas['uc']['sum']['aceptados'] - $estadisticas['uc']['mujeres']['aceptados'] ?></td>
+                  <td><?php echo $estadisticas['uc']['mujeres']['aceptados']?></td>
+              </tr>
+              <tr>
+                  <th>Pendientes</th>
+                  <td><?php echo $estadisticas['uc']['sum']['pendientes'] ?></td>
+                  <td><?php echo $estadisticas['uc']['sum']['pendientes'] - $estadisticas['uc']['mujeres']['pendientes'] ?></td>
+                  <td><?php echo $estadisticas['uc']['mujeres']['pendientes']?></td>
+              </tr>
+              <tr>
+                  <th>Bajas</th>
+                  <td><?php echo $estadisticas['uc']['sum']['bajas'] ?></td>
+                  <td><?php echo $estadisticas['uc']['sum']['bajas'] - $estadisticas['uc']['mujeres']['bajas'] ?></td>
+                  <td><?php echo $estadisticas['uc']['mujeres']['bajas']?></td>
+              </tr>              
+          </table>
+      </div>
+    </div>
+  </div> <!--End info estadisticas-->
+</div> <!--End acordeon-->
+
 <h1><small><?php echo 'Jefe';if(count($jefes)>1){echo 's';} ;echo ' del Grupo' ?></small></h1>
 <table class="table table-bordered table-striped">
 <thead>

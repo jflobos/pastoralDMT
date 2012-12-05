@@ -121,7 +121,7 @@
         <h5 style="font-size:16px;"><i class="icon-chevron-down"></i>Cuadro de Estad&iacute;sticas UC</h5>
       </a>
     </div>
-    <div id="cuadroEstadisticas" class="accordion-body in">
+    <div id="cuadroEstadisticasUC" class="accordion-body in">
       <div class="accordion-inner">
           <table class="table table-bordered table-striped">
               <tr>

@@ -13,8 +13,19 @@ class Estadisticas {
         $retorno['uc']['sum'] = Estadisticas::procesarEstadisticasGenerales(Estadisticas::getUCQuery(Estadisticas::getEstadisticasProyectoVersionCore($proyecto_id))->fetchArray());
         $retorno['uc']['mujeres'] = Estadisticas::procesarEstadisticasGenerales(Estadisticas::getMujeresQuery(Estadisticas::getUCQuery(Estadisticas::getEstadisticasProyectoVersionCore($proyecto_id)))->fetchArray());
         return $retorno;        
-    }    
-    protected static function getEstadisticasProyectoVersionCore($proyecto_id){
+    }
+    public static function getEstadisticasProyectoGrupo($grupo_id){
+        $retorno = array();        
+        $retorno['totales'] = array();
+        $retorno['totales']['sum'] = Estadisticas::procesarEstadisticasGenerales(Estadisticas::getEstadisticasGrupoCore($grupo_id)->fetchArray());
+        $retorno['totales']['mujeres'] = Estadisticas::procesarEstadisticasGenerales(Estadisticas::getMujeresQuery(Estadisticas::getEstadisticasGrupoCore($grupo_id))->fetchArray());
+        //UC en BD es el 15
+        $retorno['uc'] = array();
+        $retorno['uc']['sum'] = Estadisticas::procesarEstadisticasGenerales(Estadisticas::getUCQuery(Estadisticas::getEstadisticasGrupoCore($grupo_id))->fetchArray());
+        $retorno['uc']['mujeres'] = Estadisticas::procesarEstadisticasGenerales(Estadisticas::getMujeresQuery(Estadisticas::getUCQuery(Estadisticas::getEstadisticasGrupoCore($grupo_id)))->fetchArray());
+        return $retorno;        
+    }
+     protected static function getEstadisticasGeneralesCore(){
         $q = Doctrine_Query::create()
                 ->select('pep.id, pep.nombre,COUNT(pep.id)')
                 ->from('PastoralEstadoPostulacion pep')
@@ -24,8 +35,17 @@ class Estadisticas {
                 ->leftJoin('pm.PastoralLocalidadFantasia plf')
                 ->leftJoin('pm.PastoralGrupo pg')
                 ->leftJoin('pg.PastoralProyectoVersion ppv')
-                ->where('ppv.id = ?', $proyecto_id)
                 ->groupBy('pep.id');
+        return $q;
+    }
+    protected static function getEstadisticasProyectoVersionCore($proyecto_id){
+        $q = Estadisticas::getEstadisticasGeneralesCore()                
+                ->where('ppv.id = ?', $proyecto_id);        
+        return $q;
+    }
+    protected static function getEstadisticasGrupoCore($grupo_id){
+        $q = Estadisticas::getEstadisticasGeneralesCore()                
+                ->where('pg.id = ?', $grupo_id);
         return $q;
     }    
     protected static function getUCQuery($query){

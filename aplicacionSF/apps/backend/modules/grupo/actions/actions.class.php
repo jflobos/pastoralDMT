@@ -141,6 +141,7 @@ class grupoActions extends sfActions
     $this->localidades = (array)$localidades;
     $this->fechas_inicio = (array)$fechas_inicio;
     $this->fechas_termino = (array)$fechas_termino;
+    $this->estadisticas = Estadisticas::getEstadisticasProyectoGrupo($this->pastoral_grupo->getId());
   }
 
   public function executeNew(sfWebRequest $request)
