@@ -1,3 +1,35 @@
+var UsuarioModal = (function(){
+    //variables privadas
+    var usuario, cargos, misiones;
+    
+    //metodos privados
+    
+    //Prepara a los usuarios para ser impresos
+    var procesarUsuario = function procesarUsuario(info){
+       var user = info;
+       user.universidad  = (usuario['PastoralUniversidad']) ? usuario['PastoralUniversidad']:'Sin universidad';
+       user.carrera      = (usuario['PastoralCarrera']) ? usuario['PastoralCarrera']:'Sin carrera';
+       user.comuna       = (usuario['PastoralComuna']) ? usuario['PastoralComuna']: 'Sin comuna';
+       user.movimiento   = (usuario['PastoralMovimiento']) ? usuario['PastoralMovimiento']:'Ninguno';
+       user.email        = usuario['User'].email_address;
+       return user;
+    }
+    return{        
+        crear_modal: function crear_modal(usuario_id,append_to,mue_id){
+            //Obtenemos la informacion del usuario
+            $.get(routing.url_for('usuario', 'AjaxGetInfoUsuarioParaModal'), { usuario_id:usuario_id, mue_id:mue_id },
+            function(data){
+                usuario = procesarUsuario(data[0]);
+                if(mue_id>0)
+                    usuario.cuota = data[3];
+                cargos = data[1];
+                misiones = data[2];
+            });
+        }
+    }
+})()
+
+
 $(function()
 {
     $(".show_info_usuarios").click(function(){
@@ -11,7 +43,7 @@ function crear_modal(usuario_id,append_to,mue_id)
    modal ="";
    $.get(routing.url_for('usuario', 'AjaxGetInfoUsuarioParaModal'), { usuario_id:usuario_id, mue_id:mue_id },
    function(data){
-       usuario      = data[0];
+       usuario = data[0];
        cuota = "";
        if(mue_id>0)
           cuota = printRow("Cuota", data[3], "odd");
