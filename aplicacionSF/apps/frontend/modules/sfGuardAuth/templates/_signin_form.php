@@ -30,8 +30,21 @@
           <?php endif; ?>
           <p><a href="<?php echo url_for("usuario/recuperarPassword")?>">&iquest;Olvidaste tu contrase&ntilde;a?</a></p>
           <p><a href="<?php echo url_for('usuario/new').'?pid='.$proyecto_id; ?>" >&iquest;Quieres registrarte?</a></p>
-        </td>
+        </td>        
       </tr>
+      <?php $user_agent = $_SERVER['HTTP_USER_AGENT']; ?>
+      <?php if(preg_match('/MSIE/i', $user_agent)):?>          
+        <tr>
+            <td colspan="2">Lamentablemente la p&aacute;gina no es compatible con Internet Explorer te recomendamos</td>
+        </tr>
+        <tr>
+            <td colspan="2">
+                <a href="http://www.mozilla.org/es-ES/firefox/new/">Mozilla Firefox</a> | 
+                <a href="http://www.google.com/intl/es/chrome/">Google Chrome</a> |
+                <a href="http://www.opera.com/download/">Opera</a>
+            </td>
+        </tr>
+     <?php endif;?>      
     </tfoot>
   </table>
 </form>
