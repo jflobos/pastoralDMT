@@ -57,77 +57,97 @@ var gestorTablaVoluntarios = (function(){
         }); 
     }
     
-    //Imprime una fila con el nuevo voluntario
-    var imprimirVoluntario = function imprimirVoluntario(i,mue){
-        //Inicio de impresion de postulantes            
-        mision = mue['PastoralMision'];
-        usuario = mue['PastoralUsuario'];
-        estado = mue['PastoralEstadoPostulacion'];
-        localidad = mision['PastoralLocalidadFantasia'];
-        usuario_cargo = usuario['PastoralUsuarioCargo'];
-        email = usuario['User'].email_address;
-        universidad = (usuario['PastoralUniversidad'] != null) ? usuario['PastoralUniversidad'] : {nombre: 'Sin Universidad'} ;
-        carrera = (usuario['PastoralCarrera'] != null) ? usuario['PastoralCarrera'] : {nombre: 'Sin Carrera'};
-        comuna = (usuario['PastoralComuna'] != null) ? usuario['PastoralComuna']: {nombre: 'No ingresada'};
-        movimiento = (usuario['PastoralMovimiento'] != null) ? usuario['PastoralMovimiento'] : 'Ninguno';
-        nombre_cargo = 'misionero-voluntario';
-        if(usuario_cargo != '')
-            nombre_cargo = usuario_cargo[0]['PastoralCargo'].nombre;
+    var generarVoluntario = function generarVoluntario(mue){
+        var voluntario = {};
+        voluntario.mision = mue['PastoralMision'];
+        voluntario.usuario = mue['PastoralUsuario'];
+        voluntario.estado = mue['PastoralEstadoPostulacion'];
+        voluntario.localidad = voluntario.mision['PastoralLocalidadFantasia'];
+        voluntario.usuario_cargo = voluntario.usuario['PastoralUsuarioCargo'];
+        voluntario.email = voluntario.usuario['User'].email_address;
+        voluntario.universidad = (voluntario.usuario['PastoralUniversidad'] != null) ? voluntario.usuario['PastoralUniversidad'] : {nombre: 'Sin Universidad'} ;
+        voluntario.carrera = (voluntario.usuario['PastoralCarrera'] != null) ? voluntario.usuario['PastoralCarrera'] : {nombre: 'Sin Carrera'};
+        voluntario.comuna = (voluntario.usuario['PastoralComuna'] != null) ? voluntario.usuario['PastoralComuna']: {nombre: 'No ingresada'};
+        voluntario.movimiento = (voluntario.usuario['PastoralMovimiento'] != null) ? voluntario.usuario['PastoralMovimiento'] : 'Ninguno';
+         if(voluntario.usuario_cargo != '')
+            voluntario.nombre_cargo = voluntario.usuario_cargo[0]['PastoralCargo'].nombre;
+        else
+            voluntario.nombre_cargo = 'misionero-voluntario';        
+        return voluntario;
+    }
+    
+    var imprimirFilaVoluntario = function imprimirFilaVoluntario(i, mue, voluntario){
         parity = i%2==0?"even":"odd";            
         flag_zona = mue.flag_zona?"<i id='"+mue.id+"_flag_zona' class='icon-flag flag_zona' value='"+mue.id+"'></i>":"<i id='"+mue.id+"_flag_zona' class='icon-headphones flag_zona'  value='"+mue .id+"'></i>";
         flag_cuota = mue.flag_cuota?"<i id='"+mue.id+"_flag_cuota' class='icon-flag flag_cuota' value='"+mue.id+"'></i>":"<i id='"+mue.id+"_flag_cuota' class='icon-headphones flag_cuota'  value='"+mue .id+"'></i>";            
         icono = 'icon-plus';            
-        string_zona =  string_cargo = string_estado = string_cuota = "";            
-        if(cargo_usuario.e_inscritos_cuota==1)
-            string_cuota = '<i class="'+icono+' cambio_cuota_inmediato pull-right" value="'+mue.id+'" cuota="'+mue.cuota+'" ></i>';
+        //Inicio de la impresion del voluntario:
+        //Fila que lo contiene:
+        $("#postulantes_content").append('<tr id="voluntario_row_'+mue.id+'" class="'+parity+'"></tr>');        
+        //Checkbox para marcar su seleccion:
+        $('#voluntario_row_'+mue.id).append('<td><input type="checkbox" value="'+mue.id+'"/></td>');        
+        //Nombre del voluntario
+        nombre_cell = '<span value="'+voluntario.usuario.id+'" mue="'+mue.id+'" class="show_info_usuarios" style="text-decoration:underline;cursor:pointer;color:blue;">'+voluntario.usuario.nombre+' '+voluntario.usuario.apellido_paterno+'</span>';        //TODO: Revisamos si puede editar el voluntario e imprimimos el icono de edicion
+        $('#voluntario_row_'+mue.id).append('<td>'+nombre_cell+'</td>');        
+        //Edad
+        $('#voluntario_row_'+mue.id).append('<td>'+((voluntario.usuario.fecha_nacimiento != undefined) ? getAge(voluntario.usuario.fecha_nacimiento) : 'Sin datos' )+'</td>');        
+        //Estudios
+        $('#voluntario_row_'+mue.id).append('<td>'+((voluntario.universidad.nombre != undefined) ? voluntario.universidad.nombre : 'Sin universidad')+'-'+voluntario.carrera.nombre+'</td>');        
+        //Celular
+        $('#voluntario_row_'+mue.id).append('<td>'+voluntario.usuario.telefono_celular+'</td>');
+        //Movimiento
+        $('#voluntario_row_'+mue.id).append('<td>'+voluntario.movimiento.nombre+'</td>');
+        //Zona
+        string_zona =  '<span>'+voluntario.localidad.nombre+'</span>'
         if(cargo_usuario.e_inscritos_mision==1)
-            string_zona = '<i class="'+icono+' cambio_zona_inmediato pull-right" value="'+mue.id+'" ></i>';
+            string_zona += '<i class="'+icono+' cambio_zona_inmediato pull-right" value="'+mue.id+'" ></i>';
+        $('#voluntario_row_'+mue.id).append('<td id="'+mue.id+'_zona_en_tabla">'+string_zona+'</td>');
+        //Cargo
+        string_cargo = '<span>'+voluntario.nombre_cargo+'</span>';        
         if(cargo_usuario.e_inscritos_cargo==1)
-            string_cargo = '<i class="'+icono+' cambio_cargo_inmediato pull-right" value="'+mue.id+'" ></i>';
+            string_cargo += '<i class="'+icono+' cambio_cargo_inmediato pull-right" value="'+mue.id+'" ></i>';
+        $('#voluntario_row_'+mue.id).append('<td id="'+mue.id+'_cargo_en_tabla">'+string_cargo+'</td>');
+        //Estado
+        string_estado = '<span>'+voluntario.estado.nombre+'</span>';
         if(cargo_usuario.e_inscritos_estado==1)
-            string_estado = '<i class="'+icono+' cambio_estado_inmediato pull-right" value="'+mue.id+'" ></i>';            
-        string_zona   = "<td id='"+mue.id+"_zona_en_tabla'  ><span>" +localidad.nombre+"</span>"+string_zona   +"</td>";
-        string_cargo  = "<td id='"+mue.id+"_cargo_en_tabla' ><span>" +nombre_cargo    +"</span>"+string_cargo  +"</td>";
-        string_estado = "<td id='"+mue.id+"_estado_en_tabla'><span>" +estado.nombre   +"</span>"+string_estado +"</td>";
-        string_cuota  = "<td id='"+mue.id+"_cuota_en_tabla' ><span>"  +mue.cuota      +"</span>"+string_cuota  +"</td>";
-        string = "<tr class='"+parity+"'>"+
-            "<td><input type='checkbox' value='"+mue.id+"'/></td>"+
-            "<td><span value='"+usuario.id+"' mue='"+mue.id+"' class='show_info_usuarios' style='text-decoration:underline;cursor:pointer;color:blue;'>"+usuario.nombre+" "+usuario.apellido_paterno+"</span></td>"+
-            "<td>"+((usuario.fecha_nacimiento != undefined) ? getAge(usuario.fecha_nacimiento) : 'Sin datos' )+"</td>"+
-            "<td>"+((universidad.nombre != undefined) ? universidad.nombre : 'Sin universidad')+"-"+carrera.nombre+"</td>"+
-            "<td>"+usuario.telefono_celular+"</td>"+
-            "<td>"+movimiento.nombre+"</td>"+
-            string_zona   +
-            string_cargo  +
-            string_estado +
-            string_cuota  ;
-        if(cargo_usuario.cveb_flag_zona == 1){
-            string += "<td >"+toString(flag_zona)+"</td>";
-        }
-        if(cargo_usuario.cveb_flag_cuota == 1){
-            string += "<td >"+toString(flag_cuota)+"</td>";
-        }
-        string += "</tr>";
-        $("#postulantes_content").append(string);    
+            string_estado += '<i class="'+icono+' cambio_estado_inmediato pull-right" value="'+mue.id+'"></i>';
+        $('#voluntario_row_'+mue.id).append('<td id="'+mue.id+'_estado_en_tabla">'+string_estado+'</td>');
+        //Cuota
+        string_cuota = '<span>'+mue.cuota+'</span>';
+        if(cargo_usuario.e_inscritos_cuota==1)
+            string_cuota += '<i class="'+icono+' cambio_cuota_inmediato pull-right" value="'+mue.id+'" cuota="'+mue.cuota+'" ></i>';
+        $('#voluntario_row_'+mue.id).append('<td id="'+mue.id+'_cuota_en_tabla">'+string_cuota+'</td>');
+        //Flags
+        //Zona
+        if(cargo_usuario.cveb_flag_zona == 1)
+            $('#voluntario_row_'+mue.id).append("<td >"+toString(flag_zona)+"</td>");        
+        //Cuota
+        if(cargo_usuario.cveb_flag_cuota == 1)
+            $('#voluntario_row_'+mue.id).append("<td >"+toString(flag_cuota)+"</td>"); 
         //Se crean los flags
-        if(cargo_usuario.cveb_flag_zona == 1){                
-            crearFlag('zona', mue, usuario);
-        }
-        if(cargo_usuario.cveb_flag_cuota == 1){
-            crearFlag('cuota', mue, usuario);
-        }
+        if(cargo_usuario.cveb_flag_zona == 1)
+            crearFlag('zona', mue, voluntario, flag_zona);        
+        if(cargo_usuario.cveb_flag_cuota == 1)
+            crearFlag('cuota', mue, voluntario, flag_cuota);        
+    }    
+    //Imprime una fila con el nuevo voluntario
+    var imprimirVoluntario = function imprimirVoluntario(i,mue){
+        //Inicio de impresion de postulantes
+        var voluntario = generarVoluntario(mue);               
+        imprimirFilaVoluntario(i, mue, voluntario);        
     }    
     //Crear Flag para pedir Cambio de Zona o Cuota
-    var crearFlag = function crearFlag(tipo, mue, usuario){
+    var crearFlag = function crearFlag(tipo, mue, voluntario, flag){        
+        usuario = voluntario.usuario;
         var buttons = '';         
         var solicitud = '';
         switch(tipo){
             case 'zona':
-                var misiones = "<select class='btn fade in' id='mision_nueva_modal_"+mue.id+"' style='padding-bot:5px'>";
-                $.each(zonas, function(i, val2) {
+                var misiones = "<select class='btn fade in' id='mision_nueva_modal_"+mue.id+"' style='padding-bot:5px'>";                
+                $.each(zonas, function(i, val2) {                    
                     i++;
                     misiones = misiones+"<option cuota="+val2.cuota+" value='"+val2.id+"' ";
-                    if(val2.id == localidad.id){
+                    if(val2.id == voluntario.localidad.id){
                         misiones = misiones+"selectied='selected'";
                     }
                     misiones=misiones+">"+val2.nombre+"</option>";
@@ -141,7 +161,7 @@ var gestorTablaVoluntarios = (function(){
                 break;
             case 'cuota':
                 var visibilidad = mue.flag_cuota==0? "display: none;":"";
-                var crear_string = mue.flag_cuota==0? "Crear Advertencia":"Guardar Cambios";                
+                var crear_string = mue.flag_cuota==0? "Solicitar cambio cuota":"Guardar Cambios";                
                 buttons = "<span value='"+mue.id+"' class='btn span1 cerrar_flag_cuota'>Cancelar</span>"+
                     "<span id='"+mue.id+"_remove_flag_cuota_button' value='"+mue.id+"' class='btn btn-primary span2 eliminar_flag_cuota' style='"+visibilidad+"'>Remover Advertencia</span>"+
                     "<span id='"+mue.id+"_guardar_flag_cuota_button' value='"+mue.id+"' class='btn btn-primary span2 guardar_cambios_flag_cuota'>"+crear_string+"</span>";                
@@ -153,16 +173,17 @@ var gestorTablaVoluntarios = (function(){
                         "</div>";
                 }   
                 break;
-                }
-            $("#flag_cuota_information").append(""+
-                "<div class='modal fade in' id='"+mue.id+"_modal_"+tipo+"' style='visibility:hidden;'>"+
-                '<button type="button" class="close" data-dismiss="modal">x</button>                                    '+
-                "<div class='modal-header'>"+
-                "<h3>"+flag_cuota+" "+usuario.nombre+" "+usuario.apellido_paterno+" "+usuario.apellido_materno+" "+"</h3>"+
-                "</div>"+"<div class='modal-body'>"+"<table>"+"<td>"+
-                "<textarea id='"+mue.id+"_text_"+tipo+"' rows='10' cols='40'>"+mue.descripcion_cuota+"</textarea>"+
-                "</td><td>"+solicitud+"</td>"+"</table>"+"</div>"+"<div class='modal-footer'>"+buttons+"</div>"+"</div>"
-        );
+            }
+            $("#flag_cuota_information").append('<div class="modal fade in" id="'+mue.id+'_modal_'+tipo+'" style="visibility:hidden; padding: 0px;"><button type="button" class="close" data-dismiss="modal">x</button></div>');
+            //Agregamos la cabecera
+            $('#'+mue.id+'_modal_'+tipo).append('<div id="modal_'+tipo+'_header_'+mue.id+'" class="modal-header"><h3>'+flag+' '+usuario.nombre+' '+usuario.apellido_paterno+' '+usuario.apellido_materno+' '+'</h3></div>');
+            //Agregamos el cuerpo del modal
+            descripcion = (tipo == 'cuota') ? mue.descripcion_cuota:mue.descripcion_zona;
+            data_cells = '<td><textarea id="'+mue.id+'_text_'+tipo+'" rows="10" cols="40">'+descripcion+'</textarea></td>';
+            data_cells += '<td>'+solicitud+'</td>';            
+            $('#'+mue.id+'_modal_'+tipo).append('<div class="modal-body" style="overflow: hidden;"><table>'+data_cells+'</table></div>');
+            //Footer del modal
+            $('#'+mue.id+'_modal_'+tipo).append('<div class="modal-footer">'+buttons+'</div>');            
     }
             
     //Imprime la tabla en funcion de los datos entregados
@@ -178,6 +199,7 @@ var gestorTablaVoluntarios = (function(){
         $.each(postulantes, function(i, mue) {            
             imprimirVoluntario(i,mue);
         });
+        console.log(zonas);
     }
 
     var imprimirTabla = function imprimirTabla(){

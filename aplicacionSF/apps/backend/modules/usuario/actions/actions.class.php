@@ -1469,7 +1469,7 @@ EOF
         foreach($misiones_ as $m)
         {
           $mis[$i]['id']=$m->getId();
-          $mis[$i]['nombre']=$m->getPastoralLocalidad()->getNombre();
+          $mis[$i]['nombre']=$m->getPastoralLocalidadFantasia()->getNombre();
           $mis[$i]['cuota']=$m->getCuota();
           $i++;
         }
@@ -1492,7 +1492,7 @@ EOF
       $respuesta = 1;
       try {
           $uem->save();
-      } catch (Doctrine\ORM\NoResultException $e) {
+      } catch (DoctrineORMNoResultException $e) {
           $respuesta = 0;
       } catch (Exception $e) {
           $respuesta = 0;
