@@ -32,7 +32,7 @@ informacionUsuarioSuccess:
     javascripts:    [bootstrap/bootstrap-typeahead.js, bootstrap/bootstrap-modal.js]
     
 inscritosSuccess:
-    javascripts:    [bootstrap/bootstrap-modal.js, postulantes.js, postulantes_ajax.js, usuario_detalle_modal.js]
+    javascripts:    [jquery.Rut.min.js, bootstrap/bootstrap-modal.js, postulantes.js, postulantes_ajax.js, usuario_detalle_modal.js, /sfFormExtraPlugin/js/jquery.autocompleter.js]
 
 newSuccess:
     javascripts:    [registro.js, jquery.Rut.min.js]
@@ -45,3 +45,6 @@ newComentarioSucces:
 
 nuevoProyecto:
     javascripts:    [bootstrap/bootstrap-typeahead.js]
+    
+editarUsuarioModalAjaxSuccess:
+  has_layout:     false

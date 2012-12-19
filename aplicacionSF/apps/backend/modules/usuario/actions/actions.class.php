@@ -1725,9 +1725,14 @@ EOF
   	return $this->renderText(json_encode($colegios_array));
   }
   
+  public function executeEditarUsuarioModalAjax(sfWebrequest $request){
+      $id = $request->getParameter('usuario_id');
+      $this->pastoral_usuario = Doctrine_Core::getTable('PastoralUsuario')->getUsuarioPorId($id);
+      $this->form = new UsuarioEditarForm($this->pastoral_usuario);
+  }
   
-  public function executePermisoDenegado(sfWebRequest $request)
-  {
+  
+  public function executePermisoDenegado(sfWebRequest $request){
     
   }
   
