@@ -1735,5 +1735,5 @@ EOF
   public function executePermisoDenegado(sfWebRequest $request){
     
   }
-  
 }
+
