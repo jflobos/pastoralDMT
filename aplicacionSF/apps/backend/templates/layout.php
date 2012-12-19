@@ -105,7 +105,7 @@
                            <?php  include_component('notificacion','notificaciones');?>
                            <li class="dropdown" id="menu1">
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
-                                 <i class="icon-user"></i> 
+                                 <i class="icon-user icon-white"></i> 
                                    <b class="caret"></b>
                               </a>
                               <ul class="dropdown-menu" align="left" size="width:30px">
