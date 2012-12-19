@@ -88,9 +88,7 @@ var gestorTablaVoluntarios = (function(){
         $('#voluntario_row_'+mue.id).append('<td><input type="checkbox" value="'+mue.id+'"/></td>');        
         //Nombre del voluntario
         nombre_cell = '<span value="'+voluntario.usuario.id+'" mue="'+mue.id+'" class="show_info_usuarios" style="text-decoration:underline;cursor:pointer;color:blue;">'+voluntario.usuario.nombre+' '+voluntario.usuario.apellido_paterno+'</span>';        //TODO: Revisamos si puede editar el voluntario e imprimimos el icono de edicion
-        if(cargo_usuario.e_inscritos_mision==1)
-            nombre_cell = '<i class="icon-tint editar_voluntario" usuario="'+i+'" style="margin-right: 3px; cursor: pointer;"></i>'.concat(nombre_cell);
-        $('#voluntario_row_'+mue.id).append('<td style="position: relative;">'+nombre_cell+'</td>');        
+        $('#voluntario_row_'+mue.id).append('<td>'+nombre_cell+'</td>');        
         //Edad
         $('#voluntario_row_'+mue.id).append('<td>'+((voluntario.usuario.fecha_nacimiento != undefined) ? getAge(voluntario.usuario.fecha_nacimiento) : 'Sin datos' )+'</td>');        
         //Estudios
@@ -130,45 +128,14 @@ var gestorTablaVoluntarios = (function(){
         if(cargo_usuario.cveb_flag_zona == 1)
             crearFlag('zona', mue, voluntario, flag_zona);        
         if(cargo_usuario.cveb_flag_cuota == 1)
-            crearFlag('cuota', mue, voluntario, flag_cuota);
-    }
-    //Genera las acciones para escuchar a cada voluntario
-    var listenersVoluntario = function listenersVoluntario(){
-        $('.editar_voluntario').click(function(){
-            var id = $(this).attr('usuario');
-            modalEditarVoluntario(postulantes[id]);            
-        });
-    }
-    //Modal que permite editar los cambios del voluntario
-    var modalEditarVoluntario = function modalEditarVoluntario(voluntario){
-        printFormEditarVoluntario($('#postulantes_content'), voluntario.PastoralUsuario);
-        $('#guardar_datos').click(function(){
-                validarFormulario();
-        });
-        $('#cerrar_modal').click(function(){
-            $("'#form_editar_voluntario_<?php echo $pastoral_usuario->getId()?>'").modal('hide');
-            $("'#form_editar_voluntario_<?php echo $pastoral_usuario->getId()?>'").remove();
-        });
-        $('#form_editar_voluntario_'+voluntario.PastoralUsuario.id).modal();    
-        $('#form_editar_voluntario_'+voluntario.PastoralUsuario.id).modal('toggle');
-    }
-    //Form para el form de editar voluntario
-    var printFormEditarVoluntario = function printFormEditarVoluntario(contenedor, usuario){
-        $.ajax({
-          url: routing.url_for('usuario','editarUsuarioModalAjax'),
-          type: "POST",
-          data: {usuario_id : usuario.id},
-          success: function(data){
-              contenedor.append(data);
-          }
-        });
-    }
+            crearFlag('cuota', mue, voluntario, flag_cuota);        
+    }    
     //Imprime una fila con el nuevo voluntario
     var imprimirVoluntario = function imprimirVoluntario(i,mue){
         //Inicio de impresion de postulantes
         var voluntario = generarVoluntario(mue);               
         imprimirFilaVoluntario(i, mue, voluntario);        
-    }
+    }    
     //Crear Flag para pedir Cambio de Zona o Cuota
     var crearFlag = function crearFlag(tipo, mue, voluntario, flag){        
         usuario = voluntario.usuario;
@@ -223,16 +190,16 @@ var gestorTablaVoluntarios = (function(){
     var exitoEnElIf = function exitoEnElIf(data){
         cargo_usuario = data[0];
         zonas = data[1];
-        postulantes = data[2];        
+        postulantes = data[2];
         paginacion = data[3];
         vaciarTabla();
         limpiarTabla();
         imprimirCabeceraDeTabla();
         generarPaginacion();                
         $.each(postulantes, function(i, mue) {            
-            imprimirVoluntario(i,mue);            
+            imprimirVoluntario(i,mue);
         });
-        listenersVoluntario();        
+        console.log(zonas);
     }
 
     var imprimirTabla = function imprimirTabla(){
