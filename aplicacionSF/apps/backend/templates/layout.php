@@ -163,4 +163,5 @@
     <?php echo $sf_content ?>
     </div>
   </body>
+>>>>>>> Mejoras en los Flags
 </html>
