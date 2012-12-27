@@ -28,19 +28,21 @@ class usuarioActions extends sfActions
 
   public function executeAjaxPasswordReset(sfWebRequest $request)
   {
-    if($request->getParameter('rut') != null)
+    $sfGuardUser;
+    if($request->getParameter('rut') != null){
       $usuario = Doctrine_Core::getTable('PastoralUsuario')->findOneByRut($request->getParameter('rut'));
-    else if($request->getParameter('email') != null)
-      $usuario = Doctrine_Core::getTable('sfGuardUser')->findOneByEmailAddress($request->getParameter('email'))->getProfile();
-      
+      $sfGuardUser = $usuario->getUser();
+    }
+    else if($request->getParameter('email') != null){
+      $sfGuardUser = Doctrine_Core::getTable('sfGuardUser')->findOneByEmailAddress($request->getParameter('email'))->getProfile();
+      $usuario = Doctrine_Core::getTable('PastoralUsuario')->findOneByUserId($sfGuardUser->getId());
+    }
     if($usuario == null)
-      return $this->renderText(json_encode(array('status'=>'error')));
-      
+      return $this->renderText(json_encode(array('status'=>'error')));      
     $nuevopass = $this->createPassword(8);
-
     $mensaje = $this->getMailer()->compose(
       array('pastoral@pastoraluc.cl' => 'Pastoral UC'),
-      $usuario->getEmail(),
+      $sfGuardUser->getEmail(),
       'Cambio de contraseña',
       <<<EOF
 Hola {$usuario->getNombre()},
@@ -49,14 +51,10 @@ Tu nueva contraseña es : {$nuevopass}
  
 Saludos.
 EOF
-    );
- 
+    ); 
     $this->getMailer()->send($mensaje);
-    
-    $sfGuardUser = $usuario->getUser();
     $sfGuardUser->setPassword($nuevopass);
-    $sfGuardUser->save();
-    
+    $sfGuardUser->save();    
     return $this->renderText(json_encode(array('status'=>'success')));
   }
 
@@ -1728,10 +1726,8 @@ EOF
   public function executeEditarUsuarioModalAjax(sfWebrequest $request){
       $id = $request->getParameter('usuario_id');
       $this->pastoral_usuario = Doctrine_Core::getTable('PastoralUsuario')->getUsuarioPorId($id);
-      $this->form = new UsuarioEditarForm($this->pastoral_usuario);
+      $this->form = new UsuarioEditarJefeForm($this->pastoral_usuario);
   }
-  
-  
   public function executePermisoDenegado(sfWebRequest $request){
     
   }

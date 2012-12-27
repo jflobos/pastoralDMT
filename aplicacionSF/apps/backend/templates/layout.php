@@ -94,14 +94,12 @@
                             <?php if($cargo_actual->getVeEvaluacionMision() && $uc->getPastoralMision()->getLocalidadId() > 0)
                                   {?>
                                   <li><form class="move-top btn btn-danger"><a style="color: #ffffff;" href="<?php echo url_for('usuario/formularioLocalidad?mision='.$uc->getMisionId()); ?>">Evaluaci&oacute;n</a></form>&emsp;</li>            
-                            <?php } ?>
-                           
+                            <?php } ?>                           
                            <li class="active">
                                 <form class="navbar-search pull-left" action="<?php echo url_for('usuario/busqueda');?>" method="get">
                                     <input name="busqueda" type="text" class="search-query span1" placeholder="B&uacute;squeda de Usuarios" style="width:133px;height:14px"></input>
                                 </form>
                            </li>
-
                            <?php  include_component('notificacion','notificaciones');?>
                            <li class="dropdown" id="menu1">
                               <a class="dropdown-toggle" data-toggle="dropdown" href="#menu1">
