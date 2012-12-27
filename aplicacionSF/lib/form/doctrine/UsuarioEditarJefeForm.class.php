@@ -1,5 +1,4 @@
 <?php
-
 /**
  * PastoralUsuario form.
  *
@@ -8,13 +7,13 @@
  * @author     Your name here
  * @version    SVN: $Id: sfDoctrineFormTemplate.php 23810 2009-11-12 11:07:44Z Kris.Wallsmith $
  */
-class UsuarioRegistroForm extends BasePastoralUsuarioForm
+class UsuarioEditarJefeForm extends BasePastoralUsuarioForm
 {
   public function configure()
   {
       $this->disableLocalCSRFProtection();
       
-      $this->useFields(array('rut', 'es_extranjero', 'nombre', 'apellido_paterno', 'apellido_materno', 'fecha_nacimiento',
+      $this->useFields(array('rut', 'nombre', 'apellido_paterno', 'apellido_materno', 'fecha_nacimiento',
       'sexo','telefono_celular', 'telefono_emergencia', 'region_id', 'comuna_id', 'direccion',
       'tipo_institucion_id', 'universidad_id', 'carrera_id', 'ano_ingreso', 'colegio_id',
       'movimiento_id', 'enfermedades_alergias'));
@@ -55,8 +54,7 @@ class UsuarioRegistroForm extends BasePastoralUsuarioForm
      
 
     $this->widgetSchema->setLabels(array(
-      'rut'                              => 'Rut:',
-      'es_extranjera'                   => '¿Eres extranjero?:',
+      'rut'                              => 'Rut:',      
       'nombre'                       => 'Nombre:',
       'apellido_paterno'          => 'Apellido Paterno:',
       'apellido_materno'         => 'Apellido Materno:',
@@ -100,32 +98,5 @@ class UsuarioRegistroForm extends BasePastoralUsuarioForm
         
       ))
     );
-    
-    
-      
   }
-  
-  
-  public function checkExtranjero($validator, $values, $argument){
-    //die(var_dump($values));
-    if(!$values['es_extranjero'])
-    {
-      $es = new sfValidatorErrorSchema($validator, array());
-      throw $es;
-    }
-    
-    return $values;
-  }
-  
-  public function checkNullRut($validator, $values, $argument){
-    if($values['rut'] == "" )
-    {
-      $error = new sfValidatorError($validator, "Requerido.");
-      $es = new sfValidatorErrorSchema($validator, array('rut' => $error));
-      throw $es;
-    }
-    
-    return $values;
-  }
-  
 }

@@ -6,8 +6,7 @@ var gestorTablaVoluntarios = (function(){
     var vaciarTabla = function vaciarTabla(){
         $("#postulantes_content  tr").remove();
         $("#tabla_input tr").remove();
-    }
-    
+    }    
     var recargarInformacion = function recargarInformacion(){
         mision = $("#misiones_postulantes").val();
         estado = $("#estados_postulantes").val();
@@ -20,7 +19,7 @@ var gestorTablaVoluntarios = (function(){
         $("#postulantes_content").append('<tr id="cabecera_inscritos" style="background-color: rgb(249, 249, 249);"></tr>');        
         $('#cabecera_inscritos').append('<th colspan="2">Nombre</th><th>Edad</th><th>Estudios</th>');
         $('#cabecera_inscritos').append('<th>Celular</th><th>Movimiento</th><th>Zona</th><th>Cargo</th><th>Estado</th>');
-        if(cargo_usuario.e_inscritos_cuota==1)
+        if(cargo_usuario.cveb_flag_cuota==1)
             $('#cabecera_inscritos').append('<th>Cuota</th>');
         if(cargo_usuario.cveb_flag_zona==1)
             $('#cabecera_inscritos').append('<th>S. Zona</th>');
@@ -55,8 +54,7 @@ var gestorTablaVoluntarios = (function(){
                 imprimirTabla();
             }
         }); 
-    }
-    
+    }    
     var generarVoluntario = function generarVoluntario(mue){
         var voluntario = {};
         voluntario.mision = mue['PastoralMision'];
@@ -74,8 +72,7 @@ var gestorTablaVoluntarios = (function(){
         else
             voluntario.nombre_cargo = 'misionero-voluntario';        
         return voluntario;
-    }
-    
+    }    
     var imprimirFilaVoluntario = function imprimirFilaVoluntario(i, mue, voluntario){
         parity = i%2==0?"even":"odd";            
         flag_zona = mue.flag_zona?"<i id='"+mue.id+"_flag_zona' class='icon-flag flag_zona' value='"+mue.id+"'></i>":"<i id='"+mue.id+"_flag_zona' class='icon-headphones flag_zona'  value='"+mue .id+"'></i>";
@@ -128,9 +125,9 @@ var gestorTablaVoluntarios = (function(){
             $('#voluntario_row_'+mue.id).append("<td >"+toString(flag_cuota)+"</td>"); 
         //Se crean los flags
         if(cargo_usuario.cveb_flag_zona == 1)
-            crearFlag('zona', mue, voluntario, flag_zona);        
+            crearFlag('zona', mue, voluntario, flag_zona, cargo_usuario);        
         if(cargo_usuario.cveb_flag_cuota == 1)
-            crearFlag('cuota', mue, voluntario, flag_cuota);
+            crearFlag('cuota', mue, voluntario, flag_cuota, cargo_usuario);
     }
     //Genera las acciones para escuchar a cada voluntario
     var listenersVoluntario = function listenersVoluntario(){
@@ -143,14 +140,100 @@ var gestorTablaVoluntarios = (function(){
     var modalEditarVoluntario = function modalEditarVoluntario(voluntario){
         printFormEditarVoluntario($('#postulantes_content'), voluntario.PastoralUsuario);
         $('#guardar_datos').click(function(){
-                validarFormulario();
+                info = validarFormularioEditarVoluntario();
+                if(enviarInformacionEdicionVoluntario(info)){
+                  //Mensaje de exito
+                  cerrarFormularioEditarVoluntario()
+                }
         });
         $('#cerrar_modal').click(function(){
-            $("'#form_editar_voluntario_<?php echo $pastoral_usuario->getId()?>'").modal('hide');
-            $("'#form_editar_voluntario_<?php echo $pastoral_usuario->getId()?>'").remove();
-        });
-        $('#form_editar_voluntario_'+voluntario.PastoralUsuario.id).modal();    
-        $('#form_editar_voluntario_'+voluntario.PastoralUsuario.id).modal('toggle');
+            cerrarFormularioEditarVoluntario()
+        });       
+    }
+    var validarFormularioEditarVoluntario = function validarFormularioEditarVoluntario(){
+      //Revisamos campo a campo el formulario
+      retorno = true;
+      retorno = datosPersonalesNoNulosyValidos();
+      retorno = datosEstudiosValidos();
+      /*      
+      //SfGuard User
+      pastoral_usuario_User_email_address
+      pastoral_usuario_User_password
+      pastoral_usuario_User_password_confirmation
+      */
+    }
+    var datosEstudiosValidos = function datosEstudiosValidos(){   
+      retorno = true;
+      switch($('#pastoral_usuario_tipo_institucion_id').val()){
+        //Universidad
+        case 1:
+          if($('#pastoral_usuario_universidad_id').val() == undefined)
+            retorno = false;
+          if($('#pastoral_usuario_colegio_id').val() == undefined)
+            retorno = false;
+          if($('#pastoral_usuario_carrera_id').val() == undefined)
+            retorno = false;
+          if($('#pastoral_usuario_telefono_celular').val() != undefined || 
+            !(/^\d+$/.test($('#pastoral_usuario_telefono_celular').val())) ||
+            $('#pastoral_usuario_telefono_celular').lenght == 4)
+            retorno = false;
+          break;
+        //Colegio
+        case 2:
+          if($('#pastoral_usuario_colegio_id').val() == undefined)
+            retorno = false;
+          break;
+        //Ninguna
+        case 3:          
+          break;
+      }
+      return retorno;
+    }
+    var datosPersonalesNoNulosyValidos = function datosPersonalesNoNulosyValidos(){
+      retorno = true;
+      if($('#pastoral_usuario_rut').val().trim() == '' ||  $('#pastoral_usuario_rut').val() == undefined){
+        retorno = false;
+      }
+      if($('#pastoral_usuario_nombre').val().trim() == '' || $('#pastoral_usuario_nombre').val() == undefined){
+        retorno = false;
+      }
+      if($('#pastoral_usuario_apellido_paterno').val().trim() == '' || $('#pastoral_usuario_nombre').val() == undefined){
+        retorno = false;
+      }
+      if($('#pastoral_usuario_apellido_materno').val().trim() == '' || $('#pastoral_usuario_apellido_materno').val() == undefined){
+        retorno = false;
+      }      
+      dia = $('#pastoral_usuario_fecha_nacimiento_day').val();
+      mes = $('#pastoral_usuario_fecha_nacimiento_month').val();
+      ano = $('#pastoral_usuario_fecha_nacimiento_year').val();
+      if(!fechaValida(dia, mes, ano)){
+        retorno = false;
+      }
+      if($('#pastoral_usuario_movimiento_id').val() == undefined){
+        retorno = false;
+      }      
+      if($('input:radio[name=pastoral_usuario[sexo]]:checked').val() == undefined){
+        retorno = false;
+      }
+      if($('#pastoral_usuario_telefono_celular').val() != undefined || 
+        !(/^\d+$/.test($('#pastoral_usuario_telefono_celular').val()))){
+        retorno = false;
+      }
+      if($('#pastoral_usuario_telefono_emergencia').val() == undefined || 
+        !(/^\d+$/.test($('#pastoral_usuario_telefono_emergencia').val()))){
+        retorno = false;
+      }
+      if($('#pastoral_usuario_region_id').val() == undefined){
+        retorno = false;
+      }
+      if($('#pastoral_usuario_comuna_id').val() == undefined){
+        retorno = false;
+      }      
+      return retorno;
+    }
+    var cerrarFormularioEditarVoluntario = function cerrarFormularioEditarVoluntario(){
+      $("'#form_editar_voluntario_<?php echo $pastoral_usuario->getId()?>'").modal('hide');
+      $("'#form_editar_voluntario_<?php echo $pastoral_usuario->getId()?>'").remove();
     }
     //Form para el form de editar voluntario
     var printFormEditarVoluntario = function printFormEditarVoluntario(contenedor, usuario){
@@ -160,9 +243,60 @@ var gestorTablaVoluntarios = (function(){
           data: {usuario_id : usuario.id},
           success: function(data){
               contenedor.append(data);
+              $('#form_editar_voluntario_'+usuario.id).modal(); 
+              activarListenersEditarVoluntario();
           }
         });
     }
+    //Activar Listeners Formulario Editar voluntario
+    var activarListenersEditarVoluntario = function activarListenersEditarVoluntario(){      
+      $('#pastoral_usuario_rut').Rut({
+        on_error: function(){
+          if(!$("#rut_error").text())
+            $('#pastoral_usuario_rut').parent().append("<span id='rut_error'>Rut invalido.</span>"); 
+        },
+        on_success: function(){
+          $("#rut_error").remove(); 
+        }    
+      });
+      $("#pastoral_usuario_rut").click(function(){
+        if($("#pastoral_usuario_es_extranjero").is(':checked')){
+          $("#pastoral_usuario_es_extranjero").removeAttr("checked");
+        }
+      });
+    }
+    //Activa los controles de los autocompletar
+    var activarAutoCompletes = function activarAutoCompletes(){
+        //Comuna
+        console.log('¡Entramos!');
+        $("#autocomplete_pastoral_usuario_comuna_id")
+        .autocomplete('AjaxGetComunas', $.extend({}, {
+          dataType: 'json',
+          parse:    function(data) {
+            var parsed = [];
+            console.log(data);
+            for (key in data) {
+              parsed[parsed.length] = { data: [ data[key], key ], value: data[key], result: data[key] };
+            }
+            return parsed;
+          }
+        }, { width: 220, max: 5, highlight:false, multiple: false, scroll: true, scrollHeight: 300}))
+        .result(function(event, data) { $("#pastoral_usuario_comuna_id").val(data[1]); }); 
+        //Colegio        
+        $("#autocomplete_pastoral_usuario_colegio_id")
+        .autocomplete('AjaxGetColegios', $.extend({}, {
+          dataType: 'json',
+          parse:    function(data) {
+            var parsed = [];
+            for (key in data) {
+              parsed[parsed.length] = { data: [ data[key], key ], value: data[key], result: data[key] };
+            }
+            return parsed;
+          }
+        }, { width: 220, max: 5, highlight:false, multiple: false, scroll: true, scrollHeight: 300}))
+        .result(function(event, data) { $("#pastoral_usuario_colegio_id").val(data[1]); });      
+    }
+    
     //Imprime una fila con el nuevo voluntario
     var imprimirVoluntario = function imprimirVoluntario(i,mue){
         //Inicio de impresion de postulantes
@@ -170,57 +304,120 @@ var gestorTablaVoluntarios = (function(){
         imprimirFilaVoluntario(i, mue, voluntario);        
     }
     //Crear Flag para pedir Cambio de Zona o Cuota
-    var crearFlag = function crearFlag(tipo, mue, voluntario, flag){        
-        usuario = voluntario.usuario;
-        var buttons = '';         
-        var solicitud = '';
+    var crearFlag = function crearFlag(tipo, mue, voluntario, flag, cargo_usuario){        
+        var modal;
+        usuario = voluntario.usuario;                   
         switch(tipo){
-            case 'zona':
-                var misiones = "<select class='btn fade in' id='mision_nueva_modal_"+mue.id+"' style='padding-bot:5px'>";                
-                $.each(zonas, function(i, val2) {                    
-                    i++;
-                    misiones = misiones+"<option cuota="+val2.cuota+" value='"+val2.id+"' ";
-                    if(val2.id == voluntario.localidad.id){
-                        misiones = misiones+"selectied='selected'";
-                    }
-                    misiones=misiones+">"+val2.nombre+"</option>";
-                });
-                misiones = misiones+"</select>";
-                solicitud=""+
-                    "<div id='"+mue.id+"_solucionar_solicitud_zona' class='span4' style='text-align:center;"+visibilidad+"'>"+ 
-                    misiones+
-                    "<span value='"+mue.id+"' class='btn btn-success span2 solucionar_solicitud_zona' style='margin-top:15px;'>Cambiar Zona</span>"+
-                    "</div>";
-                break;
+            case 'zona':                
+              if(cargo_usuario.e_inscritos_mision == 1)
+                modal = crearFlagResolutivoZona(mue, voluntario);
+              else
+                modal = crearFlagSolicitudCambioZona(mue);
+              break;
             case 'cuota':
-                var visibilidad = mue.flag_cuota==0? "display: none;":"";
-                var crear_string = mue.flag_cuota==0? "Solicitar cambio cuota":"Guardar Cambios";                
-                buttons = "<span value='"+mue.id+"' class='btn span1 cerrar_flag_cuota'>Cancelar</span>"+
-                    "<span id='"+mue.id+"_remove_flag_cuota_button' value='"+mue.id+"' class='btn btn-primary span2 eliminar_flag_cuota' style='"+visibilidad+"'>Remover Advertencia</span>"+
-                    "<span id='"+mue.id+"_guardar_flag_cuota_button' value='"+mue.id+"' class='btn btn-primary span2 guardar_cambios_flag_cuota'>"+crear_string+"</span>";                
-                if(cargo_usuario.e_inscritos_cuota==1){
-                    solicitud=""+
-                        "<div id='"+mue.id+"_solucionar_solicitud_cuota' class='span4' style='text-align:center;"+visibilidad+"'>"+ 
-                        "<input class='span2' value="+mue.cuota+" id='"+mue.id+"_cuota_nueva_module' type='numbers' placeholder='cuota'></input></br>"+
-                        "<span value='"+mue.id+"' class='btn btn-success span2 solucionar_solicitud_cuota'>Solucionar Solicitud</span>"+
-                        "</div>";
-                }   
-                break;
+              if(cargo_usuario.e_inscritos_mision == 1)
+                modal = crearFlagResolutivoCuota(mue);
+              else
+                modal = crearFlagSolicitudCambioCuota(mue);
+              break;             
             }
             $("#flag_cuota_information").append('<div class="modal fade in" id="'+mue.id+'_modal_'+tipo+'" style="visibility:hidden; padding: 0px;"><button type="button" class="close" data-dismiss="modal">x</button></div>');
             //Agregamos la cabecera
             $('#'+mue.id+'_modal_'+tipo).append('<div id="modal_'+tipo+'_header_'+mue.id+'" class="modal-header"><h3>'+flag+' '+usuario.nombre+' '+usuario.apellido_paterno+' '+usuario.apellido_materno+' '+'</h3></div>');
-            //Agregamos el cuerpo del modal
+            //Agregamos el cuerpo del modal            
             descripcion = (tipo == 'cuota') ? mue.descripcion_cuota:mue.descripcion_zona;
-            data_cells = '<td><textarea id="'+mue.id+'_text_'+tipo+'" rows="10" cols="40">'+descripcion+'</textarea></td>';
-            data_cells += '<td>'+solicitud+'</td>';            
+            data_cells = "";
+            if((mue.flag_zona == 1 || mue.flag_cuota == 1) || mue.e_inscritos_mision != 1)
+              data_cells += '<td><textarea id="'+mue.id+'_text_'+tipo+'" rows="10" cols="40">'+descripcion+'</textarea></td>';
+            data_cells += '<td>'+modal.solicitud+'</td>';            
             $('#'+mue.id+'_modal_'+tipo).append('<div class="modal-body" style="overflow: hidden;"><table>'+data_cells+'</table></div>');
             //Footer del modal
-            $('#'+mue.id+'_modal_'+tipo).append('<div class="modal-footer">'+buttons+'</div>');            
+            $('#'+mue.id+'_modal_'+tipo).append('<div class="modal-footer">'+modal.botones+'</div>');            
     }
-            
+    var crearFlagSolicitudCambioCuota = function crearFlagSolicitudCambioCuota(mue){
+      retorno = {};      
+      retorno.solicitud = "";
+      retorno.botones = "";
+      //Resuelve cambio de zonas
+      if(mue.flag_zona == 1)
+        retorno.botones = "<span value='"+mue.id+"' class='btn span1 cerrar_flag_cuota'>Cancelar</span>"+
+                  "<span id='"+mue.id+"_remove_flag_cuota_button' value='"+mue.id+"' class='btn btn-primary span2 eliminar_flag_cuota'>Remover solicitud</span>"+
+                  "<span id='"+mue.id+"_guardar_flag_cuota_button' value='"+mue.id+"' class='btn btn-primary span2 guardar_cambios_flag_cuota'>Guardar solicitud</span>";      
+      else
+        retorno.botones = "<span value='"+mue.id+"' class='btn span1 cerrar_flag_cuota'>Cerrar</span>"+                  
+                  "<span id='"+mue.id+"_guardar_flag_cuota_button' value='"+mue.id+"' class='btn btn-primary span2 guardar_cambios_flag_cuota'>Guardar solicitud</span>";
+      return retorno;
+    }    
+    
+    var crearFlagResolutivoCuota = function crearFlagResolutivoCuota(mue){
+      retorno = {};      
+      retorno.solicitud = "";      
+      //Resuelve cambio de zonas
+      if(mue.flag_cuota == 1){   
+        retorno.botones = "<span value='"+mue.id+"' class='btn span1 cerrar_flag_cuota'>Cancelar</span>"+
+                  "<span id='"+mue.id+"_remove_flag_cuota_button' value='"+mue.id+"' class='btn btn-primary span2 eliminar_flag_cuota'>Remover solicitud</span>"+
+                  "<span id='"+mue.id+"_guardar_flag_cuota_button' value='"+mue.id+"' class='btn btn-primary span2 guardar_cambios_flag_cuota'>Guardar solicitud</span>";
+        retorno.solicitud="<div id='"+mue.id+"_solucionar_solicitud_cuota' class='span4' style='text-align:center;'>"+ 
+                            "<input class='span2' value="+mue.cuota+" id='"+mue.id+"_cuota_nueva_module' type='numbers' placeholder='cuota'></input></br>"+
+                            "<span value='"+mue.id+"' class='btn btn-success span2 solucionar_solicitud_cuota'>Solucionar Solicitud</span>"+
+                          "</div>";
+      }
+      else{
+        retorno.solicitud = "No hay solicitud de cambio de cuota pendiente";
+        retorno.botones = "<span value='"+mue.id+"' class='btn span1 cerrar_flag_cuota'>Cerrar</span>"
+      }
+      return retorno;
+    }
+    
+    var crearFlagSolicitudCambioZona = function crearFlagSolicitudCambioZona(mue){
+      retorno = {};      
+      retorno.solicitud = "";
+      retorno.botones = "";
+      //Resuelve cambio de zonas
+      if(mue.flag_zona == 1){        
+        retorno.botones = "<span value='"+mue.id+"' class='btn span1 cerrar_flag_zona'>Cerrar</span>"+
+                  "<span id='"+mue.id+"_remove_flag_zona_button' value='"+mue.id+"' class='btn btn-primary span2 eliminar_flag_zona'>Remover Advertencia</span>"+
+                  "<span id='"+mue.id+"_guardar_flag_zona_button' value='"+mue.id+"' class='btn btn-primary span2 guardar_cambios_flag_zona'>Guardar Advertencia</span>";        
+      }
+      else{
+        retorno.botones = "<span value='"+mue.id+"' class='btn span1 cerrar_flag_zona'>Cerrar</span>"+                  
+                  "<span id='"+mue.id+"_guardar_flag_zona_button' value='"+mue.id+"' class='btn btn-primary span2 guardar_cambios_flag_zona'>Guardar Advertencia</span>";
+      }
+      return retorno;
+    }
+    //Crear un flag para el voluntario que es cambiar el tipo de zona:
+    var crearFlagResolutivoZona = function crearFlagResolutivoZona(mue, voluntario){
+      retorno = {};      
+      retorno.solicitud = "";      
+      //Resuelve cambio de zonas
+      if(mue.flag_zona == 1){        
+        misiones= "<select class='btn fade in' id='mision_nueva_modal_"+mue.id+"' style='padding-bot:5px'>";
+        $.each(zonas, function(i, val2) {                    
+            i++;
+            misiones+="<option cuota="+val2.cuota+" value='"+val2.id+"' ";
+            if(val2.id == voluntario.localidad.id){
+                misiones+="selectied='selected'";
+            }
+            misiones+=">"+val2.nombre+"</option>";
+        });
+        misiones+="</select>";
+        textoBoton="Cambiar zona";
+        retorno.botones = "<span value='"+mue.id+"' class='btn span1 cerrar_flag_zona'>Cerrar</span>"+
+                  "<span id='"+mue.id+"_remove_flag_zona_button' value='"+mue.id+"' class='btn btn-primary span2 eliminar_flag_zona'>Remover solicitud</span>"+
+                  "<span id='"+mue.id+"_guardar_flag_zona_button' value='"+mue.id+"' class='btn btn-primary span2 guardar_cambios_flag_zona'>Guardar solicitud</span>";
+        retorno.solicitud=""+"<div id='"+mue.id+"_solucionar_solicitud_zona' class='span4' style='text-align:center;'>"+ 
+                      misiones+
+                      "<span value='"+mue.id+"' class='btn btn-success span2 solucionar_solicitud_zona' style='margin-top:15px;'>"+textoBoton+"</span>"+
+                      "</div>";
+      }
+      else{
+        retorno.solicitud = "No hay solicitud de cambio de zona pendiente";
+        retorno.botones = "<span value='"+mue.id+"' class='btn span1 cerrar_flag_zona'>Cerrar</span>"
+      }
+      return retorno;
+    }
     //Imprime la tabla en funcion de los datos entregados
-    var exitoEnElIf = function exitoEnElIf(data){
+    var exitoEnElIf = function exitoEnElIf(data){      
         cargo_usuario = data[0];
         zonas = data[1];
         postulantes = data[2];        
@@ -234,7 +431,6 @@ var gestorTablaVoluntarios = (function(){
         });
         listenersVoluntario();        
     }
-
     var imprimirTabla = function imprimirTabla(){
         recargarInformacion();
         $.get(routing.url_for('usuario', 'AjaxGetMUEdeEstadoYMision'), { mision_id: mision, estado_id:estado, flag_id:flag, pagina:pagina},
@@ -251,7 +447,6 @@ var gestorTablaVoluntarios = (function(){
             $("head").append("<script type='text/javascript' src='"+routing.public_path('js/postulantes.js')+"'></script>");
         }, "json");
     }
-
     var initEventos = function initEventos(){
         $("#misiones_postulantes").change(function () {
             $('#pagina').val(1);
@@ -279,152 +474,163 @@ var gestorTablaVoluntarios = (function(){
     }
 })();
         
-        $(function(){    
-            gestorTablaVoluntarios.init();
-            postulantesManager.init();
-        });
+    $(function(){    
+        gestorTablaVoluntarios.init();
+        postulantesManager.init();
+    });
         
-        function guardar_cambios_muec()
+function guardar_cambios_muec(){
+    var selected = new Array();
+    var mision_nueva = $("#mision_nueva").val();
+    var cargo_nuevo  = $("#cargo_nuevo").val();
+    var estado_nuevo = $("#estado_nuevo").val();
+    var cuota_nueva  = $("#cuota_nueva").val();
+
+    $("input:checkbox:checked").each(function() {
+        selected.push($(this).val());
+        id = $(this).val();
+        if(cargo_nuevo>0)
+            $('#'+id+'_cargo_en_tabla span').html($("#cargo_nuevo option:selected").text());
+        if(mision_nueva>0)
         {
-            var selected = new Array();
-            var mision_nueva = $("#mision_nueva").val();
-            var cargo_nuevo  = $("#cargo_nuevo").val();
-            var estado_nuevo = $("#estado_nuevo").val();
-            var cuota_nueva  = $("#cuota_nueva").val();
-            
-            $("input:checkbox:checked").each(function() {
-                selected.push($(this).val());
-                id = $(this).val();
-                if(cargo_nuevo>0)
-                    $('#'+id+'_cargo_en_tabla span').html($("#cargo_nuevo option:selected").text());
-                if(mision_nueva>0)
-                {
-                    $('#'+id+'_zona_en_tabla span').html($("#mision_nueva option:selected").attr('zona')); 
-                    $('#'+id+'_estado_en_tabla span').html('pendiente');
-                    $('#'+id+'_cuota_en_tabla span').html($("#mision_nueva option:selected").attr('cuota'));
-                }
-                if(estado_nuevo>0)
-                    $('#'+id+'_estado_en_tabla span').html($("#estado_nuevo option:selected").text());
-                if(cuota_nueva>0)
-                    $('#'+id+'_cuota_en_tabla span').html($("#cuota_nueva").val());
-            }); 
-            $.get(routing.url_for('usuario', 'AjaxEditarInscritos'), { selected:selected, mision_nueva:mision_nueva,cargo_nuevo:cargo_nuevo,estado_nuevo:estado_nuevo,cuota_nueva:cuota_nueva},
-            function(data){
-                if(data==1)
-                {
-                }
-                else if(data==0){}
-            });
+            $('#'+id+'_zona_en_tabla span').html($("#mision_nueva option:selected").attr('zona')); 
+            $('#'+id+'_estado_en_tabla span').html('pendiente');
+            $('#'+id+'_cuota_en_tabla span').html($("#mision_nueva option:selected").attr('cuota'));
         }
-        
-        function guardar_cambios_flag_zona(id)
-        {
-            $("#"+id+"_remove_flag_zona_button").show();
-            $("#"+id+"_solucionar_solicitud_zona").show();
-            $("#"+id+"_guardar_flag_zona_button").html('Guardar Cambios');
-            var text =$("#"+id+"_text_zona").val();
-            $.get(routing.url_for('usuario','AjaxEditarFlagZona'), { uem_id:id,descripcion:text},
-            function(data){
-                if(data==1){}
-                else if(data==0){}
-            });
-            $("#"+id+"_flag_zona").removeClass("icon-headphones");
-            $("#"+id+"_flag_zona").addClass("icon-flag");
-            
-            $("#"+id+"_modal_zona").css("visibility","hidden");
-            $("#"+id+"_modal_zona").modal('hide');
-        }
-        function guardar_cambios_flag_cuota(id)
-        {
-            $("#"+id+"_remove_flag_cuota_button").show();
-            $("#"+id+"_solucionar_solicitud_cuota").show();
-            $("#"+id+"_guardar_flag_cuota_button").html('Guardar Cambios');
-            var text =$("#"+id+"_text_cuota").val();
-            $.get(routing.url_for('usuario', 'AjaxEditarFlagCuota'), { uem_id:id,descripcion:text},
-            function(data){
-                if(data==1){}
-                else if(data==0){}
-            });
-            $("#"+id+"_flag_cuota").removeClass("icon-headphones");
-            $("#"+id+"_flag_cuota").addClass("icon-flag");
-            
-            $("#"+id+"_modal_cuota").css("visibility","hidden");
-            $("#"+id+"_modal_cuota").modal('hide');
-        }
-        function eliminar_flag_zona(id)
-        { 
-            $("#"+id+"_remove_flag_zona_button").hide();
-            $("#"+id+"_solucionar_solicitud_zona").hide();
-            $("#"+id+"_guardar_flag_zona_button").html('Crear Flag');
-            $("#"+id+"_text_zona").val('Ingresa aquÃ­ tus comentarios');
-            $.get('AjaxEliminarFlagZona', { uem_id:id},
-            function(data){
-                if(data==1){}
-                else if(data==0){}
-            });
-            
-            $("#"+id+"_flag_zona").removeClass("icon-flag");
-            $("#"+id+"_flag_zona").addClass("icon-headphones");
-            
-            $("#"+id+"_modal_zona").css("visibility","hidden");
-            $("#"+id+"_modal_zona").modal('hide');
-        }
-        function eliminar_flag_cuota(id)
-        { 
-            $("#"+id+"_remove_flag_cuota_button").hide();
-            $("#"+id+"_text_cuota").val('Ingresa aquÃ­ tus comentarios');
-            $("#"+id+"_solucionar_solicitud_cuota").hide();
-            $("#"+id+"_guardar_flag_cuota_button").html('Crear Flag');
-            $.get('AjaxEliminarFlagCuota', { uem_id:id},
-            function(data){
-                if(data==1){}
-                else if(data==0){}
-            });
-            
-            $("#"+id+"_flag_cuota").removeClass("icon-flag");
-            $("#"+id+"_flag_cuota").addClass("icon-headphones");
-            
-            $("#"+id+"_modal_cuota").css("visibility","hidden");
-            $("#"+id+"_modal_cuota").modal('hide');
-        }
-        
-        function cerrar_flag_zona(id)
-        {
-            $("#"+id+"_modal_zona").css("visibility","hidden");
-            $("#"+id+"_modal_zona").modal('hide');
-        }
-        
-        function cerrar_flag_cuota(id)
-        {
-            $("#"+id+"_modal_cuota").css("visibility","hidden");
-            $("#"+id+"_modal_cuota").modal('hide');
-        }
-        
-        function cerrar_info_usuario(id)
-        {
-            $("#"+id+"_modal_usuario").css("visibility","hidden");
-            $("#"+id+"_modal_usuario").modal('hide');
-        }
-        
-        function toString(data)
-        {
-            var valor = "";
-            if(data != null && data != "undefined")
-            {
-                valor = data;
-            }
-            
-            return valor;
-        }
-        
-        function getAge(dateString) {
-            var today = new Date();
-            var birthDate = new Date(dateString.substr(0,dateString.indexOf(' ')));
-            var age = today.getFullYear() - birthDate.getFullYear();
-            var m = today.getMonth() - birthDate.getMonth();
-            if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
-                age--;
-            }
-            return age;
-        }
-        
+        if(estado_nuevo>0)
+            $('#'+id+'_estado_en_tabla span').html($("#estado_nuevo option:selected").text());
+        if(cuota_nueva>0)
+            $('#'+id+'_cuota_en_tabla span').html($("#cuota_nueva").val());
+    }); 
+    $.get(routing.url_for('usuario', 'AjaxEditarInscritos'), { selected:selected, mision_nueva:mision_nueva,cargo_nuevo:cargo_nuevo,estado_nuevo:estado_nuevo,cuota_nueva:cuota_nueva},
+    function(data){
+        if(data==1){}
+        else if(data==0){}
+    });
+}
+
+function guardar_cambios_flag_zona(id){
+    $("#"+id+"_remove_flag_zona_button").show();
+    $("#"+id+"_solucionar_solicitud_zona").show();
+    $("#"+id+"_guardar_flag_zona_button").html('Guardar Cambios');
+    var text =$("#"+id+"_text_zona").val();
+    $.get(routing.url_for('usuario','AjaxEditarFlagZona'), { uem_id:id,descripcion:text},
+    function(data){
+        if(data==1){}
+        else if(data==0){}
+    });
+    $("#"+id+"_flag_zona").removeClass("icon-headphones");
+    $("#"+id+"_flag_zona").addClass("icon-flag");
+
+    $("#"+id+"_modal_zona").css("visibility","hidden");
+    $("#"+id+"_modal_zona").modal('hide');
+}
+function guardar_cambios_flag_cuota(id){
+    $("#"+id+"_remove_flag_cuota_button").show();
+    $("#"+id+"_solucionar_solicitud_cuota").show();
+    $("#"+id+"_guardar_flag_cuota_button").html('Guardar Cambios');
+    var text =$("#"+id+"_text_cuota").val();
+    $.get(routing.url_for('usuario', 'AjaxEditarFlagCuota'), { uem_id:id,descripcion:text},
+    function(data){
+        if(data==1){}
+        else if(data==0){}
+    });
+    $("#"+id+"_flag_cuota").removeClass("icon-headphones");
+    $("#"+id+"_flag_cuota").addClass("icon-flag");
+
+    $("#"+id+"_modal_cuota").css("visibility","hidden");
+    $("#"+id+"_modal_cuota").modal('hide');
+}
+function eliminar_flag_zona(id){ 
+    $("#"+id+"_remove_flag_zona_button").hide();
+    $("#"+id+"_solucionar_solicitud_zona").hide();
+    $("#"+id+"_guardar_flag_zona_button").html('Crear Flag');
+    $("#"+id+"_text_zona").val('Ingresa aquí tus comentarios');
+    $.get('AjaxEliminarFlagZona', { uem_id:id},
+    function(data){
+        if(data==1){}
+        else if(data==0){}
+    });
+
+    $("#"+id+"_flag_zona").removeClass("icon-flag");
+    $("#"+id+"_flag_zona").addClass("icon-headphones");
+
+    $("#"+id+"_modal_zona").css("visibility","hidden");
+    $("#"+id+"_modal_zona").modal('hide');
+}
+function eliminar_flag_cuota(id){ 
+    $("#"+id+"_remove_flag_cuota_button").hide();
+    $("#"+id+"_text_cuota").val('Ingresa aquí tus comentarios');
+    $("#"+id+"_solucionar_solicitud_cuota").hide();
+    $("#"+id+"_guardar_flag_cuota_button").html('Crear Flag');
+    $.get('AjaxEliminarFlagCuota', { uem_id:id},
+    function(data){
+        if(data==1){}
+        else if(data==0){}
+    });
+
+    $("#"+id+"_flag_cuota").removeClass("icon-flag");
+    $("#"+id+"_flag_cuota").addClass("icon-headphones");
+
+    $("#"+id+"_modal_cuota").css("visibility","hidden");
+    $("#"+id+"_modal_cuota").modal('hide');
+}
+function cerrar_flag_zona(id){
+    $("#"+id+"_modal_zona").css("visibility","hidden");
+    $("#"+id+"_modal_zona").modal('hide');
+}
+
+function cerrar_flag_cuota(id){
+    $("#"+id+"_modal_cuota").css("visibility","hidden");
+    $("#"+id+"_modal_cuota").modal('hide');
+}
+
+function cerrar_info_usuario(id){
+    $("#"+id+"_modal_usuario").css("visibility","hidden");
+    $("#"+id+"_modal_usuario").modal('hide');
+}
+
+function toString(data){
+    var valor = "";
+    if(data != null && data != "undefined"){
+        valor = data;
+    }
+    return valor;
+}
+function getAge(dateString){
+    var today = new Date();
+    var birthDate = new Date(dateString.substr(0,dateString.indexOf(' ')));
+    var age = today.getFullYear() - birthDate.getFullYear();
+    var m = today.getMonth() - birthDate.getMonth();
+    if (m < 0 || (m === 0 && today.getDate() < birthDate.getDate())) {
+        age--;
+    }
+    return age;
+}
+function fechaValida(dia, mes, ano) {
+	var dia = fecha[0];
+	var mes = fecha[1]; 
+	var ano = fecha[2];
+	var estado = true;	 	
+	switch (parseInt(mes)) { 
+		case 1:dmax = 31;break; 
+		case 2: 
+			if (ano % 4 == 0) dmax = 29; 
+			else dmax = 28; 
+			break; 
+		case 3:dmax = 31;break; 
+		case 4:dmax = 30;break; 
+		case 5:dmax = 31;break; 
+		case 6:dmax = 30;break; 
+		case 7:dmax = 31;break; 
+		case 8:dmax = 31;break; 
+		case 9:dmax = 30;break; 
+		case 10:dmax = 31;break; 
+		case 11:dmax = 30;break; 
+		case 12:dmax = 31;break; 
+	} 
+	if(dia > dmax){
+		estado = false;
+	}
+	return estado;
+}

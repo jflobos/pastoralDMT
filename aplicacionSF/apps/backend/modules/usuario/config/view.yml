@@ -32,7 +32,8 @@ informacionUsuarioSuccess:
     javascripts:    [bootstrap/bootstrap-typeahead.js, bootstrap/bootstrap-modal.js]
     
 inscritosSuccess:
-    javascripts:    [jquery.Rut.min.js, bootstrap/bootstrap-modal.js, postulantes.js, postulantes_ajax.js, usuario_detalle_modal.js, /sfFormExtraPlugin/js/jquery.autocompleter.js]
+    javascripts:    [bootstrap/bootstrap-modal.js, postulantes.js, postulantes_ajax.js, usuario_detalle_modal.js, ../sfFormExtraPlugin/js/jquery.autocompleter.js, jquery.Rut.min.js]
+    stylesheets:    [../sfFormExtraPlugin/css/jquery.autocompleter.css]
 
 newSuccess:
     javascripts:    [registro.js, jquery.Rut.min.js]
@@ -40,11 +41,11 @@ newSuccess:
 recuperarPasswordSuccess:
     javascripts:    [recuperarPassword.js, jquery.Rut.min.js]
     
-newComentarioSucces:
+newComentarioSuccess:
     javascripts:    [bootstrap/bootstrap-typeahead.js]
 
-nuevoProyecto:
+nuevoProyectoSuccess:
     javascripts:    [bootstrap/bootstrap-typeahead.js]
     
 editarUsuarioModalAjaxSuccess:
-  has_layout:     false
+    has_layout:     false
