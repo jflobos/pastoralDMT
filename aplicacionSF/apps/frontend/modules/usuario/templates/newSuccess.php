@@ -31,7 +31,7 @@
 <a id="modal_launcher" href="#modalError" class="btn" data-toggle="modal" style="display: none"></a> 
 <div class="modal" id="modalError" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" style="display: none;">
   <div class="modal-header">
-    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">x</button>
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
     <h3 id="myModalLabel">Hay errores en el formulario</h3>
   </div>
   <div id="modal_error_body" class="modal-body">

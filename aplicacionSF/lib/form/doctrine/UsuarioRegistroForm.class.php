@@ -56,7 +56,7 @@ class UsuarioRegistroForm extends BasePastoralUsuarioForm
 
     $this->widgetSchema->setLabels(array(
       'rut'                              => 'Rut:',
-      'es_extranjera'                   => '�Eres extranjero?:',
+      'es_extranjera'                   => '¿Eres extranjero?:',
       'nombre'                       => 'Nombre:',
       'apellido_paterno'          => 'Apellido Paterno:',
       'apellido_materno'         => 'Apellido Materno:',
@@ -64,23 +64,23 @@ class UsuarioRegistroForm extends BasePastoralUsuarioForm
       'sexo'                           => 'Sexo:',
       
       'telefono_celular'           => 'Celular:',
-      'telefono_emergencia'    => 'Tel&eacute;fono de Emergencia:',
+      'telefono_emergencia'    => 'Teléfono de Emergencia:',
       'comuna_id'                  => 'Comuna:',
-      'direccion'                     => 'Direcci&oacute;n:',
+      'direccion'                     => 'Dirección:',
       
-      'tipo_institucion_id'        => 'Tipo de Instituci&oacute;n de Estudios:',
+      'tipo_institucion_id'        => 'Tipo de Institución de Estudios:',
       'universidad_id'             => 'Universidad:',
       'carrera_id'                   => 'Carrera:',
-      'ano_ingreso'                => 'A&ntilde;o de Ingreso:',
+      'ano_ingreso'                => 'Año de Ingreso:',
       'colegio_id'                   => 'Colegio:',
       'User'					=> 'Mail y contrase&ntilde;a con el que ver&aacute;s el estado de tu inscripci&oacute;n',
-      'movimiento_id'             => '&iquest;Perteneces a alg&uacute;n movimiento?',
-      'enfermedades_alergias' => '&iquest;Alguna enfermedad o alergia?',
+      'movimiento_id'             => '¿Perteneces a algún movimiento?',
+      'enfermedades_alergias' => '¿Alguna enfermedad o alergia?',
 		)); 
     
     $rutUniqueValidator = new sfValidatorDoctrineUnique(
             array('model' => 'PastoralUsuario', 'column' => array('rut')),
-            array('invalid' => 'Este rut ya est� registrado.')
+            array('invalid' => 'Este rut ya está registrado.')
           );
     $rutNotNullValidator = new sfValidatorCallback(array(
             'callback' => array($this, 'checkNullRut')
@@ -106,7 +106,8 @@ class UsuarioRegistroForm extends BasePastoralUsuarioForm
   }
   
   
-  public function checkExtranjero($validator, $values, $argument){
+  public function checkExtranjero($validator, $values, $argument)
+  {
     //die(var_dump($values));
     if(!$values['es_extranjero'])
     {
@@ -117,7 +118,8 @@ class UsuarioRegistroForm extends BasePastoralUsuarioForm
     return $values;
   }
   
-  public function checkNullRut($validator, $values, $argument){
+  public function checkNullRut($validator, $values, $argument)
+  {
     if($values['rut'] == "" )
     {
       $error = new sfValidatorError($validator, "Requerido.");

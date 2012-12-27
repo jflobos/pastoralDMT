@@ -12,7 +12,8 @@ class UsuarioEditarForm extends UsuarioRegistroForm
 {
   public function configure()
   {
-      parent::configure();      
+      parent::configure();
+      
       $this->widgetSchema['rut']-> setAttribute('readonly', 'true');
       $this->widgetSchema['sexo'] = new sfWidgetFormInputText();
       $this->widgetSchema['sexo']-> setAttribute('readonly', 'true');
@@ -22,4 +23,6 @@ class UsuarioEditarForm extends UsuarioRegistroForm
       $this->widgetSchema['apellido_materno']-> setAttribute('readonly', 'true');
       $this->widgetSchema['fecha_nacimiento']-> setAttribute('readonly', 'true');      
   }
+  
+
 }
