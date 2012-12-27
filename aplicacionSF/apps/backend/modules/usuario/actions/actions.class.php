@@ -42,7 +42,7 @@ class usuarioActions extends sfActions
     $nuevopass = $this->createPassword(8);
     $mensaje = $this->getMailer()->compose(
       array('pastoral@pastoraluc.cl' => 'Pastoral UC'),
-      $sfGuardUser->getEmail(),
+      $usuario->getEmail(),
       'Cambio de contraseña',
       <<<EOF
 Hola {$usuario->getNombre()},
