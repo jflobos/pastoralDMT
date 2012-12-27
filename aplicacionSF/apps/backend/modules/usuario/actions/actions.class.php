@@ -27,14 +27,13 @@ class usuarioActions extends sfActions
   }
 
   public function executeAjaxPasswordReset(sfWebRequest $request)
-  {
-    $sfGuardUser;
+  {    
     if($request->getParameter('rut') != null){
       $usuario = Doctrine_Core::getTable('PastoralUsuario')->findOneByRut($request->getParameter('rut'));
       $sfGuardUser = $usuario->getUser();
     }
     else if($request->getParameter('email') != null){
-      $sfGuardUser = Doctrine_Core::getTable('sfGuardUser')->findOneByEmailAddress($request->getParameter('email'))->getProfile();
+      $sfGuardUser = Doctrine_Core::getTable('sfGuardUser')->findOneByEmailAddress($request->getParameter('email'));
       $usuario = Doctrine_Core::getTable('PastoralUsuario')->findOneByUserId($sfGuardUser->getId());
     }
     if($usuario == null)
