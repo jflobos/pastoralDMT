@@ -93,7 +93,7 @@
         &nbsp;
         <div>
           <?php echo $form->renderHiddenFields(false) ?>
-          &nbsp;<a href="<?php echo url_for('usuario/show') ?>"><button class="btn btn-inverse">Volver</button></a>
+          &nbsp;<a href="<?php echo url_for('usuario/show') ?>"><button type="button" class="btn btn-inverse">Volver</button></a>
           <input class="btn btn-primary" type="submit" value="Guardar"/>
         </div>
       </form>

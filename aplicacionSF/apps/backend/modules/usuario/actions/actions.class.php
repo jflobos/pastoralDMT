@@ -70,7 +70,7 @@ EOF
     $this->lugares = Doctrine_Core::getTable('PastoralLugar')->findByLocalidadId($mision->getLocalidadId());
     $this->contactos_all = Doctrine_Core::getTable('PastoralContacto') -> findAll();   
   
-  $localidad = $mision->getPastoralLocalidad();
+    $localidad = $mision->getPastoralLocalidad();
     
     $this->pastoral_localidad = $localidad;
     $this->contactos = Doctrine_Core::getTable('PastoralContacto')
@@ -1228,18 +1228,19 @@ EOF
   
   public function executeAjaxIngresarPostulante(sfWebRequest $request)
   {
-      $mision_id = $request->getParameter('mision_id');
+       $mision_id = $request->getParameter('mision_id');
+      $mision = Doctrine_Core::getTable('PastoralMision')->find($mision_id);
       $usuario_id = $this->getUser()->getGuardUser()->getProfile()->getId();
       $postulacion_id = Doctrine_Core::getTable('PastoralEstadoPostulacion')->findOneByNombre('Pendiente')->getId();
-      $muec = new PastoralMisionUsuarioEstado();
-      $muec->setCargoId(Doctrine_Core::getTable('PastoralCargo')->findOneByNombre('Misionero-Voluntario')->getId());
-      $muec->setUsuarioId($usuario_id);
-      $muec->setMisionId($mision_id);
-      $muec->setEstadoPostulacionId($postulacion_id);
+      $mue = new PastoralMisionUsuarioEstado();
+      $mue->usuario_id = $usuario_id;
+      $mue->mision_id = $mision_id;
+      $mue->estado_postulacion_id = $postulacion_id;
+      $mue->cuota = $mision->getCuota();
       $respuesta = 1;
       
       try {
-      $muec->save();
+      $mue->save();
       } catch (Doctrine\ORM\NoResultException $e) {
         $respuesta = 0;
       } catch (Exception $e) {

@@ -37,7 +37,7 @@
                 <tbody>
                   <colgroup>
                    <col class="span3">
-                   <tr><th>Estado de Inscripción: </th><td><?php echo $estado_postulacion->PastoralEstadoPostulacion->getNombre();?></td></tr>
+                   <tr><th>Estado de Inscripci&oacute;n: </th><td><?php echo $estado_postulacion->PastoralEstadoPostulacion->getNombre();?></td></tr>
                   </colgroup>
                 </tbody>
               </table>

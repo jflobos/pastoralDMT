@@ -139,28 +139,34 @@ var gestorTablaVoluntarios = (function(){
     //Modal que permite editar los cambios del voluntario
     var modalEditarVoluntario = function modalEditarVoluntario(voluntario){
         printFormEditarVoluntario($('#postulantes_content'), voluntario.PastoralUsuario);
-        $('#guardar_datos').click(function(){
-                info = validarFormularioEditarVoluntario();
-                if(enviarInformacionEdicionVoluntario(info)){
-                  //Mensaje de exito
-                  cerrarFormularioEditarVoluntario()
-                }
-        });
-        $('#cerrar_modal').click(function(){
-            cerrarFormularioEditarVoluntario()
-        });       
     }
     var validarFormularioEditarVoluntario = function validarFormularioEditarVoluntario(){
       //Revisamos campo a campo el formulario
       retorno = true;
       retorno = datosPersonalesNoNulosyValidos();
       retorno = datosEstudiosValidos();
-      /*      
-      //SfGuard User
-      pastoral_usuario_User_email_address
-      pastoral_usuario_User_password
-      pastoral_usuario_User_password_confirmation
-      */
+      retorno = datosDatosDeCuentaValidos();
+      if($('#pastoral_usuario_User_id').val() != undefined){
+        retorno = false;
+      }
+      if($('#pastoral_usuario_id').val() != undefined){
+        retorno = false;
+      }
+      if(retorno){
+        $('#form_editar_voluntario_jefe_'+$('#pastoral_usuario_id').val());
+      }      
+      return retorno;
+    }
+    var datosDatosDeCuentaValidos = function datosDatosDeCuentaValidos(){
+      retorno = true;
+      if($('#pastoral_usuario_User_email_address').val() == undefined){
+        retorno = false;
+      }
+      if($('#pastoral_usuario_User_password').val() != 
+        $('#pastoral_usuario_User_password_confirmation').val()){
+        retorno = false;
+      }      
+      return retorno;
     }
     var datosEstudiosValidos = function datosEstudiosValidos(){   
       retorno = true;
@@ -173,9 +179,9 @@ var gestorTablaVoluntarios = (function(){
             retorno = false;
           if($('#pastoral_usuario_carrera_id').val() == undefined)
             retorno = false;
-          if($('#pastoral_usuario_telefono_celular').val() != undefined || 
-            !(/^\d+$/.test($('#pastoral_usuario_telefono_celular').val())) ||
-            $('#pastoral_usuario_telefono_celular').lenght == 4)
+          if($('#pastoral_usuario_ano_ingreso').val() != undefined || 
+            !(/^\d+$/.test($('#pastoral_usuario_ano_ingreso').val())) ||
+            $('#pastoral_usuario_ano_ingreso').lenght == 4 )
             retorno = false;
           break;
         //Colegio
@@ -231,9 +237,9 @@ var gestorTablaVoluntarios = (function(){
       }      
       return retorno;
     }
-    var cerrarFormularioEditarVoluntario = function cerrarFormularioEditarVoluntario(){
-      $("'#form_editar_voluntario_<?php echo $pastoral_usuario->getId()?>'").modal('hide');
-      $("'#form_editar_voluntario_<?php echo $pastoral_usuario->getId()?>'").remove();
+    var cerrarFormularioEditarVoluntario = function cerrarFormularioEditarVoluntario(id){
+      $('#form_editar_voluntario_'+id).modal('hide');
+      $('#form_editar_voluntario_'+id).remove();
     }
     //Form para el form de editar voluntario
     var printFormEditarVoluntario = function printFormEditarVoluntario(contenedor, usuario){
@@ -244,12 +250,12 @@ var gestorTablaVoluntarios = (function(){
           success: function(data){
               contenedor.append(data);
               $('#form_editar_voluntario_'+usuario.id).modal(); 
-              activarListenersEditarVoluntario();
+              activarListenersEditarVoluntario(usuario);                     
           }
         });
     }
     //Activar Listeners Formulario Editar voluntario
-    var activarListenersEditarVoluntario = function activarListenersEditarVoluntario(){      
+    var activarListenersEditarVoluntario = function activarListenersEditarVoluntario(usuario){      
       $('#pastoral_usuario_rut').Rut({
         on_error: function(){
           if(!$("#rut_error").text())
@@ -264,39 +270,25 @@ var gestorTablaVoluntarios = (function(){
           $("#pastoral_usuario_es_extranjero").removeAttr("checked");
         }
       });
+      $('#cambiar_voluntario').click(function(){
+        console.log(validarFormularioEditarVoluntario());
+        console.log(inputAObject($('#form_editar_voluntario_jefe_'+usuario.id+' :input')));
+        if(validarFormularioEditarVoluntario()){
+          //Mensaje de exito
+          cerrarFormularioEditarVoluntario(usuario.id)
+        }
+      });
+      $('#cerrar_modal').click(function(){
+          cerrarFormularioEditarVoluntario(usuario.id)
+      });
     }
-    //Activa los controles de los autocompletar
-    var activarAutoCompletes = function activarAutoCompletes(){
-        //Comuna
-        console.log('¡Entramos!');
-        $("#autocomplete_pastoral_usuario_comuna_id")
-        .autocomplete('AjaxGetComunas', $.extend({}, {
-          dataType: 'json',
-          parse:    function(data) {
-            var parsed = [];
-            console.log(data);
-            for (key in data) {
-              parsed[parsed.length] = { data: [ data[key], key ], value: data[key], result: data[key] };
-            }
-            return parsed;
-          }
-        }, { width: 220, max: 5, highlight:false, multiple: false, scroll: true, scrollHeight: 300}))
-        .result(function(event, data) { $("#pastoral_usuario_comuna_id").val(data[1]); }); 
-        //Colegio        
-        $("#autocomplete_pastoral_usuario_colegio_id")
-        .autocomplete('AjaxGetColegios', $.extend({}, {
-          dataType: 'json',
-          parse:    function(data) {
-            var parsed = [];
-            for (key in data) {
-              parsed[parsed.length] = { data: [ data[key], key ], value: data[key], result: data[key] };
-            }
-            return parsed;
-          }
-        }, { width: 220, max: 5, highlight:false, multiple: false, scroll: true, scrollHeight: 300}))
-        .result(function(event, data) { $("#pastoral_usuario_colegio_id").val(data[1]); });      
+    var inputAObject = function inputAObject(inputArray){
+      values = {};
+      $.each(inputArray, function(i, input){
+        values[input.name] = input.value;
+      })
+      return values;
     }
-    
     //Imprime una fila con el nuevo voluntario
     var imprimirVoluntario = function imprimirVoluntario(i,mue){
         //Inicio de impresion de postulantes
@@ -608,9 +600,6 @@ function getAge(dateString){
     return age;
 }
 function fechaValida(dia, mes, ano) {
-	var dia = fecha[0];
-	var mes = fecha[1]; 
-	var ano = fecha[2];
 	var estado = true;	 	
 	switch (parseInt(mes)) { 
 		case 1:dmax = 31;break; 

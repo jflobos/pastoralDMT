@@ -473,12 +473,14 @@ EOF
   public function executeAjaxIngresarPostulante(sfWebRequest $request)
   {
       $mision_id = $request->getParameter('mision_id');
+      $mision = Doctrine_Core::getTable('PastoralMision')->find($mision_id);
       $usuario_id = $this->getUser()->getGuardUser()->getProfile()->getId();
       $postulacion_id = Doctrine_Core::getTable('PastoralEstadoPostulacion')->findOneByNombre('Pendiente')->getId();
       $mue = new PastoralMisionUsuarioEstado();
       $mue->usuario_id = $usuario_id;
       $mue->mision_id = $mision_id;
       $mue->estado_postulacion_id = $postulacion_id;
+      $mue->cuota = $mision->getCuota();
       $respuesta = 1;
       
       try {
