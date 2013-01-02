@@ -17,7 +17,7 @@
 <div id="resultado" style="display:none;" class="menup">  
     <h2><small>Informaci&oacute;n Voluntario</small></h2>
     
-    <table>
+    <table class="table table-condensed table-striped">
       <tr>
         <th>Nombre: </th>
         <td><input type="input" name="nombreMisionero" id="nombreMisionero" READONLY></input></td>
@@ -41,7 +41,7 @@
     
     <h2><small>Informaci&oacute;n de Pago</small></h2>
     
-    <table>
+    <table class="table table-condensed table-striped">
       <tr>
         <th>VALOR CUOTA GENERAL: </th>
         <td><input type="input" name="cuotaMisionero" id="cuotaMisionero" READONLY></input></td>
