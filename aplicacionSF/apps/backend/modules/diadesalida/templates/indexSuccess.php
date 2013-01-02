@@ -48,7 +48,7 @@
         <td><input type="input" name="cuotaMisionero" id="cuotaMisionero" READONLY></input></td>
       </tr>
       <tr>
-        <th>Estado de pago: </th>
+        <th>Estado de pago:</th>
         <td><input type="input" name="estadoCuota" id="estadoCuota" READONLY></td>
       </tr>      
       <tr>
