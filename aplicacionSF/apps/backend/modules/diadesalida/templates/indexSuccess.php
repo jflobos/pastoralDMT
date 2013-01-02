@@ -27,7 +27,8 @@
         <td><input type="input" name="celularMisionero" id="celularMisionero" READONLY></input></td>
       </tr>
       <tr>
-        <b>Proyecto: </b><input type="input" name="proyectoMisionero" id="proyectoMisionero" READONLY></input>
+        <th>Proyecto:</th>
+        <td><input type="input" name="proyectoMisionero" id="proyectoMisionero" READONLY></input></td> 
       </tr>
       <tr>
         <th>Regi&oacute;n:</th>
@@ -43,19 +44,23 @@
     
     <table class="table table-condensed table-striped">
       <tr>
-        <th>VALOR CUOTA GENERAL: </th>
+        <th>Valor Cuota: </th>
         <td><input type="input" name="cuotaMisionero" id="cuotaMisionero" READONLY></input></td>
       </tr>
       <tr>
-        <th>Estado de pago - CUOTA GENERAL </th>
+        <th>Estado de pago: </th>
         <td><input type="input" name="estadoCuota" id="estadoCuota" READONLY></td>
       </tr>      
+      <tr>
+        <div id="div_infoCuotaSolidaria" style="display:none;">
+          <th>Cuota Solidaria: </th>
+          <td><input type="input" name="cuotaSolidariaReadOnly" id="cuotaSolidariaReadOnly" READONLY></td>
+          
+        </div>
+      </tr>
     </table>
     
-    <div id="div_infoCuotaSolidaria" style="display:none;">
-    <b>Cuota Solidaria (pago adicional) </b><input type="input" name="cuotaSolidariaReadOnly" id="cuotaSolidariaReadOnly" READONLY>
-    <br>
-    </div>
+    
     
     <div id="cambios" style="display:none;" class="menup">
     <b>&iquest;Guardar como pagada? </b><input type="checkbox" name="pagoCuota" id="pagoCuota">
