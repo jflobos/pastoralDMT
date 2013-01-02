@@ -14,25 +14,43 @@
 <input type="hidden" id="p_version_id" value="<?php echo $proyecto_version->getId() ?>">
 
 
-<div id="resultado" style="display:none;" class="menup">
+<div id="resultado" style="display:none;" class="menup">  
     <h2><small>Informaci&oacute;n Voluntario</small></h2>
-
-    <b>Nombre: </b><input type="input" name="nombreMisionero" id="nombreMisionero" READONLY></input>
-    <br>
-    <b>Celular: </b><input type="input" name="celularMisionero" id="celularMisionero" READONLY></input>
-    <br>
-    <b>Proyecto: </b><input type="input" name="proyectoMisionero" id="proyectoMisionero" READONLY></input>
-    <br>
-    <b>Grupo: </b><input type="input" name="grupoMisionero" id="grupoMisionero" READONLY></input>
-    <br>
-    <b>Zona: </b><input type="input" name="zonaMisionero" id="zonaMisionero" READONLY></input>
-    <br>
+    
+    <table>
+      <tr>
+        <th>Nombre: </th>
+        <td><input type="input" name="nombreMisionero" id="nombreMisionero" READONLY></input></td>
+      </tr>      
+      <tr>
+        <th>Celular: </th>
+        <td><input type="input" name="celularMisionero" id="celularMisionero" READONLY></input></td>
+      </tr>
+      <tr>
+        <b>Proyecto: </b><input type="input" name="proyectoMisionero" id="proyectoMisionero" READONLY></input>
+      </tr>
+      <tr>
+        <th>Regi&oacute;n:</th>
+        <td><input type="input" name="grupoMisionero" id="grupoMisionero" READONLY></input></td>
+      </tr>
+      <tr>
+        <th>Zona:</th>
+        <td><input type="input" name="zonaMisionero" id="zonaMisionero" READONLY></input></td>
+      </tr>    
+    </table>
     
     <h2><small>Informaci&oacute;n de Pago</small></h2>
-    <b>VALOR CUOTA GENERAL: </b><input type="input" name="cuotaMisionero" id="cuotaMisionero" READONLY></input>
-    <br>
-    <b>Estado de pago - CUOTA GENERAL </b><input type="input" name="estadoCuota" id="estadoCuota" READONLY>
-    <br> 
+    
+    <table>
+      <tr>
+        <th>VALOR CUOTA GENERAL: </th>
+        <td><input type="input" name="cuotaMisionero" id="cuotaMisionero" READONLY></input></td>
+      </tr>
+      <tr>
+        <th>Estado de pago - CUOTA GENERAL </th>
+        <td><input type="input" name="estadoCuota" id="estadoCuota" READONLY></td>
+      </tr>      
+    </table>
     
     <div id="div_infoCuotaSolidaria" style="display:none;">
     <b>Cuota Solidaria (pago adicional) </b><input type="input" name="cuotaSolidariaReadOnly" id="cuotaSolidariaReadOnly" READONLY>
@@ -51,12 +69,4 @@
     <br>
     <button class="btn btn-info" id="BotonEstadoDePago"><b>Guardar Cambios</b></button>
     </div>
-    
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-    <br>
-   
 </div>

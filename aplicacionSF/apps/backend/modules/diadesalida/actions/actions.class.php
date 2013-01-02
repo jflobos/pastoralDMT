@@ -14,17 +14,14 @@ class diadesalidaActions extends sfActions
     public function executeIndex(sfWebRequest $request){
         $token = $request->getParameter('token');
         
-        if($token){
-          
+        if($token){          
           $proyecto_version = Doctrine_Core::getTable('PastoralProyectoVersion')->findOneByToken($token);
           if($proyecto_version){
               $fecha_token = $proyecto_version->getFechaCreacionToken();
-              list($ano,$mes,$dia) = explode("-",$fecha_token);
-              
+              list($ano,$mes,$dia) = explode("-",$fecha_token);              
               $ano_dif = date("Y") - $ano;
               $mes_dif = date("m") - $mes;
-              $dia_dif = date("d") - $dia;
-              
+              $dia_dif = date("d") - $dia;              
               if($ano_dif>0){             
                   $proyecto_version->set('token', '');
                   $proyecto_version->set('fecha_creacion_token', '');
