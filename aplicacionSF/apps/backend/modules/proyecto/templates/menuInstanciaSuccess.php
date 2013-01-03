@@ -489,6 +489,9 @@
     <div id="divToken2" class="accordion-body collapse">
       <div class="accordion-inner">     
          <div>
+           <div id="grafico_dia_salida">
+             
+           </div>           
                <p>
                <input class="btn btn-info" name="botonToken" type="button" id="botonToken" value="Generar Token" />             
                </p>
@@ -570,3 +573,39 @@
  		background-position:0% -75px;
  	}
 </style>
+
+<script type="text/javascript">
+  google.load("visualization", "1", {packages:["corechart"]});
+  google.setOnLoadCallback(drawChart);
+  function drawChart() {
+  var data = new google.visualization.DataTable();
+  data.addColumn('string', 'Hora Llegada');
+  data.addColumn('number', 'N Voluntarios');
+  data.addRows([
+	<?php 
+	$filas = "";
+	
+	if($diaSalidaGraphInfo->count() > 0)
+	{
+		foreach($diaSalidaGraphInfo as $hl) 
+		{
+			$filas .= '[\''.$hl[0].'\','.$hl[1].'],';
+		} 
+		
+		$filas = substr($filas, 0, strlen($filas) - 1);
+	}
+	else
+	{
+		$filas = '[\'0\',0], [\'0\',0]';
+	}
+	echo $filas;
+	?>
+	]);
+
+	var chart = new google.visualization.AreaChart(document.getElementById('grafico_dia_salida'));
+	chart.draw(data, {width: 600, height: 300, title: 'Voluntarios registrados en <?php echo $pastoral_proyecto->getNombre()." - ".$pastoral_proyecto_version->getVersion() ?>', legend: 'none', 
+					  hAxis: {title: 'Hora', titleColor:'#FF0000'},
+					  vAxis: {title: 'Numero', titleColor:'#FF0000'}
+					 });
+  }
+</script>
