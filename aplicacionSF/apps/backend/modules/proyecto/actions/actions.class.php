@@ -309,7 +309,7 @@ class proyectoActions extends sfActions
                 ->leftJoin('m.PastoralGrupo g')
                 ->leftJoin('g.PastoralProyectoVersion pv')
                 ->groupBy('4 * HOUR( mue.updated_at ) + FLOOR( MINUTE( mue.updated_at ) /15 )');                
-    return $q1->fetchArray();    
+    return $q1->execute(array(), Doctrine::HYDRATE_NONE);
   }
   
   public function executeAjaxEstadisticasGlobales(sfWebRequest $request)
