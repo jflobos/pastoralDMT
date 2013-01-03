@@ -309,7 +309,7 @@ class proyectoActions extends sfActions
                 ->leftJoin('m.PastoralGrupo g')
                 ->leftJoin('g.PastoralProyectoVersion pv')
                 ->groupBy('4 * HOUR( mue.updated_at ) + FLOOR( MINUTE( mue.updated_at ) /15 )');                
-    return $q1->execute(array());
+    return $q1->execute(array(), Doctrine::HYDRATE_NONE);
   }
   protected function getRecaudacionDiaDeSalida($pv_id){
     $q1 = Doctrine_Query::create()
@@ -321,7 +321,8 @@ class proyectoActions extends sfActions
                 ->leftJoin('mue.PastoralMision m')
                 ->leftJoin('m.PastoralGrupo g')
                 ->leftJoin('g.PastoralProyectoVersion pv');
-    return $q1->execute(array());
+    $retorno =$q1->fetchArray();
+    return $retorno[0];
   }
   protected function getLlegadosDiaSalida($pv_id){
     $q1 = Doctrine_Query::create()
@@ -333,7 +334,8 @@ class proyectoActions extends sfActions
                 ->leftJoin('mue.PastoralMision m')
                 ->leftJoin('m.PastoralGrupo g')
                 ->leftJoin('g.PastoralProyectoVersion pv');
-    return $q1->execute(array());
+    $retorno =$q1->fetchArray();
+    return $retorno[0];
   }
   
   public function executeAjaxEstadisticasGlobales(sfWebRequest $request)

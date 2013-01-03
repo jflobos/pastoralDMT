@@ -498,15 +498,15 @@
                <table class="table">
                  <tr>
                    <th>Voluntarios Llegados</th>
-                   <td><?php echo number_format($voluntariosLlegados['llegados'],0,'.') ?></td>                   
+                   <td><?php echo number_format($voluntariosLlegados['llegados'],0,',','.') ?></td>                   
                  </tr>
                  <tr>
                    <th>Recaudaci&oacute;n por Cuota</th>
-                   <td><?php echo number_format($diaSalidaGraphInfo['cuota'],0,'.') ?></td>
+                   <td><?php echo number_format($cuotaInfo['cuota'],0,',','.') ?></td>
                  </tr>
                  <tr>
                    <th>Recaudaci&oacute;n por Cuota Solidaria</th>
-                   <td><?php echo number_format($diaSalidaGraphInfo['solidaria'],0,'.') ?></td>
+                   <td><?php echo number_format($cuotaInfo['solidaria'],0,',','.') ?></td>
                  </tr>
                  <tr>
                    <th>Total Recaudaci&oacute;n</th>
