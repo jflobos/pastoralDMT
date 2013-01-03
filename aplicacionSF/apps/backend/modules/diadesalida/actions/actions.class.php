@@ -88,7 +88,7 @@ class diadesalidaActions extends sfActions
                 $retorno[2] = $mue->getCuota();
                 $retorno[3] = $proyecto->getNombre()." ".$proyecto_version->getAno();
                 $retorno[4] = $mue->getCuotaPagada();
-                $localidad = Doctrine_Core::getTable('PastoralLocalidad')->findOneById($mision->getLocalidadId());
+                //$localidad = Doctrine_Core::getTable('PastoralLocalidad')->findOneById($mision->getLocalidadId());
                 $retorno[6] = $mision->getPastoralLocalidad()->getNombre();
                 $grupo = Doctrine_Core::getTable('PastoralGrupo')->findOneById($mision->getGrupoId());
                 $retorno[5] = $grupo->getNombre();
