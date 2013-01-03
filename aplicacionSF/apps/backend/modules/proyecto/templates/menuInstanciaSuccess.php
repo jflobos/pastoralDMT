@@ -510,7 +510,7 @@
                  </tr>
                  <tr>
                    <th>Total Recaudaci&oacute;n</th>
-                   <td><?php echo number_format(($diaSalidaGraphInfo['cuota']+ $diaSalidaGraphInfo['solidaria']),0,'.') ?></td>
+                   <td><?php echo number_format(($diaSalidaGraphInfo['cuota']+ $diaSalidaGraphInfo['solidaria']),0,',','.') ?></td>
                  </tr>
                </table>
              </table>
