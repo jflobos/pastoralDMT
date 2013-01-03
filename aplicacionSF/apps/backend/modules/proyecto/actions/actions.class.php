@@ -311,6 +311,30 @@ class proyectoActions extends sfActions
                 ->groupBy('4 * HOUR( mue.updated_at ) + FLOOR( MINUTE( mue.updated_at ) /15 )');                
     return $q1->execute(array(), Doctrine::HYDRATE_NONE);
   }
+  protected function getRecaudacionDiaDeSalida($pv_id){
+    $q1 = Doctrine_Query::create()
+                ->select('SUM(mue.cuota) AS cuota, SUM(mue.cuota_solidaria) AS solidaria')
+                ->from('PastoralMisionUsuarioEstado mue')
+                ->andWhere('pv.id = ?',$pv_id)
+                ->andWhere('mue.created_at > 0')
+                ->andWhere('mue.cuota_pagada = 1')
+                ->leftJoin('mue.PastoralMision m')
+                ->leftJoin('m.PastoralGrupo g')
+                ->leftJoin('g.PastoralProyectoVersion pv');
+    return $q1->execute(array(), Doctrine::HYDRATE_NONE);
+  }
+  protected function getLlegadosDiaSalida($pv_id){
+    $q1 = Doctrine_Query::create()
+                ->select('COUNT(mue.id) as llegados')
+                ->from('PastoralMisionUsuarioEstado mue')
+                ->andWhere('pv.id = ?',$pv_id)
+                ->andWhere('mue.created_at > 0')
+                ->andWhere('mue.cuota_pagada = 1')
+                ->leftJoin('mue.PastoralMision m')
+                ->leftJoin('m.PastoralGrupo g')
+                ->leftJoin('g.PastoralProyectoVersion pv');
+    return $q1->execute(array(), Doctrine::HYDRATE_NONE);
+  }
   
   public function executeAjaxEstadisticasGlobales(sfWebRequest $request)
   {
@@ -980,9 +1004,10 @@ EOF
     }
     
     $this->diaSalidaGraphInfo = $this->getDiaDeSalidaLlegadaPorHora($proyecto_version_id);
+    $this->cuotaInfo = $this->getRecaudacionDiaDeSalida($proyecto_version_id);
+    $this->voluntariosLlegados = $this->getLlegadosDiaSalida($proyecto_version_id);
     $this->token = $this->pastoral_proyecto_version->getToken();
-    $this->fechaToken = $this->pastoral_proyecto_version->getFechaCreacionToken();
-    
+    $this->fechaToken = $this->pastoral_proyecto_version->getFechaCreacionToken();    
   }
   
   public function executeEditJefe(sfWebRequest $request)

@@ -491,7 +491,30 @@
          <div>
            <div id="grafico_dia_salida">
              
-           </div>           
+           </div>        
+           <div id="informacionDiaSalida">
+             <h2>Resumen Informaci&oacute;n del d&iacute;a de salida:</h2>
+             <table>
+               <table class="table">
+                 <tr>
+                   <th>Voluntarios Llegados</th>
+                   <td><?php echo number_format($voluntariosLlegados['llegados'],0,'.') ?></td>                   
+                 </tr>
+                 <tr>
+                   <th>Recaudaci&oacute;n por Cuota</th>
+                   <td><?php echo number_format($diaSalidaGraphInfo['cuota'],0,'.') ?></td>
+                 </tr>
+                 <tr>
+                   <th>Recaudaci&oacute;n por Cuota Solidaria</th>
+                   <td><?php echo number_format($diaSalidaGraphInfo['solidaria'],0,'.') ?></td>
+                 </tr>
+                 <tr>
+                   <th>Total Recaudaci&oacute;n</th>
+                   <td><?php echo number_format(($diaSalidaGraphInfo['cuota']+ $diaSalidaGraphInfo['solidaria']),0,'.') ?></td>
+                 </tr>
+               </table>
+             </table>
+           </div>
                <p>
                <input class="btn btn-info" name="botonToken" type="button" id="botonToken" value="Generar Token" />             
                </p>
@@ -603,7 +626,7 @@
 	]);
 
 	var chart = new google.visualization.AreaChart(document.getElementById('grafico_dia_salida'));
-	chart.draw(data, {width: 600, height: 300, title: 'Voluntarios registrados en <?php echo $pastoral_proyecto->getNombre()." - ".$pastoral_proyecto_version->getVersion() ?>', legend: 'none', 
+	chart.draw(data, {width: 900, height: 400, title: 'Voluntarios registrados en <?php echo $pastoral_proyecto->getNombre()." - ".$pastoral_proyecto_version->getVersion() ?>', legend: 'none', 
 					  hAxis: {title: 'Hora', titleColor:'#FF0000'},
 					  vAxis: {title: 'Numero', titleColor:'#FF0000'}
 					 });
