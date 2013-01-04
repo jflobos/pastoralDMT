@@ -28,7 +28,8 @@ class PastoralUniversidad extends BasePastoralUniversidad
             ;
       $alias = $q->getRootAlias();
       $q -> leftJoin($alias.'.PastoralMisionUsuarioEstado mue')
-         -> andWhere('mue.mision_id = ?',$mision_id);
+         -> andWhere('mue.mision_id = ?',$mision_id)
+         ->andWhereIn('mue.estado_postulacion_id',array(3,4,7));
          
     $res = $q->fetchArray();         
     return $res[0]['total_id'];

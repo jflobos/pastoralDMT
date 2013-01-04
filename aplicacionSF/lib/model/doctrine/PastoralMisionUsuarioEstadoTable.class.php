@@ -296,6 +296,18 @@ class PastoralMisionUsuarioEstadoTable extends Doctrine_Table
         return $q;
     }
     
+    public function addMUEporEstadoPostulacionActivosQuery(Doctrine_Query $q = null)
+    {
+        if (is_null($q))
+        {
+            $q = Doctrine_Query::create()
+              ->from('PastoralMisionUsuarioEstado mue');
+        }
+        $alias = $q->getRootAlias();
+        $q ->andWhereIn($alias.'.estado_postulacion_id',array(3,4,7));
+        return $q;
+    }
+    
     public function addMUEporFlagZonaQuery($flag,Doctrine_Query $q = null)
     {
         if (is_null($q))

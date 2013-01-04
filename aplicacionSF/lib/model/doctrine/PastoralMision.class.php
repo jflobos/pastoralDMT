@@ -42,14 +42,27 @@ class PastoralMision extends BasePastoralMision
   {
         $q1 = Doctrine_Core::getTable('PastoralMisionUsuarioEstado')->addMUEporHombresQuery();
         $q2 = Doctrine_Core::getTable('PastoralMisionUsuarioEstado')->addMUEporMisionQuery($this->getId(),$q1);
-        return count($q2->fetchArray());
+        $q3 = Doctrine_Core::getTable('PastoralMisionUsuarioEstado')->addMUEporEstadoPostulacionActivosQuery($q2);
+        return count($q3->fetchArray());
+  }
+  
+  public function countActivos(){
+    $q1 = Doctrine_Query::create()
+            ->select("COUNT(mue.id) as total")
+            ->From('PastoralMisionUsuarioEstado mue')
+            ->leftJoin('mue.PastoralEstadoPostulacion ep')
+            ->whereIn('ep.id', array(3,4,7))
+            ->andWhere('mue.mision_id = ?',$this->getId());
+    $retorno = $q1->fetchArray();
+    return $retorno[0];
   }
   
   public function countMujeres()
   {
         $q1 = Doctrine_Core::getTable('PastoralMisionUsuarioEstado')->addMUEporMujeresQuery();
         $q2 = Doctrine_Core::getTable('PastoralMisionUsuarioEstado')->addMUEporMisionQuery($this->getId(),$q1);
-        return count($q2->fetchArray());
+        $q3 = Doctrine_Core::getTable('PastoralMisionUsuarioEstado')->addMUEporEstadoPostulacionActivosQuery($q2);
+        return count($q3->fetchArray());
   }
   
   public function getNecesidadMisiones()
